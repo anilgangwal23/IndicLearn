@@ -2,7 +2,7 @@
   {
     "id": "fruit_001",
     "type": "image_choice",
-    "image": "apple_red.svg",
+    "image": "assets/svg_assets/apple_red.svg",
     "prompt": {
       "en": {
         "native": "Which is Apple?"
@@ -15,7 +15,7 @@
     "choices": [
       {
         "id": "apple",
-        "image": "apple_red.svg",
+        "image": "assets/svg_assets/apple_red.svg",
         "text": {
           "en": {
             "native": "Apple"
@@ -33,7 +33,7 @@
       },
       {
         "id": "mango",
-        "image": "mango_yellow.svg",
+        "image": "assets/svg_assets/mango_yellow.svg",
         "text": {
           "en": {
             "native": "Mango"
@@ -51,7 +51,7 @@
       },
       {
         "id": "banana",
-        "image": "banana_yellow.svg",
+        "image": "assets/svg_assets/banana_yellow.svg",
         "text": {
           "en": {
             "native": "Banana"

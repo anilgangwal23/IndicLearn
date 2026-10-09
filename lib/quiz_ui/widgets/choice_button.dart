@@ -53,7 +53,7 @@ class ChoiceButton extends StatelessWidget {
                   const SizedBox(height: 40),
                   if (choice.image.isNotEmpty)
                     SvgPicture.asset(
-                      'svg_assets/${choice.image}',
+                      '${choice.image}',
                       fit: BoxFit.contain,
                     ),
                   const SizedBox(height: 20),

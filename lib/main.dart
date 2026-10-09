@@ -14,7 +14,7 @@ class LanguageGameApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const LevelPage(assetPath: 'levels/level_1.json'),
+      home: const LevelPage(assetPath: 'assets/levels/level_1.json'),
     );
   }
 }
