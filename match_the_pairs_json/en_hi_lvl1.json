@@ -1,0 +1,7 @@
+{
+    "word_pair_list": [
+        {"left_word": "Apple", "right_definition": "Seb"},
+        {"left_word": "Banana", "right_definition": "Kela"},
+        {"left_word": "Carrot", "right_definition": "Gajar"}
+    ]
+}

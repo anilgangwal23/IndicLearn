@@ -1,0 +1,12 @@
+{
+    "steps": [
+        {
+            "type": "quiz",
+            "data": "Quizes/whatisthis_fruit_001.json"
+        },
+        {
+            "type": "match_the_pair",
+            "data": "match_the_pairs_json/en_hi_lvl1.json"
+        }
+    ]
+}

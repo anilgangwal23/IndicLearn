@@ -1,0 +1,72 @@
+[
+  {
+    "id": "fruit_001",
+    "type": "image_choice",
+    "image": "apple_red.svg",
+    "prompt": {
+      "en": {
+        "native": "Which is Apple?"
+      },
+      "hi": {
+        "native": "सेब कौन सा है?",
+        "romanized": "Seb kaun sa hai?"
+      }
+    },
+    "choices": [
+      {
+        "id": "apple",
+        "image": "apple_red.svg",
+        "text": {
+          "en": {
+            "native": "Apple"
+          },
+          "hi": {
+            "native": "सेब",
+            "romanized": "seb"
+          },
+          "kn": {
+            "native": "ಸೇಬು",
+            "romanized": "sebu"
+          }
+        },
+        "correct": true
+      },
+      {
+        "id": "mango",
+        "image": "mango_yellow.svg",
+        "text": {
+          "en": {
+            "native": "Mango"
+          },
+          "hi": {
+            "native": "आम",
+            "romanized": "aam"
+          },
+          "kn": {
+            "native": "ಮಾವು",
+            "romanized": "maavu"
+          }
+        },
+        "correct": false
+      },
+      {
+        "id": "banana",
+        "image": "banana_yellow.svg",
+        "text": {
+          "en": {
+            "native": "Banana"
+          },
+          "hi": {
+            "native": "केला",
+            "romanized": "kela"
+          },
+          "kn": {
+            "native": "ಬಾಳೆಹಣ್ಣು",
+            "romanized": "baalehannu"
+          }
+        },
+        "correct": false
+      }
+    ]
+  }
+]
