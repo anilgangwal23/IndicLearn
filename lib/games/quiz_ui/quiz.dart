@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../animations/confetti.dart';
+import '../../animations/confetti.dart';
 import 'quiz_loader.dart';
 import 'quiz_models.dart';
 import 'widgets/question_view.dart';

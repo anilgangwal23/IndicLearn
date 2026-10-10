@@ -2,11 +2,13 @@
     "steps": [
         {
             "type": "quiz",
-            "data": "assets/Quizes/whatisthis_fruit_001.json"
+            "data": "assets/Quizes/whatisthis_fruit_001.json",
+            "handler": "GamePage"
         },
         {
             "type": "match_the_pair",
-            "data": "assets/match_the_pairs_json/en_hi_lvl1.json"
+            "data": "assets/match_the_pairs_json/en_hi_lvl1.json",
+            "handler": "WordMatchPage"
         }
     ]
 }

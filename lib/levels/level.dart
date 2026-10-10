@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
-import '../match_the_pair/pairing.dart';
-import '../quiz_ui/quiz.dart';
-
+import 'level_model.dart';
+import 'level_factory.dart';
 class LevelPage extends StatefulWidget {
   final String assetPath;
 
@@ -15,14 +12,13 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
-  List<_LevelStep> _steps = [];
+  List<LevelStep> _steps = [];
   bool _loadStarted = false;
   String? _loadError;
   int _currentStep = 0;
   int _score = 0;
   int _total = 0;
   int _attempt = 0;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -32,11 +28,12 @@ class _LevelPageState extends State<LevelPage> {
     }
   }
 
+
   Future<void> _loadLevel(AssetBundle bundle) async {
     try {
       final json = jsonDecode(await bundle.loadString(widget.assetPath));
       final steps = (json['steps'] as List<dynamic>)
-          .map((step) => _LevelStep.fromJson(step as Map<String, dynamic>))
+          .map((step) => LevelStep.fromJson(step as Map<String, dynamic>))
           .toList();
       if (steps.isEmpty) {
         throw const FormatException('No steps available.');
@@ -101,17 +98,14 @@ class _LevelPageState extends State<LevelPage> {
 
     final step = _steps[_currentStep];
     final key = ValueKey('$_attempt-$_currentStep');
-    final game = step.type == 'quiz'
-        ? GamePage(
-            key: key,
-            assetPath: step.assetPath,
-            onComplete: _completeStep,
-          )
-        : WordMatchPage(
-            key: key,
-            initialJsonData: step.assetPath,
-            onComplete: _completeStep,
-          );
+    // Get the appropriate game handler based on the step's handler field
+    final game = getHandler(step.handler,key,step.assetPath,_completeStep);
+
+    // final game = gameHandler(
+    //   key: key,
+    //   assetPath: step.assetPath,
+    //   onComplete: _completeStep,
+    // );
 
     return Scaffold(
       body: Column(
@@ -136,21 +130,4 @@ class _LevelPageState extends State<LevelPage> {
   }
 }
 
-class _LevelStep {
-  final String type;
-  final String assetPath;
 
-  const _LevelStep(this.type, this.assetPath);
-
-  factory _LevelStep.fromJson(Map<String, dynamic> json) {
-    final type = json['type'];
-    final data = json['data'];
-    if (type != 'quiz' && type != 'match_the_pair') {
-      throw FormatException('Unsupported step type: $type');
-    }
-    if (data is! String || data.isEmpty) {
-      throw const FormatException('Step data must be an asset path.');
-    }
-    return _LevelStep(type as String, data);
-  }
-}

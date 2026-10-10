@@ -6,12 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:indic_learn/animations/confetti.dart';
 import 'package:indic_learn/main.dart';
-import 'package:indic_learn/match_the_pair/pairing.dart';
-import 'package:indic_learn/match_the_pair/pairing_loader.dart' as pairing;
-import 'package:indic_learn/quiz_ui/quiz_loader.dart';
-import 'package:indic_learn/quiz_ui/quiz.dart' show GamePage;
-import 'package:indic_learn/quiz_ui/widgets/choice_button.dart';
-import 'package:indic_learn/quiz_ui/widgets/question_view.dart';
+import 'package:indic_learn/games/match_the_pair/pairing.dart';
+import 'package:indic_learn/games/match_the_pair/pairing_loader.dart' as pairing;
+import 'package:indic_learn/games/quiz_ui/quiz_loader.dart';
+import 'package:indic_learn/games/quiz_ui/quiz.dart' show GamePage;
+import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
+import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 
 void main() {
   for (final answerCorrectly in [true, false]) {
