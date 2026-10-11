@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <g id="left_leg">
+    <path d="M115 224 L108 254" stroke="#A84F25" stroke-width="17" stroke-linecap="round" fill="none"/>
+    <ellipse cx="99" cy="257" rx="19" ry="10" fill="#573323"/>
+  </g>
+  <g id="right_leg">
+    <path d="M185 224 L192 254" stroke="#A84F25" stroke-width="17" stroke-linecap="round" fill="none"/>
+    <ellipse cx="201" cy="257" rx="19" ry="10" fill="#573323"/>
+  </g>
+  <g id="left_hand">
+    <path d="M83 165 Q58 174 48 195" stroke="#C66A31" stroke-width="19" stroke-linecap="round" fill="none"/>
+    <circle cx="45" cy="198" r="13" fill="#FFB547" stroke="#573323" stroke-width="3"/>
+    <path d="M37 192 L33 183 M44 188 L44 179" stroke="#573323" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g id="right_hand">
+    <path d="M217 165 Q242 174 252 195" stroke="#C66A31" stroke-width="19" stroke-linecap="round" fill="none"/>
+    <circle cx="255" cy="198" r="13" fill="#FFB547" stroke="#573323" stroke-width="3"/>
+    <path d="M263 192 L267 183 M256 188 L256 179" stroke="#573323" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g id="body">
+    <path d="M82 83 L72 30 Q102 42 119 70 Z" fill="#C66A31" stroke="#573323" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M218 83 L228 30 Q198 42 181 70 Z" fill="#C66A31" stroke="#573323" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M86 67 L81 43 L104 67 Z" fill="#FFCFB0"/>
+    <path d="M214 67 L219 43 L196 67 Z" fill="#FFCFB0"/>
+    <circle cx="150" cy="120" r="76" fill="#FFB547" stroke="#573323" stroke-width="4"/>
+    <ellipse cx="150" cy="147" rx="47" ry="30" fill="#FFF0D7"/>
+    <path d="M141 137 Q150 130 159 137 Q157 147 150 147 Q143 147 141 137 Z" fill="#573323"/>
+    <path d="M150 147 L150 157 M150 157 Q139 168 130 157 M150 157 Q161 168 170 157" stroke="#573323" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M104 180 Q150 166 196 180 L211 224 Q150 244 89 224 Z" fill="#F28C38" stroke="#573323" stroke-width="4" stroke-linejoin="round"/>
+    <ellipse cx="150" cy="210" rx="27" ry="20" fill="#FFF0D7"/>
+  </g>
+  <g id="left_eyebrow">
+    <path d="M105 91 Q119 82 134 91" stroke="#573323" stroke-width="7" stroke-linecap="round" fill="none"/>
+  </g>
+  <g id="right_eyebrow">
+    <path d="M166 91 Q181 82 195 91" stroke="#573323" stroke-width="7" stroke-linecap="round" fill="none"/>
+  </g>
+  <g id="left_eye">
+    <ellipse cx="120" cy="111" rx="14" ry="19" fill="#FFFFFF" stroke="#573323" stroke-width="3"/>
+    <ellipse cx="124" cy="114" rx="7" ry="11" fill="#30221D"/>
+    <circle cx="126" cy="109" r="3" fill="#FFFFFF"/>
+  </g>
+  <g id="right_eye">
+    <ellipse cx="180" cy="111" rx="14" ry="19" fill="#FFFFFF" stroke="#573323" stroke-width="3"/>
+    <ellipse cx="176" cy="114" rx="7" ry="11" fill="#30221D"/>
+    <circle cx="174" cy="109" r="3" fill="#FFFFFF"/>
+  </g>
+</svg>

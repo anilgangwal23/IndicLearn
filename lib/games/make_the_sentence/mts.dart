@@ -6,7 +6,9 @@ import 'mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
 import 'dart:async';
-
+import '../../animations/common_animations.dart';
+import '../../widgets/mascot.dart';
+import '../../widgets/svg_mascot.dart';
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
   return MaterialApp(
@@ -89,6 +91,10 @@ class _mtsGameState extends State<mts> {
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                CommonAnimation(
+                  'packages/indic_learn/assets/mascots/fox.svg',
+                  isSolved?MascotAnimation.spin:MascotAnimation.blink,
+                ),
                 QuestionPrompt(text: _model.translation),
                 const SizedBox(height: 24),
 
