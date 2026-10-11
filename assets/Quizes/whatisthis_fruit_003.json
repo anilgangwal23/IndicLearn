@@ -1,0 +1,45 @@
+[
+  {
+    "id": "fruit_003",
+    "type": "image_choice",
+    "image": "assets/svg_assets/mango_yellow.svg",
+    "prompt": {
+      "en": {
+        "native": "Which is Mango?"
+      },
+      "hi": {
+        "native": "आम कौन सा है?",
+        "romanized": "Aam kaun sa hai?"
+      }
+    },
+    "choices": [
+      {
+        "id": "banana",
+        "image": "assets/svg_assets/banana_yellow.svg",
+        "text": {
+          "en": {"native": "Banana"},
+          "hi": {"native": "केला", "romanized": "kela"}
+        },
+        "correct": false
+      },
+      {
+        "id": "apple",
+        "image": "assets/svg_assets/apple_red.svg",
+        "text": {
+          "en": {"native": "Apple"},
+          "hi": {"native": "सेब", "romanized": "seb"}
+        },
+        "correct": false
+      },
+      {
+        "id": "mango",
+        "image": "assets/svg_assets/mango_yellow.svg",
+        "text": {
+          "en": {"native": "Mango"},
+          "hi": {"native": "आम", "romanized": "aam"}
+        },
+        "correct": true
+      }
+    ]
+  }
+]

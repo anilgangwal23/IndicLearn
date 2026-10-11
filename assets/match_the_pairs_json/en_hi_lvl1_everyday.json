@@ -1,0 +1,8 @@
+{
+    "word_pair_list": [
+        {"left_word": "Mango", "right_definition": "Aam"},
+        {"left_word": "Pineapple", "right_definition": "Ananas"},
+        {"left_word": "Water", "right_definition": "Paani"},
+        {"left_word": "Milk", "right_definition": "Doodh"}
+    ]
+}

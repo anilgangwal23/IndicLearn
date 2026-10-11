@@ -1,0 +1,8 @@
+{
+    "word_pair_list": [
+        {"left_word": "House", "right_definition": "Ghar"},
+        {"left_word": "Room", "right_definition": "Kamra"},
+        {"left_word": "Door", "right_definition": "Darwaza"},
+        {"left_word": "Big", "right_definition": "Bada"}
+    ]
+}

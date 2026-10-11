@@ -1,0 +1,45 @@
+[
+  {
+    "id": "fruit_004",
+    "type": "image_choice",
+    "image": "assets/svg_assets/pineapple.svg",
+    "prompt": {
+      "en": {
+        "native": "Which is Pineapple?"
+      },
+      "hi": {
+        "native": "अनानास कौन सा है?",
+        "romanized": "Ananas kaun sa hai?"
+      }
+    },
+    "choices": [
+      {
+        "id": "apple",
+        "image": "assets/svg_assets/apple_red.svg",
+        "text": {
+          "en": {"native": "Apple"},
+          "hi": {"native": "सेब", "romanized": "seb"}
+        },
+        "correct": false
+      },
+      {
+        "id": "pineapple",
+        "image": "assets/svg_assets/pineapple.svg",
+        "text": {
+          "en": {"native": "Pineapple"},
+          "hi": {"native": "अनानास", "romanized": "ananas"}
+        },
+        "correct": true
+      },
+      {
+        "id": "mango",
+        "image": "assets/svg_assets/mango_yellow.svg",
+        "text": {
+          "en": {"native": "Mango"},
+          "hi": {"native": "आम", "romanized": "aam"}
+        },
+        "correct": false
+      }
+    ]
+  }
+]
