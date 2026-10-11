@@ -1,9 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 
 import 'pair_model.dart';
 import 'pairing_loader.dart';
+import '../../ui/game_widgets.dart';
+
+@Preview(name: 'Game Page', size: Size(390, 844))
+Widget previewGamePage() {
+  return const MaterialApp(home: WordMatchPage(initialJsonData: "packages/indic_learn/assets/match_the_pairs_json/en_hi_lvl1.json"));
+}
+
 
 class WordMatchPage extends StatefulWidget {
   final String initialJsonData;
@@ -94,19 +102,13 @@ class _WordMatchGameState extends State<WordMatchPage> {
     final incorrect =
         _incorrectRight != null &&
         (selected || (!isLeft && _incorrectRight == pair));
-    final colors = Theme.of(context).colorScheme;
-    final background = matched
-        ? Colors.green
+    final state = matched
+        ? AnswerVisualState.correct
         : incorrect
-        ? Colors.red
+        ? AnswerVisualState.incorrect
         : selected
-        ? colors.primaryContainer
-        : colors.surface;
-    final foreground = matched || incorrect
-        ? Colors.white
-        : selected
-        ? colors.onPrimaryContainer
-        : colors.onSurface;
+        ? AnswerVisualState.selected
+        : AnswerVisualState.idle;
     final enabled =
         !matched &&
         _incorrectRight == null &&
@@ -114,17 +116,11 @@ class _WordMatchGameState extends State<WordMatchPage> {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: OutlinedButton(
-        key: ValueKey('${isLeft ? 'left' : 'right'}-${pair.originalIndex}'),
-        style: OutlinedButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: foreground,
-          disabledBackgroundColor: background,
-          disabledForegroundColor: foreground,
-          minimumSize: const Size.fromHeight(56),
-          padding: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: GameAnswerTile(
+        buttonKey: ValueKey(
+          '${isLeft ? 'left' : 'right'}-${pair.originalIndex}',
         ),
+        state: state,
         onPressed: enabled
             ? () {
                 if (isLeft) {
@@ -145,10 +141,7 @@ class _WordMatchGameState extends State<WordMatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Match Words (Score ${_matchedIds.length})'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text('Match Words (Score ${_matchedIds.length})')),
       body: SafeArea(
         child: _loading
             ? const Center(child: CircularProgressIndicator())
@@ -161,15 +154,18 @@ class _WordMatchGameState extends State<WordMatchPage> {
                   if (_matchedIds.length == _pairs.length)
                     const Padding(
                       padding: EdgeInsets.all(16),
-                      child: Text('All pairs matched!'),
+                      child: GameFeedback(
+                        correct: true,
+                        message: 'All pairs matched!',
+                      ),
                     ),
                   if (_matchedIds.length == _pairs.length &&
                       widget.onComplete != null)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
-                      child: FilledButton.icon(
-                        icon: const Icon(Icons.arrow_forward),
-                        label: const Text('Continue'),
+                      child: GameButton(
+                        icon: Icons.arrow_forward,
+                        label: 'Continue',
                         onPressed: () => widget.onComplete!(
                           _matchedIds.length,
                           _pairs.length,

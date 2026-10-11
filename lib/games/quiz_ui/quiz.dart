@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 
 import '../../animations/confetti.dart';
 import 'quiz_loader.dart';
@@ -8,6 +9,11 @@ import 'widgets/question_view.dart';
 export 'quiz_loader.dart';
 export 'quiz_models.dart';
 export 'widgets/choice_button.dart';
+
+@Preview(name: 'Game Page', size: Size(390, 844))
+Widget previewGamePage() {
+  return const MaterialApp(home: GamePage(assetPath: "packages/indic_learn/assets/Quizes/whatisthis_fruit_001.json"));
+}
 
 class GamePage extends StatefulWidget {
   final String assetPath;

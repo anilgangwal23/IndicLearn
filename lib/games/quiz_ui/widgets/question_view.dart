@@ -4,10 +4,12 @@ import 'package:flutter/widget_previews.dart';
 import '../quiz.dart' show GamePage;
 import '../quiz_models.dart';
 import 'choice_button.dart';
+import '../../../ui/game_theme.dart';
+import '../../../ui/game_widgets.dart';
 
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
-  return const MaterialApp(home: GamePage());
+  return MaterialApp(theme: buildGameTheme(), home: const GamePage());
 }
 
 class QuestionView extends StatelessWidget {
@@ -43,10 +45,9 @@ class QuestionView extends StatelessWidget {
       child: Column(
         children: [
           LinearProgressIndicator(value: progress),
-          Text(
-            question.prompt[promptLanguage]!.display(variant: 'native'),
-            style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+          const SizedBox(height: 24),
+          QuestionPrompt(
+            text: question.prompt[promptLanguage]!.display(variant: 'native'),
           ),
           const SizedBox(height: 20),
           Expanded(
@@ -69,14 +70,28 @@ class QuestionView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          if (answered)
+          if (answered) ...[
+            GameFeedback(
+              correct: question.choices.any(
+                (choice) => choice.id == selectedChoiceId && choice.correct,
+              ),
+              message:
+                  question.choices.any(
+                    (choice) => choice.id == selectedChoiceId && choice.correct,
+                  )
+                  ? 'Correct!'
+                  : 'Not quite. The correct answer is highlighted.',
+            ),
+            const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
-              child: FilledButton(
+              child: GameButton(
                 onPressed: onContinue,
-                child: Text(isLastQuestion ? 'Finish' : 'Continue'),
+                label: isLastQuestion ? 'Finish' : 'Continue',
+                icon: isLastQuestion ? Icons.check : Icons.arrow_forward,
               ),
             ),
+          ],
         ],
       ),
     );

@@ -64,6 +64,7 @@ flutter:
     - assets/svg_assets/
     - assets/Quizes/
     - assets/match_the_pairs_json/
+    - assets/make_the_sentence/
     - assets/levels/
 
   # An image asset can refer to one or more resolution-specific "variants", see

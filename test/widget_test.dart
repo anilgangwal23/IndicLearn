@@ -6,14 +6,62 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:indic_learn/animations/confetti.dart';
 import 'package:indic_learn/main.dart';
+import 'package:indic_learn/ui/game_theme.dart';
+import 'package:indic_learn/ui/game_widgets.dart';
 import 'package:indic_learn/games/match_the_pair/pairing.dart';
-import 'package:indic_learn/games/match_the_pair/pairing_loader.dart' as pairing;
+import 'package:indic_learn/games/match_the_pair/pairing_loader.dart'
+    as pairing;
 import 'package:indic_learn/games/quiz_ui/quiz_loader.dart';
 import 'package:indic_learn/games/quiz_ui/quiz.dart' show GamePage;
 import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 
 void main() {
+  testWidgets('Shared controls preserve feedback and support text input', (
+    tester,
+  ) async {
+    final controller = TextEditingController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: buildGameTheme(),
+        home: GameScaffold(
+          title: 'Shared controls',
+          child: Column(
+            children: [
+              const QuestionPrompt(text: 'Build a sentence'),
+              const GameAnswerTile(
+                state: AnswerVisualState.correct,
+                onPressed: null,
+                child: Text('Correct word'),
+              ),
+              const GameAnswerTile(
+                state: AnswerVisualState.incorrect,
+                onPressed: null,
+                child: Text('Wrong word'),
+              ),
+              GameTextField(controller: controller, label: 'Answer'),
+            ],
+          ),
+          footer: const GameButton(label: 'Continue', onPressed: null),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.check_circle_outline), findsOneWidget);
+    expect(find.byIcon(Icons.cancel_outlined), findsOneWidget);
+    final correctButton = tester.widget<OutlinedButton>(
+      find.widgetWithText(OutlinedButton, 'Correct word'),
+    );
+    expect(
+      correctButton.style!.backgroundColor!.resolve({WidgetState.disabled}),
+      const GameFeedbackColors().successSurface,
+    );
+    await tester.enterText(find.byType(TextFormField), 'My answer');
+    expect(controller.text, 'My answer');
+    expect(tester.takeException(), isNull);
+  });
+
   for (final answerCorrectly in [true, false]) {
     testWidgets(
       'Level plays ${answerCorrectly ? 'correct' : 'incorrect'} quiz then pairs and restarts from step one',
@@ -125,8 +173,9 @@ void main() {
     await tester.pumpWidget(
       DefaultAssetBundle(
         bundle: bundle,
-        child: const MaterialApp(
-          home: WordMatchPage(
+        child: MaterialApp(
+          theme: buildGameTheme(),
+          home: const WordMatchPage(
             initialJsonData: 'match_the_pairs_json/en_hi_lvl1.json',
           ),
         ),
@@ -138,20 +187,22 @@ void main() {
         tester.widget<OutlinedButton>(find.byKey(ValueKey(key)));
     Color? background(String key) =>
         button(key).style!.backgroundColor!.resolve(<WidgetState>{});
+    final errorSurface = buildGameTheme().colorScheme.errorContainer;
+    final successSurface = const GameFeedbackColors().successSurface;
 
     expect(button('right-1').onPressed, isNull);
     await tester.tap(find.byKey(const ValueKey('left-1')));
     await tester.pump();
     await tester.tap(find.byKey(const ValueKey('right-2')));
     await tester.pump();
-    expect(background('left-1'), Colors.red);
-    expect(background('right-2'), Colors.red);
+    expect(background('left-1'), errorSurface);
+    expect(background('right-2'), errorSurface);
     expect(button('left-2').onPressed, isNull);
     expect(find.text('Match Words (Score 0)'), findsOneWidget);
 
     await tester.pump(const Duration(milliseconds: 800));
-    expect(background('left-1'), isNot(Colors.red));
-    expect(background('right-2'), isNot(Colors.red));
+    expect(background('left-1'), isNot(errorSurface));
+    expect(background('right-2'), isNot(errorSurface));
     expect(button('right-1').onPressed, isNull);
     expect(button('left-1').onPressed, isNotNull);
 
@@ -160,16 +211,68 @@ void main() {
       await tester.pump();
       await tester.tap(find.byKey(ValueKey('right-$id')));
       await tester.pump();
-      expect(background('left-$id'), Colors.green);
-      expect(background('right-$id'), Colors.green);
+      expect(background('left-$id'), successSurface);
+      expect(background('right-$id'), successSurface);
       expect(button('left-$id').onPressed, isNull);
       expect(button('right-$id').onPressed, isNull);
     }
     expect(find.text('Match Words (Score 2)'), findsOneWidget);
     expect(find.text('All pairs matched!'), findsOneWidget);
-    expect(background('left-1'), Colors.green);
+    expect(background('left-1'), successSurface);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets(
+    'Shared game layout fits narrow screens with larger text and reduced motion',
+    (tester) async {
+      tester.view.physicalSize = const Size(320, 640);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      var presses = 0;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: buildGameTheme(),
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: const TextScaler.linear(1.5),
+              disableAnimations: true,
+            ),
+            child: child!,
+          ),
+          home: GameScaffold(
+            title: 'Practice',
+            child: Column(
+              children: [
+                const QuestionPrompt(
+                  text: 'A longer question that wraps onto multiple lines',
+                ),
+                const SizedBox(height: 24),
+                const GameAnswerArea(child: Text('Your sentence')),
+                const SizedBox(height: 24),
+                GameAnswerTile(
+                  onPressed: () => presses++,
+                  child: const Text('A longer answer choice'),
+                ),
+                const GameFeedback(correct: false),
+              ],
+            ),
+            footer: const GameButton(
+              label: 'Continue to the next question',
+              icon: Icons.arrow_forward,
+              onPressed: null,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('A longer answer choice'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('A longer answer choice'));
+      expect(presses, 1);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   for (final assetAvailable in [true, false]) {
     testWidgets(

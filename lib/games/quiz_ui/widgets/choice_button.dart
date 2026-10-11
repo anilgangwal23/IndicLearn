@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../quiz_models.dart';
+import '../../../ui/game_widgets.dart';
 
 class ChoiceButton extends StatelessWidget {
   final GameChoice choice;
@@ -24,61 +25,46 @@ class ChoiceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final languageText = choice.text[language]!;
-    Color? backgroundColor;
-
-    if (answered) {
-      if (choice.correct) {
-        backgroundColor = Colors.green.withValues(alpha: 0.15);
-      } else if (selected) {
-        backgroundColor = Colors.red.withValues(alpha: 0.15);
-      }
-    }
+    final state = answered && choice.correct
+        ? AnswerVisualState.correct
+        : answered && selected
+        ? AnswerVisualState.incorrect
+        : selected
+        ? AnswerVisualState.selected
+        : AnswerVisualState.idle;
 
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
+      child: GameAnswerTile(
+        state: state,
         onPressed: answered ? null : onPressed,
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
         child: Row(
           children: [
             Expanded(
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
-                  if (choice.image.isNotEmpty)
+                  if (choice.image.isNotEmpty) ...[
                     SvgPicture.asset(
-                      'choice.image',
+                      choice.image,
+                      height: 96,
                       fit: BoxFit.contain,
                     ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 12),
+                  ],
                   Text(
                     languageText.native,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   if (languageText.romanized != null)
                     Text(
                       languageText.romanized!,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey.shade600,
-                      ),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                 ],
               ),
             ),
-            if (answered && choice.correct)
-              const Icon(Icons.check_circle, color: Colors.green),
-            if (answered && selected && !choice.correct)
-              const Icon(Icons.cancel, color: Colors.red),
           ],
         ),
       ),

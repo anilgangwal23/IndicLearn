@@ -8,9 +8,9 @@ class LevelStep {
   factory LevelStep.fromJson(Map<String, dynamic> json) {
     final type = json['type'];
     final data = json['data'];
-    if (type != 'quiz' && type != 'match_the_pair') {
-      throw FormatException('Unsupported step type: $type');
-    }
+    // if (type != 'quiz' && type != 'match_the_pair') {
+    //   throw FormatException('Unsupported step type: $type');
+    // }
     if (data is! String || data.isEmpty) {
       throw const FormatException('Step data must be an asset path.');
     }

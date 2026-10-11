@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'levels/level.dart';
+import 'ui/game_theme.dart';
 
 class LanguageGameApp extends StatelessWidget {
   const LanguageGameApp({super.key});
@@ -10,10 +11,7 @@ class LanguageGameApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Language Game',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: buildGameTheme(),
       home: const LevelPage(assetPath: 'assets/levels/level_1.json'),
     );
   }
