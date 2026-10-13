@@ -46,7 +46,7 @@ class GameScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: Text(title),backgroundColor: Theme.of(context).colorScheme.primary,foregroundColor: Theme.of(context).colorScheme.onPrimary,centerTitle: true),
       floatingActionButton: floatingActionButton,
       body: SafeArea(
         child: Column(

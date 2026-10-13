@@ -1,0 +1,32 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
+class PronunciationService {
+  Map<String, dynamic> _pronunciationMapping = {};
+  final audioPlayer = AudioPlayer();
+  final tts = FlutterTts();
+  PronunciationService() {
+    tts.setLanguage('hi-IN');
+    _loadPronunciationMapping();
+  }
+
+  Future<void> _loadPronunciationMapping() async {
+    _pronunciationMapping = jsonDecode(await rootBundle.loadString('assets/audio/mapping.json'));
+  }
+  Future<void> playPronunciation(String id) async {
+    // Implementation for playing pronunciation audio
+    if(_pronunciationMapping[id] != null) {
+      String file = _pronunciationMapping[id]['file'];
+      if(file.isNotEmpty) {
+        // Play the audio file using your preferred audio player
+        await audioPlayer.setAsset('assets/audio/$file');
+        await audioPlayer.play();
+      }else{
+        String native = _pronunciationMapping[id]['native'];
+        await tts.speak(native);
+      }
+    }
+  }
+}

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
-
+import 'dart:async';
 import 'mts_model.dart';
 import 'mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
-import 'dart:async';
+
 import '../../animations/common_animations.dart';
-import '../../widgets/mascot.dart';
 import '../../widgets/svg_mascot.dart';
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {

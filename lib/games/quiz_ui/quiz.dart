@@ -5,6 +5,7 @@ import '../../animations/confetti.dart';
 import 'quiz_loader.dart';
 import 'quiz_models.dart';
 import 'widgets/question_view.dart';
+import '../../audio/pronunciation_service.dart';
 
 export 'quiz_loader.dart';
 export 'quiz_models.dart';
@@ -34,7 +35,7 @@ class _GamePageState extends State<GamePage>
   List<GameQuestion> questions = [];
   bool _loadStarted = false;
   String? _loadError;
-
+  final pronunciationService = PronunciationService();
   int currentQuestion = 0;
   int score = 0;
 
@@ -100,10 +101,11 @@ class _GamePageState extends State<GamePage>
   }
 
   void selectChoice(GameChoice choice) {
+    
     if (answered) {
       return;
     }
-
+    pronunciationService.playPronunciation(choice.id);
     setState(() {
       answered = true;
       selectedChoiceId = choice.id;
