@@ -63,7 +63,7 @@ class SvgMascotParser {
         .where((element) => element.name.local == 'g')
         .map((element) => element.getAttribute('id'))
         .whereType<String>()
-        .where(requiredLayerIds.contains)
+        .where((id) => requiredLayerIds.contains(id) || id == 'mouth')
         .toList();
 
     return layerIds.map((targetId) {
@@ -78,7 +78,7 @@ class SvgMascotParser {
             final id = element.getAttribute('id');
             return element.name.local == 'g' &&
                 id != null &&
-                requiredLayerIds.contains(id) &&
+                (requiredLayerIds.contains(id) || id == 'mouth') &&
                 id != targetId;
           })
           .toList();

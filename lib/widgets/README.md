@@ -1,9 +1,10 @@
 # SVG Mascot starter
 
 ## Files
-- `lib/widgets/svg_mascot.dart`: reusable Flutter widget and five animation motions.
+- `lib/widgets/svg_mascot.dart`: reusable Flutter widget and shared animation motions.
 - `lib/widgets/svg_mascot_parser.dart`: extracts named top-level SVG groups into renderable layers.
 - `assets/mascots/fox.svg`: sample mascot asset.
+- `assets/mascots/sprout.svg`: default learning-path character with an animated mouth.
 
 ## Dependencies
 Add these to your app's `pubspec.yaml` (use versions compatible with your project):
@@ -85,5 +86,6 @@ Replace `your_package` with your package name, or use a relative import from you
 - The arm pivots and eye centers in `svg_mascot.dart` are calibrated to the sample fox's 300 x 300 coordinates. For different artwork, update those pivot coordinates or extend the SVG contract to provide them as metadata.
 - Keep shared `<defs>` and `<style>` at the root. The parser keeps these in each extracted layer.
 - Each `play()` call runs a single motion and returns the mascot to its resting pose. Calling `play()` again replaces the current motion.
-- `autoBlink` is reserved in the public API but automatic idle blinking is not implemented in this starter yet; use `play(MascotAnimation.blink)` for manual blinking.
+- `autoIdle: true` randomly plays jump, yawn, or blink every 3-7 seconds. `autoBlink: true` schedules only blinks when idle mode is off. Timers are disposed with the widget; idle motion pauses for hidden routes and reduced-motion settings.
+- For yawning, add an optional direct-child `<g id="mouth">` centered at `(150, 145)`. Keep the resting mouth separate from `body`. Existing assets without a mouth still animate the eyes and arms.
 - This is a lightweight XML-group extraction approach, not a complete SVG renderer/parser. Complex SVGs that rely on inherited styles, clipping paths, masks, filters, or nested transforms may need additional handling and testing.

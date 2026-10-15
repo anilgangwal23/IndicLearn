@@ -27,6 +27,9 @@ class PronunciationService {
         String native = _pronunciationMapping[id]['native'];
         await tts.speak(native);
       }
+    }else{
+      // If no mapping is found, fallback to TTS
+      await tts.speak(id);
     }
   }
 }

@@ -1,0 +1,7 @@
+{
+  "steps": [
+    {"type": "make_the_sentence", "data": "assets/make_the_sentence/en_hi_lvl1.json", "handler": "MTSPage"},
+    {"type": "make_the_sentence", "data": "assets/make_the_sentence/en_hi_lvl1_house.json", "handler": "MTSPage"},
+    {"type": "make_the_sentence", "data": "assets/make_the_sentence/en_hi_lvl1_water.json", "handler": "MTSPage"}
+  ]
+}

@@ -1,6 +1,11 @@
 {
     "steps": [
         {
+            "type": "follow_the_sound",
+            "data": "assets/make_the_sentence/en_hi_lvl1.json",
+            "handler": "FollowTheSound"
+        },
+        {
             "type": "quiz",
             "data": "assets/Quizes/whatisthis_fruit_001.json",
             "handler": "GamePage"

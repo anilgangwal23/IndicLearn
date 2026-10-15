@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:indic_learn/animations/confetti.dart';
 import 'package:indic_learn/main.dart';
+import 'package:indic_learn/level_loader/level_loader.dart';
+import 'package:indic_learn/levels/level.dart';
+import 'package:indic_learn/levels/level_model.dart';
+import 'package:indic_learn/widgets/svg_mascot.dart';
+import 'package:indic_learn/widgets/svg_mascot_parser.dart';
 import 'package:indic_learn/ui/game_theme.dart';
 import 'package:indic_learn/ui/game_widgets.dart';
 import 'package:indic_learn/games/match_the_pair/pairing.dart';
@@ -17,6 +23,134 @@ import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 
 void main() {
+  test('Bundled level catalog has ten playable levels using existing data', () {
+    const catalog = LevelLoader();
+    expect(catalog.levels, hasLength(10));
+    expect(catalog.levels.every((level) => level.unlocked), isTrue);
+    expect(catalog.levels.map((level) => level.assetPath).toSet(), hasLength(10));
+    expect(catalog.levels.map((level) => level.title).toSet(), hasLength(10));
+    const handlers = {
+      'quiz': 'GamePage',
+      'match_the_pair': 'WordMatchPage',
+      'make_the_sentence': 'MTSPage',
+      'follow_the_sound': 'FollowTheSound',
+    };
+    for (final level in catalog.levels) {
+      final definition = jsonDecode(File(level.assetPath).readAsStringSync())
+          as Map<String, dynamic>;
+      final steps = definition['steps'] as List<dynamic>;
+      expect(steps, isNotEmpty, reason: level.title);
+      for (final entry in steps) {
+        final step = LevelStep.fromJson(entry as Map<String, dynamic>);
+        expect(step.handler, handlers[step.type], reason: level.title);
+        final data = File(step.assetPath);
+        expect(data.existsSync(), isTrue, reason: step.assetPath);
+        final payload = jsonDecode(data.readAsStringSync());
+        expect(payload, step.type == 'quiz' ? isA<List<dynamic>>() : isA<Map<String, dynamic>>());
+      }
+    }
+  });
+
+  testWidgets('Level picker blocks locked levels and opens after landing', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      DefaultAssetBundle(
+        bundle: _QuizAssetBundle('{"steps":[]}', path: 'test-level.json'),
+        child: const MaterialApp(
+          home: LevelLoader(
+            levels: [
+              LevelDefinition(title: 'Start', assetPath: 'test-level.json', unlocked: true),
+              LevelDefinition(title: 'Next', assetPath: 'test-level.json', unlocked: true),
+              LevelDefinition(title: 'Locked', assetPath: 'test-level.json'),
+            ],
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final locked = find.byKey(const ValueKey('level-2'));
+    expect(tester.widget<FilledButton>(locked).onPressed, isNull);
+    await tester.tap(locked);
+    await tester.pump();
+    expect(find.byType(LevelPage), findsNothing);
+    final mascotStart = tester.getTopLeft(find.byType(SvgMascot));
+    expect(tester.widget<SvgMascot>(find.byType(SvgMascot)).autoIdle, isTrue);
+    await tester.tap(find.byKey(const ValueKey('level-1')));
+    await tester.pump();
+    expect(tester.widget<SvgMascot>(find.byType(SvgMascot)).autoIdle, isFalse);
+    await tester.pump(const Duration(milliseconds: 350));
+    expect(find.byType(LevelPage), findsNothing);
+    expect(tester.getTopLeft(find.byType(SvgMascot)).dx, greaterThan(mascotStart.dx));
+    expect(tester.widget<FilledButton>(find.byKey(const ValueKey('level-0'))).onPressed, isNull);
+    await tester.pumpAndSettle();
+    expect(find.byType(LevelPage), findsOneWidget);
+    expect(find.textContaining('Unable to load level:'), findsOneWidget);
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(tester.widget<SvgMascot>(find.byType(SvgMascot)).autoIdle, isTrue);
+    expect(tester.getTopLeft(find.byType(SvgMascot)).dx, greaterThan(mascotStart.dx));
+    expect(tester.widget<FilledButton>(find.byKey(const ValueKey('level-0'))).onPressed, isNotNull);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Level picker handles empty, locked, and narrow layouts', (tester) async {
+    tester.view.physicalSize = const Size(320, 640);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(const MaterialApp(home: LevelLoader(levels: [])));
+    expect(find.text('No levels available'), findsOneWidget);
+    await tester.pumpWidget(const MaterialApp(
+      home: LevelLoader(key: ValueKey('locked'), levels: [
+        LevelDefinition(title: 'Coming soon', assetPath: 'missing.json'),
+      ]),
+    ));
+    expect(find.byType(SvgMascot), findsNothing);
+    expect(tester.widget<FilledButton>(find.byType(FilledButton)).onPressed, isNull);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Level picker cancels safely when removed during a jump', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: LevelLoader()));
+    await tester.tap(find.byKey(const ValueKey('level-0')));
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Mascot shares jump yawn blink and cleans up idle scheduling', (tester) async {
+    rootBundle.evict('assets/mascots/sprout.svg');
+    final source = await tester.runAsync(
+      () => rootBundle.loadString('assets/mascots/sprout.svg'),
+    );
+    expect(SvgMascotParser.parse(source!).map((layer) => layer.id), contains('mouth'));
+    final mascotKey = GlobalKey<SvgMascotState>();
+    await tester.pumpWidget(MaterialApp(home: Center(child: SvgMascot(
+      key: mascotKey,
+      asset: 'assets/mascots/sprout.svg',
+      autoIdle: true,
+    ))));
+    await tester.pumpAndSettle();
+    for (final motion in [MascotAnimation.jump, MascotAnimation.yawn, MascotAnimation.blink]) {
+      mascotKey.currentState!.play(motion);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      final transforms = tester.widgetList<Transform>(find.descendant(
+        of: find.byType(SvgMascot), matching: find.byType(Transform),
+      ));
+      expect(transforms.any((widget) => !widget.transform.isIdentity()), isTrue);
+      await tester.pumpAndSettle();
+    }
+    await tester.pump(const Duration(seconds: 8));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.byIcon(Icons.broken_image_outlined), findsNothing);
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 10));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('Shared controls preserve feedback and support text input', (
     tester,
   ) async {
@@ -81,6 +215,8 @@ void main() {
           DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
         );
         await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const ValueKey('level-0')));
+        await tester.pumpAndSettle();
         expect(find.text('Step 1/2'), findsOneWidget);
 
         var questionCount = 0;
@@ -139,10 +275,12 @@ void main() {
     testWidgets('Level reports invalid or missing data: $fixture', (
       tester,
     ) async {
-      final bundle = _QuizAssetBundle(fixture, path: 'levels/level_1.json');
+      final bundle = _QuizAssetBundle(fixture, path: 'assets/levels/level_1.json');
       await tester.pumpWidget(
         DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
       );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('level-0')));
       await tester.pumpAndSettle();
       expect(find.textContaining('Unable to load level:'), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsNothing);

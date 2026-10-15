@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'levels/level.dart';
+import 'level_loader/level_loader.dart';
 import 'ui/game_theme.dart';
 
 class LanguageGameApp extends StatelessWidget {
@@ -12,7 +12,7 @@ class LanguageGameApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Language Game',
       theme: buildGameTheme(),
-      home: const LevelPage(assetPath: 'assets/levels/level_1.json'),
+      home: const LevelLoader(),
     );
   }
 }

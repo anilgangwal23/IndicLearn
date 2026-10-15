@@ -9,8 +9,7 @@ import '../make_the_sentence/mts_model.dart';
 import '../make_the_sentence/mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
-import '../../animations/common_animations.dart';
-import '../../widgets/svg_mascot.dart';
+import '../../audio/pronunciation_service.dart';
 
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
@@ -41,7 +40,7 @@ class _ftsGameState extends State<fts> {
   bool isSolved = false;
   Timer? _wrongPickTimer;
   int? wrongWordID;
-
+  final PronunciationService _pronunciationService = PronunciationService();
   @override
   void initState() {
     super.initState();
@@ -102,11 +101,11 @@ class _ftsGameState extends State<fts> {
                         tooltip: 'Play sound',
                         onPressed: () {
                           // TODO: Play the sound.
-                          debugPrint('Gramophone pressed');
+                          _pronunciationService.playPronunciation(_model.translation);
                         },
                         iconSize: 100,
                         icon: SvgPicture.asset(
-                          'packages/indic_learn/assets/svg_assets/gramophone-free-svgrepo-com.svg',
+                          'assets/svg_assets/gramophone-free-svgrepo-com.svg',
                           width: 100,
                           height: 100,
                           fit: BoxFit.contain,

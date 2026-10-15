@@ -2,10 +2,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'level_model.dart';
 import 'level_factory.dart';
+import '../widgets/svg_mascot.dart';
 class LevelPage extends StatefulWidget {
   final String assetPath;
+  final String mascotAsset;
 
-  const LevelPage({super.key, required this.assetPath});
+  const LevelPage({
+    super.key,
+    required this.assetPath,
+    this.mascotAsset = 'assets/mascots/sprout.svg',
+  });
 
   @override
   State<LevelPage> createState() => _LevelPageState();
@@ -58,6 +64,7 @@ class _LevelPageState extends State<LevelPage> {
   Widget build(BuildContext context) {
     if (_loadError != null) {
       return Scaffold(
+        appBar: AppBar(title: const Text('Level unavailable')),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -67,7 +74,10 @@ class _LevelPageState extends State<LevelPage> {
       );
     }
     if (_steps.isEmpty) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return Scaffold(
+        appBar: AppBar(title: const Text('Loading level')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
     }
     if (_currentStep == _steps.length) {
       return Scaffold(
@@ -76,6 +86,7 @@ class _LevelPageState extends State<LevelPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              SvgMascot(asset: widget.mascotAsset, autoIdle: true, height: 100),
               Text('You scored $_score out of $_total'),
               const SizedBox(height: 16),
               FilledButton.icon(
@@ -114,11 +125,26 @@ class _LevelPageState extends State<LevelPage> {
             bottom: false,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-              child: Column(
+              child: Row(
                 children: [
-                  Text('Step ${_currentStep + 1}/${_steps.length}'),
-                  const SizedBox(height: 8),
-                  LinearProgressIndicator(value: _currentStep / _steps.length),
+                  if (Navigator.of(context).canPop()) const BackButton(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text('Step ${_currentStep + 1}/${_steps.length}'),
+                        const SizedBox(height: 8),
+                        LinearProgressIndicator(
+                          value: _currentStep / _steps.length,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SvgMascot(
+                    asset: widget.mascotAsset,
+                    width: 88,
+                    height: 88,
+                    autoIdle: true,
+                  ),
                 ],
               ),
             ),

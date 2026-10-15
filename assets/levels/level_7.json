@@ -1,0 +1,7 @@
+{
+  "steps": [
+    {"type": "quiz", "data": "assets/Quizes/whatisthis_fruit_003.json", "handler": "GamePage"},
+    {"type": "match_the_pair", "data": "assets/match_the_pairs_json/en_hi_lvl1_everyday.json", "handler": "WordMatchPage"},
+    {"type": "make_the_sentence", "data": "assets/make_the_sentence/en_hi_lvl1.json", "handler": "MTSPage"}
+  ]
+}

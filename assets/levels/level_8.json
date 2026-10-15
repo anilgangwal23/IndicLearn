@@ -1,0 +1,7 @@
+{
+  "steps": [
+    {"type": "follow_the_sound", "data": "assets/make_the_sentence/en_hi_lvl1_water.json", "handler": "FollowTheSound"},
+    {"type": "make_the_sentence", "data": "assets/make_the_sentence/en_hi_lvl1_water.json", "handler": "MTSPage"},
+    {"type": "match_the_pair", "data": "assets/match_the_pairs_json/en_hi_lvl1_everyday.json", "handler": "WordMatchPage"}
+  ]
+}

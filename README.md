@@ -2,6 +2,20 @@
 
 A new Flutter project.
 
+## Level Selection
+
+The app opens `LevelLoader`, which accepts a list of `LevelDefinition` values
+with a title, JSON asset path, and `unlocked` flag. Only unlocked levels can be
+selected. The character jumps to the selected level before its screen opens.
+The default catalog includes ten unlocked levels that reuse the bundled quiz,
+word-matching, sentence-building, and listening data. Level 1 keeps the original
+mixed lesson; levels 2-10 offer shorter themed combinations. Unlock state is
+supplied by the caller, not persisted by the picker.
+
+Set `mascotAsset` on `LevelLoader` to use another character throughout the path
+and level screen. See `lib/widgets/README.md` for the SVG layer contract and
+shared jump, yawn, and blink animations.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ enum MascotAnimation {
   jump,
   raiseHands,
   blink,
+  yawn,
   raiseEyebrows,
 }
 
@@ -21,6 +23,7 @@ class SvgMascot extends StatefulWidget {
     this.width = 240,
     this.height = 240,
     this.autoBlink = false,
+    this.autoIdle = false,
     this.onAssetError,
   });
 
@@ -31,6 +34,7 @@ class SvgMascot extends StatefulWidget {
   /// When true, plays a blink every few seconds.
   /// Manual blinking remains available through [SvgMascotState.play].
   final bool autoBlink;
+  final bool autoIdle;
 
   final ValueChanged<Object>? onAssetError;
 
@@ -44,6 +48,8 @@ class SvgMascotState extends State<SvgMascot>
   late Future<List<SvgMascotLayer>> _layersFuture;
 
   MascotAnimation? _activeAnimation;
+  Timer? _idleTimer;
+  final _random = math.Random();
 
   @override
   void initState() {
@@ -53,6 +59,7 @@ class SvgMascotState extends State<SvgMascot>
       duration: const Duration(milliseconds: 650),
     );
     _layersFuture = _loadLayers();
+    _scheduleIdle();
   }
 
   @override
@@ -61,6 +68,30 @@ class SvgMascotState extends State<SvgMascot>
     if (oldWidget.asset != widget.asset) {
       _layersFuture = _loadLayers();
     }
+    if (oldWidget.autoIdle != widget.autoIdle ||
+        oldWidget.autoBlink != widget.autoBlink) {
+      _scheduleIdle();
+    }
+  }
+
+  void _scheduleIdle() {
+    _idleTimer?.cancel();
+    if (!widget.autoIdle && !widget.autoBlink) return;
+    _idleTimer = Timer(Duration(seconds: 3 + _random.nextInt(5)), () {
+      if (!mounted) return;
+      if (!_controller.isAnimating && TickerMode.valuesOf(context).enabled &&
+          !MediaQuery.disableAnimationsOf(context)) {
+        const motions = [
+          MascotAnimation.jump,
+          MascotAnimation.yawn,
+          MascotAnimation.blink,
+        ];
+        play(widget.autoIdle
+            ? motions[_random.nextInt(motions.length)]
+            : MascotAnimation.blink);
+      }
+      _scheduleIdle();
+    });
   }
 
   Future<List<SvgMascotLayer>> _loadLayers() async {
@@ -92,6 +123,7 @@ class SvgMascotState extends State<SvgMascot>
 
   @override
   void dispose() {
+    _idleTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -136,6 +168,7 @@ class SvgMascotState extends State<SvgMascot>
               var leftEyeScale = 1.0;
               var rightEyeScale = 1.0;
               var eyebrowY = 0.0;
+              var mouthOpen = 0.0;
 
               switch (animation) {
                 case MascotAnimation.spin:
@@ -160,6 +193,13 @@ class SvgMascotState extends State<SvgMascot>
                 case MascotAnimation.raiseEyebrows:
                   eyebrowY = -14 * t;
                   break;
+                case MascotAnimation.yawn:
+                  mouthOpen = math.sin(math.pi * t);
+                  leftEyeScale = 1 - 0.7 * mouthOpen;
+                  rightEyeScale = leftEyeScale;
+                  leftArmAngle = 0.4 * mouthOpen;
+                  rightArmAngle = -0.4 * mouthOpen;
+                  break;
                 case null:
                   break;
               }
@@ -181,6 +221,7 @@ class SvgMascotState extends State<SvgMascot>
                             leftEyeScale: leftEyeScale,
                             rightEyeScale: rightEyeScale,
                             eyebrowY: eyebrowY,
+                            mouthOpen: mouthOpen,
                           ),
                       ],
                     ),
@@ -201,6 +242,7 @@ class SvgMascotState extends State<SvgMascot>
     required double leftEyeScale,
     required double rightEyeScale,
     required double eyebrowY,
+    required double mouthOpen,
   }) {
     Widget child = SvgPicture.string(
       layer.svg,
@@ -216,6 +258,14 @@ class SvgMascotState extends State<SvgMascot>
         );
 
     switch (layer.id) {
+      case 'mouth':
+        child = Transform.scale(
+          scaleX: 1 - 0.25 * mouthOpen,
+          scaleY: 1 + 4 * mouthOpen,
+          alignment: pivot(150, 145),
+          child: child,
+        );
+        break;
       case 'left_hand':
         child = Transform.rotate(
           angle: leftArmAngle,
