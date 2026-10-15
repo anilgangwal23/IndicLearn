@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:indic_learn/animations/confetti.dart';
 import 'package:indic_learn/main.dart';
@@ -23,19 +24,36 @@ import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() async {
+    rootBundle.clear();
+    svg.cache.clear();
+    final source = await rootBundle.loadString('assets/mascots/sprout.svg');
+    for (final layer in SvgMascotParser.parse(source)) {
+      final loader = SvgStringLoader(layer.svg);
+      await svg.cache.putIfAbsent(
+        loader.cacheKey(null),
+        () => loader.loadBytes(null),
+      );
+    }
+  });
+
   test('Bundled level catalog has ten playable levels using existing data', () {
     const catalog = LevelLoader();
-    expect(catalog.levels, hasLength(10));
-    expect(catalog.levels.every((level) => level.unlocked), isTrue);
-    expect(catalog.levels.map((level) => level.assetPath).toSet(), hasLength(10));
-    expect(catalog.levels.map((level) => level.title).toSet(), hasLength(10));
+    expect(catalog.scenarios, hasLength(1));
+    final levels = catalog.scenarios.single.levels;
+    expect(levels, hasLength(10));
+    expect(catalog.scenarios.single.unlocked, isTrue);
+    expect(levels.map((level) => level.assetPath).toSet(), hasLength(10));
+    expect(levels.map((level) => level.title).toSet(), hasLength(10));
     const handlers = {
       'quiz': 'GamePage',
       'match_the_pair': 'WordMatchPage',
       'make_the_sentence': 'MTSPage',
       'follow_the_sound': 'FollowTheSound',
     };
-    for (final level in catalog.levels) {
+    for (final level in levels) {
       final definition = jsonDecode(File(level.assetPath).readAsStringSync())
           as Map<String, dynamic>;
       final steps = definition['steps'] as List<dynamic>;
@@ -51,7 +69,117 @@ void main() {
     }
   });
 
-  testWidgets('Level picker blocks locked levels and opens after landing', (
+  test('Scenario definitions enforce level and progress limits', () {
+    const level = LevelDefinition(title: 'Practice', assetPath: 'practice.json');
+    for (final count in [0, 13]) {
+      final scenario = ScenarioDefinition(
+        id: 'invalid', title: 'Invalid', levels: List.filled(count, level),
+      );
+      expect(scenario.validate, throwsArgumentError);
+    }
+    final full = ScenarioDefinition(
+      id: 'full', title: 'Full', levels: List.filled(12, level), completedLevels: 12,
+    );
+    expect(full.validate, returnsNormally);
+    const invalidProgress = ScenarioDefinition(
+      id: 'invalid', title: 'Invalid', levels: [level], completedLevels: 2,
+    );
+    expect(invalidProgress.validate, throwsArgumentError);
+  });
+
+  testWidgets('Scenario progress advances only on completion and stays independent', (tester) async {
+    final lesson = jsonEncode({
+      'steps': [
+        {'type': 'quiz', 'data': 'scenario-quiz.json', 'handler': 'GamePage'},
+      ],
+    });
+    final bundle = _QuizAssetBundle(null, assets: {
+      'first.json': lesson,
+      'second.json': lesson,
+      'other.json': lesson,
+      'scenario-quiz.json': File('assets/Quizes/whatisthis_fruit_001.json').readAsStringSync(),
+    });
+    await tester.pumpWidget(DefaultAssetBundle(
+      bundle: bundle,
+      child: const MaterialApp(home: LevelLoader(scenarios: [
+        ScenarioDefinition(id: 'first', title: 'First scenario', levels: [
+          LevelDefinition(title: 'First level', assetPath: 'first.json'),
+          LevelDefinition(title: 'Second level', assetPath: 'second.json'),
+        ]),
+        ScenarioDefinition(id: 'other', title: 'Other scenario', levels: [
+          LevelDefinition(title: 'Other level', assetPath: 'other.json'),
+        ]),
+      ])),
+    ));
+    try {
+      await tester.pumpAndSettle();
+    } catch (_) {
+      debugDumpApp();
+      rethrow;
+    }
+    expect(find.text('0 / 2 complete'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('scenario-first')));
+    await tester.pumpAndSettle();
+    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'first.json');
+    await tester.tap(find.byType(BackButton).first);
+    await tester.pumpAndSettle();
+    expect(find.text('0 / 2 complete'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('scenario-first')));
+    await tester.pumpAndSettle();
+    tester.widget<GamePage>(find.byType(GamePage)).onComplete!(1, 1);
+    await tester.pumpAndSettle();
+    expect(find.text('Level complete!'), findsOneWidget);
+    await tester.tap(find.byType(BackButton).first);
+    await tester.pumpAndSettle();
+    expect(find.text('1 / 2 complete'), findsOneWidget);
+    expect(find.text('0 / 1 complete'), findsOneWidget);
+    expect(tester.widget<CircularProgressIndicator>(
+      find.byKey(const ValueKey('scenario-progress-first')),
+    ).value, 0.5);
+    await tester.tap(find.byKey(const ValueKey('scenario-first')));
+    await tester.pumpAndSettle();
+    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'second.json');
+    tester.widget<GamePage>(find.byType(GamePage)).onComplete!(1, 1);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Play Again'));
+    await tester.pumpAndSettle();
+    tester.widget<GamePage>(find.byType(GamePage)).onComplete!(1, 1);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(BackButton).first);
+    await tester.pumpAndSettle();
+    expect(find.text('2 / 2 complete'), findsOneWidget);
+    expect(find.byIcon(Icons.check), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('scenario-first')));
+    await tester.pumpAndSettle();
+    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'second.json');
+    await tester.tap(find.byType(BackButton).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('scenario-other')));
+    await tester.pumpAndSettle();
+    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'other.json');
+    await tester.pumpWidget(const SizedBox());
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Scenario picker resumes supplied progress and shows twelve levels', (tester) async {
+    final levels = List.generate(12, (index) => LevelDefinition(
+      title: 'Level ${index + 1}', assetPath: 'lesson-$index.json',
+    ));
+    await tester.pumpWidget(DefaultAssetBundle(
+      bundle: _QuizAssetBundle('{"steps":[]}', path: 'lesson-5.json'),
+      child: MaterialApp(home: LevelLoader(scenarios: [
+        ScenarioDefinition(id: 'resume', title: 'Resume', levels: levels, completedLevels: 5),
+      ])),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('5 / 12 complete'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('scenario-resume')));
+    await tester.pumpAndSettle();
+    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'lesson-5.json');
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Scenario picker blocks locked scenarios and opens after landing', (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -59,30 +187,36 @@ void main() {
         bundle: _QuizAssetBundle('{"steps":[]}', path: 'test-level.json'),
         child: const MaterialApp(
           home: LevelLoader(
-            levels: [
-              LevelDefinition(title: 'Start', assetPath: 'test-level.json', unlocked: true),
-              LevelDefinition(title: 'Next', assetPath: 'test-level.json', unlocked: true),
-              LevelDefinition(title: 'Locked', assetPath: 'test-level.json'),
+            scenarios: [
+              ScenarioDefinition(id: 'start', title: 'Start', levels: [
+                LevelDefinition(title: 'First', assetPath: 'test-level.json'),
+              ]),
+              ScenarioDefinition(id: 'next', title: 'Next', levels: [
+                LevelDefinition(title: 'First', assetPath: 'test-level.json'),
+              ]),
+              ScenarioDefinition(id: 'locked', title: 'Locked', unlocked: false, levels: [
+                LevelDefinition(title: 'First', assetPath: 'test-level.json'),
+              ]),
             ],
           ),
         ),
       ),
     );
     await tester.pumpAndSettle();
-    final locked = find.byKey(const ValueKey('level-2'));
+    final locked = find.byKey(const ValueKey('scenario-locked'));
     expect(tester.widget<FilledButton>(locked).onPressed, isNull);
     await tester.tap(locked);
     await tester.pump();
     expect(find.byType(LevelPage), findsNothing);
     final mascotStart = tester.getTopLeft(find.byType(SvgMascot));
     expect(tester.widget<SvgMascot>(find.byType(SvgMascot)).autoIdle, isTrue);
-    await tester.tap(find.byKey(const ValueKey('level-1')));
+    await tester.tap(find.byKey(const ValueKey('scenario-next')));
     await tester.pump();
     expect(tester.widget<SvgMascot>(find.byType(SvgMascot)).autoIdle, isFalse);
     await tester.pump(const Duration(milliseconds: 350));
     expect(find.byType(LevelPage), findsNothing);
     expect(tester.getTopLeft(find.byType(SvgMascot)).dx, greaterThan(mascotStart.dx));
-    expect(tester.widget<FilledButton>(find.byKey(const ValueKey('level-0'))).onPressed, isNull);
+    expect(tester.widget<FilledButton>(find.byKey(const ValueKey('scenario-start'))).onPressed, isNull);
     await tester.pumpAndSettle();
     expect(find.byType(LevelPage), findsOneWidget);
     expect(find.textContaining('Unable to load level:'), findsOneWidget);
@@ -90,20 +224,22 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.widget<SvgMascot>(find.byType(SvgMascot)).autoIdle, isTrue);
     expect(tester.getTopLeft(find.byType(SvgMascot)).dx, greaterThan(mascotStart.dx));
-    expect(tester.widget<FilledButton>(find.byKey(const ValueKey('level-0'))).onPressed, isNotNull);
+    expect(tester.widget<FilledButton>(find.byKey(const ValueKey('scenario-start'))).onPressed, isNotNull);
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('Level picker handles empty, locked, and narrow layouts', (tester) async {
+  testWidgets('Scenario picker handles empty, locked, and narrow layouts', (tester) async {
     tester.view.physicalSize = const Size(320, 640);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const MaterialApp(home: LevelLoader(levels: [])));
-    expect(find.text('No levels available'), findsOneWidget);
+    await tester.pumpWidget(const MaterialApp(home: LevelLoader(scenarios: [])));
+    expect(find.text('No scenarios available'), findsOneWidget);
     await tester.pumpWidget(const MaterialApp(
-      home: LevelLoader(key: ValueKey('locked'), levels: [
-        LevelDefinition(title: 'Coming soon', assetPath: 'missing.json'),
+      home: LevelLoader(key: ValueKey('locked'), scenarios: [
+        ScenarioDefinition(id: 'locked', title: 'Coming soon', unlocked: false, levels: [
+          LevelDefinition(title: 'First', assetPath: 'missing.json'),
+        ]),
       ]),
     ));
     expect(find.byType(SvgMascot), findsNothing);
@@ -111,9 +247,9 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('Level picker cancels safely when removed during a jump', (tester) async {
+  testWidgets('Scenario picker cancels safely when removed during a jump', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: LevelLoader()));
-    await tester.tap(find.byKey(const ValueKey('level-0')));
+    await tester.tap(find.byKey(const ValueKey('scenario-everyday-practice')));
     await tester.pump(const Duration(milliseconds: 100));
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(seconds: 1));
@@ -215,7 +351,7 @@ void main() {
           DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
         );
         await tester.pumpAndSettle();
-        await tester.tap(find.byKey(const ValueKey('level-0')));
+        await tester.tap(find.byKey(const ValueKey('scenario-everyday-practice')));
         await tester.pumpAndSettle();
         expect(find.text('Step 1/2'), findsOneWidget);
 
@@ -280,7 +416,7 @@ void main() {
         DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const ValueKey('level-0')));
+      await tester.tap(find.byKey(const ValueKey('scenario-everyday-practice')));
       await tester.pumpAndSettle();
       expect(find.textContaining('Unable to load level:'), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsNothing);

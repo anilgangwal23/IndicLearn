@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ownsProfile(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function validProfile() {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+          'schemaVersion', 'displayName', 'sourceLanguage', 'targetLanguage',
+          'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'schemaVersion', 'displayName', 'sourceLanguage', 'targetLanguage',
+          'createdAt', 'updatedAt'
+        ])
+        && data.schemaVersion == 1
+        && data.displayName is string
+        && data.displayName.size() > 0 && data.displayName.size() <= 80
+        && data.sourceLanguage is string && data.sourceLanguage.size() > 0
+        && data.sourceLanguage.size() <= 35
+        && data.targetLanguage is string && data.targetLanguage.size() > 0
+        && data.targetLanguage.size() <= 35
+        && data.createdAt is timestamp
+        && data.updatedAt == request.time;
+    }
+
+    match /profiles/{userId} {
+      allow get: if ownsProfile(userId);
+      allow list: if false;
+      allow create: if ownsProfile(userId) && validProfile()
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsProfile(userId) && validProfile()
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['displayName', 'sourceLanguage', 'targetLanguage', 'updatedAt']);
+      allow delete: if ownsProfile(userId);
+    }
+  }
+}

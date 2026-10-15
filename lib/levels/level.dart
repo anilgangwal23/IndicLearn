@@ -6,11 +6,13 @@ import '../widgets/svg_mascot.dart';
 class LevelPage extends StatefulWidget {
   final String assetPath;
   final String mascotAsset;
+  final VoidCallback? onCompleted;
 
   const LevelPage({
     super.key,
     required this.assetPath,
     this.mascotAsset = 'assets/mascots/sprout.svg',
+    this.onCompleted,
   });
 
   @override
@@ -25,6 +27,7 @@ class _LevelPageState extends State<LevelPage> {
   int _score = 0;
   int _total = 0;
   int _attempt = 0;
+  bool _completionReported = false;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -58,6 +61,10 @@ class _LevelPageState extends State<LevelPage> {
       _total += total;
       _currentStep++;
     });
+    if (_currentStep == _steps.length && !_completionReported) {
+      _completionReported = true;
+      widget.onCompleted?.call();
+    }
   }
 
   @override

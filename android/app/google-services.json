@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "924520654821",
+    "project_id": "indiclearn",
+    "storage_bucket": "indiclearn.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924520654821:android:5568a07bbaeb36458a710c",
+        "android_client_info": {
+          "package_name": "com.example.indic_learn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv4rSSas7_JnNnQ4c_ZRK6JTKRkWZbJ0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
