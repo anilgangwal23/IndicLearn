@@ -91,10 +91,10 @@ class _mtsGameState extends State<mts> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CommonAnimation(
-                  'packages/indic_learn/assets/mascots/fox.svg',
+                  'assets/mascots/fox.svg',
                   isSolved?MascotAnimation.spin:MascotAnimation.blink,
                 ),
-                QuestionPrompt(text: _model.translation),
+                QuestionPrompt(text: _model.source),
                 const SizedBox(height: 24),
 
                 GameAnswerArea(
@@ -154,8 +154,7 @@ class _mtsGameState extends State<mts> {
   }
 
   void pickWord(int wordId) {
-    int index = selectedWordIDs.length;
-    if (!_model.index.contains(wordId) || _model.index[index] != wordId) {
+    if (!_model.acceptsNextWord(selectedWordIDs, wordId)) {
       showWrongPick(wordId);
       return;
     }

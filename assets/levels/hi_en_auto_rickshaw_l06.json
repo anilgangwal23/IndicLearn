@@ -1,0 +1,6 @@
+{"steps":[
+  {"type":"match_the_pair","handler":"WordMatchPage","data":"assets/match_the_pairs_json/hi_en_auto_rickshaw_l06.json"},
+  {"type":"follow_the_sound","handler":"FollowTheSound","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p08.json"},
+  {"type":"follow_the_sound","handler":"FollowTheSound","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p09.json"},
+  {"type":"follow_the_sound","handler":"FollowTheSound","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p10.json"}
+]}

@@ -7,11 +7,12 @@
 - Active track: Hindi source (Devanagari) to English target.
 - Deferred by the user: Hindi to Kannada, including Kannada script and romanization.
   Approved Kannada drafts are retained below; native-speaker review remains pending.
-- Registration: add an unlocked Level 1 to the existing scenario picker; preserve
+- Registration: add the scenario, starting at Level 1, to the existing scenario picker; preserve
   all everyday-practice levels. No language selector, new navigation, persistence,
   game type, or speech scoring is included.
-- Implemented: Level 1 only, four concepts / six target word forms, six activities.
-  The remaining curriculum is a draft, not playable content or completed coverage.
+- Implemented: all 12 levels, 38 target word forms plus two scaffold forms,
+  12 short phrases, all ten complete sentences, and mixed review.
+  The existing picker advances sequentially within the scenario.
 - User supplied and confirmed the four SVGs. No artwork was downloaded or created.
 - Source sentence s10 intentionally retains the approved male Hindi form.
 
@@ -38,7 +39,7 @@ recorded below. Related grammatical forms are not merged.
 ## English vocabulary inventory
 
 38 target forms plus two explicitly identified scenario scaffold forms.
-First levels after Level 1 are planned, not yet generated. The multiword
+All first-introduction levels below are generated. The multiword
 concepts "railway station" and "auto rickshaw" introduce their component forms
 together. "To" appears twice in s02 and requires two separate selectable tiles
 when that full sentence is eventually authored.
@@ -104,8 +105,10 @@ the user later supplies specifically matching artwork.
 
 ## Prerequisite-ordered curriculum
 
-Levels 2-12 are proposals only. Introduce every new batch through Hindi-English
-matching before any quiz or listening test; never use untaught distractors.
+All levels below are generated. Each new batch starts with Hindi-English
+matching before listening or construction; there are no untaught distractors.
+Levels 2-7 use listening chunks made exclusively from introduced words.
+Level 8 explicitly teaches their contextual meanings before construction.
 
 | Level | Objective | New words / patterns | Reviewed words | Games | Target IDs |
 | --- | --- | --- | --- | --- | --- |
@@ -120,22 +123,22 @@ matching before any quiz or listening test; never use untaught distractors.
 | 9 | Short sentence patterns | polite imperative; That is ...; sentence-initial capitalization; final please | turn left here; drive slowly; stop here; too expensive | pattern pairing before full construction and listening | s04, s06, s08, s09 |
 | 10 | Destination sentences | Will you take me to ...?; I need to go to ...; at the next junction | Level 8 chunks and Level 9 imperatives | pattern pairing before full construction and listening | s01, s02, s07 |
 | 11 | Fare and payment sentences | How much will ... be?; Please lower ... a little; Can I pay in ...? | fare, negotiation and cash chunks | pattern pairing before full construction and listening | s03, s05, s10 |
-| 12 | Mixed full scenario review | No new words or patterns | All prior content | mixed construction and listening, all ten complete sentences | s01-s10 |
+| 12 | Mixed full scenario review | No new words or patterns | All prior content | alternating construction and listening across all ten complete sentences | s01-s10 |
 
 ## Full-sentence coverage matrix
 
 | Sentence | Planned first full construction + listening | Mixed review | Runtime status |
 | --- | --- | --- | --- |
-| s01 | Level 10 | Level 12 | Not generated |
-| s02 | Level 10 | Level 12 | Not generated |
-| s03 | Level 11 | Level 12 | Not generated |
-| s04 | Level 9 | Level 12 | Not generated |
-| s05 | Level 11 | Level 12 | Not generated |
-| s06 | Level 9 | Level 12 | Not generated |
-| s07 | Level 10 | Level 12 | Not generated |
-| s08 | Level 9 | Level 12 | Not generated |
-| s09 | Level 9 | Level 12 | Not generated |
-| s10 | Level 11 | Level 12 | Not generated |
+| s01 | Level 10 | Level 12 | Construction + listening ready |
+| s02 | Level 10 | Level 12 | Construction + listening ready |
+| s03 | Level 11 | Level 12 | Construction + listening ready |
+| s04 | Level 9 | Level 12 | Construction + listening ready |
+| s05 | Level 11 | Level 12 | Construction + listening ready |
+| s06 | Level 9 | Level 12 | Construction + listening ready |
+| s07 | Level 10 | Level 12 | Construction + listening ready |
+| s08 | Level 9 | Level 12 | Construction + listening ready |
+| s09 | Level 9 | Level 12 | Construction + listening ready |
+| s10 | Level 11 | Level 12 | Construction + listening ready |
 
 ## Generated assets and runtime contracts
 
@@ -150,18 +153,34 @@ All paths are relative to the repository root and use already bundled directorie
 | a04 | `assets/make_the_sentence/hi_en_auto_rickshaw_a04.json` | Listen and select market |
 | a05 | `assets/make_the_sentence/hi_en_auto_rickshaw_a05.json` | Listen and select cash |
 | a06 | `assets/make_the_sentence/hi_en_auto_rickshaw_a06.json` | Listen and reconstruct auto rickshaw |
+| Levels 2-12 | `assets/levels/hi_en_auto_rickshaw_l02.json` through `hi_en_auto_rickshaw_l12.json` | Prerequisite-ordered progression and mixed review |
+| Vocabulary batches | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l02.json` through `hi_en_auto_rickshaw_l07.json` | Remaining 34 target forms; Level 7 reviews I and cash |
+| Phrase batches | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l08a.json`, `hi_en_auto_rickshaw_l08b.json` | Twelve contextual chunks, six pairs each |
+| Patterns | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l09.json` through `hi_en_auto_rickshaw_l11.json` | Explicit sentence patterns before reconstruction |
+| Phrases p01-p12 | `assets/make_the_sentence/hi_en_auto_rickshaw_p01.json` through `hi_en_auto_rickshaw_p12.json` | Listening in Levels 2-7, construction in Level 8 |
+| Sentences s01-s10 | `assets/make_the_sentence/hi_en_auto_rickshaw_s01.json` through `hi_en_auto_rickshaw_s10.json` | Both construction and listening in Levels 9-11, mixed review in Level 12 |
 
 Quiz JSON uses optional `prompt_language` and `target_language`; omitted fields
 retain the existing English-to-Hindi behavior. No runtime language selector exists.
 The listening game plays the exact `translation` string, not `source`.
 
 `assets/audio/mapping.json` retains existing keys and adds exact namespaced quiz
-choice IDs plus the four listening translation keys. Each new entry has native
+choice IDs plus all vocabulary, phrase, and full-sentence listening keys. Each new entry has native
 English text, `language: en-IN`, and an empty recording filename. Playback uses
 device TTS, not recordings. Entries without a language retain Hindi (`hi-IN`),
 including fallback text. Mapping initialization is awaited before playback.
 
-Tests validate loaders, bundling, image references, answer uniqueness, indices,
-language routing, and completion of all six Level 1 activities. Real-device
-English voice availability and pronunciation quality require a manual listening
-check; structural tests do not establish acoustic correctness.
+Validation is deliberately lightweight: the shared catalog smoke check, a shared
+sentence-model check for repeated tiles, static analysis, and a one-off content
+integrity check. No scenario-specific or per-level test suite is maintained.
+Sentence construction now displays the source prompt, not the target answer,
+and uses the bundled mascot path. Both sentence games accept either identical
+unused tile when a word repeats (s02 contains two occurrences of "to").
+Real-device English voice availability and pronunciation quality require a manual
+listening check; structural validation does not establish acoustic correctness.
+
+Latest checks: all 12 levels / 71 activity steps passed the one-off content
+integrity check, including bundled references, vocabulary prerequisites, exact
+tile reconstruction, and construction/listening coverage for all ten sentences.
+Both shared smoke checks passed. Targeted Dart analysis reported no errors or
+warnings; four existing game-class naming lint notices remain.

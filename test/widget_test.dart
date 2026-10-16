@@ -22,9 +22,25 @@ import 'package:indic_learn/games/quiz_ui/quiz_loader.dart';
 import 'package:indic_learn/games/quiz_ui/quiz.dart' show GamePage;
 import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
+import 'package:indic_learn/games/make_the_sentence/mts_model.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('Sentence games accept interchangeable repeated word tiles', () {
+    const model = MTSModel(
+      source: 'जाना',
+      translation: 'to go to',
+      words: ['to', 'go', 'to'],
+      index: [0, 1, 2],
+    );
+    expect(model.acceptsNextWord([], 2), isTrue);
+    expect(model.acceptsNextWord([2], 1), isTrue);
+    expect(model.acceptsNextWord([2, 1], 0), isTrue);
+    expect(model.acceptsNextWord([2, 1], 2), isFalse);
+    expect(model.acceptsNextWord([], 1), isFalse);
+    expect(model.acceptsNextWord([2, 1, 0], 0), isFalse);
+  });
 
   test('Shared theme defines semantic component colors and states', () {
     final theme = buildGameTheme();
@@ -109,11 +125,11 @@ void main() {
     expect(catalog.scenarios, hasLength(2));
     expect(catalog.scenarios.first.levels, hasLength(10));
     expect(catalog.scenarios.last.id, 'hi-en-auto-rickshaw');
-    expect(catalog.scenarios.last.levels.single.unlocked, isTrue);
+    expect(catalog.scenarios.last.levels, hasLength(12));
     final levels = catalog.scenarios.expand((scenario) => scenario.levels).toList();
     expect(catalog.scenarios.every((scenario) => scenario.unlocked), isTrue);
-    expect(levels.map((level) => level.assetPath).toSet(), hasLength(11));
-    expect(levels.map((level) => level.title).toSet(), hasLength(11));
+    expect(levels.map((level) => level.assetPath).toSet(), hasLength(22));
+    expect(levels.map((level) => level.title).toSet(), hasLength(22));
     const handlers = {
       'quiz': 'GamePage',
       'match_the_pair': 'WordMatchPage',

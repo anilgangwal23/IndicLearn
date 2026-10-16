@@ -1,0 +1,16 @@
+{"steps":[
+  {"type":"match_the_pair","handler":"WordMatchPage","data":"assets/match_the_pairs_json/hi_en_auto_rickshaw_l08a.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p01.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p02.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p03.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p04.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p05.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p06.json"},
+  {"type":"match_the_pair","handler":"WordMatchPage","data":"assets/match_the_pairs_json/hi_en_auto_rickshaw_l08b.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p07.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p08.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p09.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p10.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p11.json"},
+  {"type":"make_the_sentence","handler":"MTSPage","data":"assets/make_the_sentence/hi_en_auto_rickshaw_p12.json"}
+]}

@@ -171,8 +171,7 @@ class _ftsGameState extends State<fts> {
   }
 
   void pickWord(int wordId) {
-    int index = selectedWordIDs.length;
-    if (!_model.index.contains(wordId) || _model.index[index] != wordId) {
+    if (!_model.acceptsNextWord(selectedWordIDs, wordId)) {
       showWrongPick(wordId);
       return;
     }
