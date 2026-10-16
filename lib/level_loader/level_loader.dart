@@ -107,6 +107,17 @@ class LevelLoader extends StatefulWidget {
       ),
         ],
       ),
+      ScenarioDefinition(
+        id: 'hi-en-auto-rickshaw',
+        title: 'Auto-rickshaw (Hindi to English)',
+        levels: [
+          LevelDefinition(
+            title: 'Level 1: Destinations and payment',
+            assetPath: 'assets/levels/hi_en_auto_rickshaw_l01.json',
+            unlocked: true,
+          ),
+        ],
+      ),
     ],
     this.mascotAsset = 'assets/mascots/sprout.svg',
     this.mascot,

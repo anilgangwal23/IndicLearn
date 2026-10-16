@@ -1,0 +1,10 @@
+{
+  "steps": [
+    {"type": "match_the_pair", "handler": "WordMatchPage", "data": "assets/match_the_pairs_json/hi_en_auto_rickshaw_a01.json"},
+    {"type": "quiz", "handler": "GamePage", "data": "assets/Quizes/hi_en_auto_rickshaw_a02.json"},
+    {"type": "follow_the_sound", "handler": "FollowTheSound", "data": "assets/make_the_sentence/hi_en_auto_rickshaw_a03.json"},
+    {"type": "follow_the_sound", "handler": "FollowTheSound", "data": "assets/make_the_sentence/hi_en_auto_rickshaw_a04.json"},
+    {"type": "follow_the_sound", "handler": "FollowTheSound", "data": "assets/make_the_sentence/hi_en_auto_rickshaw_a05.json"},
+    {"type": "follow_the_sound", "handler": "FollowTheSound", "data": "assets/make_the_sentence/hi_en_auto_rickshaw_a06.json"}
+  ]
+}

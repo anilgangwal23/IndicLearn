@@ -1,0 +1,54 @@
+[
+  {
+    "id": "hi_en_auto_rickshaw_q01",
+    "type": "image_choice",
+    "image": "assets/svg_assets/station.svg",
+    "prompt_language": "hi",
+    "target_language": "en",
+    "prompt": {"hi": {"native": "रेलवे स्टेशन को अंग्रेज़ी में क्या कहते हैं?"}},
+    "choices": [
+      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}}, "correct": true},
+      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}}, "correct": false}
+    ]
+  },
+  {
+    "id": "hi_en_auto_rickshaw_q02",
+    "type": "image_choice",
+    "image": "assets/svg_assets/market-supermarket.svg",
+    "prompt_language": "hi",
+    "target_language": "en",
+    "prompt": {"hi": {"native": "बाज़ार को अंग्रेज़ी में क्या कहते हैं?"}},
+    "choices": [
+      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}}, "correct": true},
+      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}}, "correct": false}
+    ]
+  },
+  {
+    "id": "hi_en_auto_rickshaw_q03",
+    "type": "image_choice",
+    "image": "assets/svg_assets/money.svg",
+    "prompt_language": "hi",
+    "target_language": "en",
+    "prompt": {"hi": {"native": "नकद को अंग्रेज़ी में क्या कहते हैं?"}},
+    "choices": [
+      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}}, "correct": true}
+    ]
+  },
+  {
+    "id": "hi_en_auto_rickshaw_q04",
+    "type": "image_choice",
+    "image": "assets/svg_assets/auto-rickshaw.svg",
+    "prompt_language": "hi",
+    "target_language": "en",
+    "prompt": {"hi": {"native": "ऑटो रिक्शा को अंग्रेज़ी में क्या कहते हैं?"}},
+    "choices": [
+      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}}, "correct": true},
+      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}}, "correct": false}
+    ]
+  }
+]

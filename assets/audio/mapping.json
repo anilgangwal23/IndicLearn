@@ -1,4 +1,12 @@
 {
     "Mera": {"file": "", "native": "मेरा"},
-    "apple": {"file": "", "native": "सेब"}
+    "apple": {"file": "", "native": "सेब"},
+    "hi_en_auto_rickshaw_station": {"file": "", "native": "railway station", "language": "en-IN"},
+    "hi_en_auto_rickshaw_market": {"file": "", "native": "market", "language": "en-IN"},
+    "hi_en_auto_rickshaw_cash": {"file": "", "native": "cash", "language": "en-IN"},
+    "hi_en_auto_rickshaw_auto": {"file": "", "native": "auto rickshaw", "language": "en-IN"},
+    "railway station": {"file": "", "native": "railway station", "language": "en-IN"},
+    "market": {"file": "", "native": "market", "language": "en-IN"},
+    "cash": {"file": "", "native": "cash", "language": "en-IN"},
+    "auto rickshaw": {"file": "", "native": "auto rickshaw", "language": "en-IN"}
 }

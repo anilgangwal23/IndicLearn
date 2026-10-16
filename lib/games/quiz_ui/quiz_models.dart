@@ -4,6 +4,8 @@ class GameQuestion {
   final String image;
   final Map<String, LanguageText> prompt;
   final List<GameChoice> choices;
+  final String promptLanguage;
+  final String targetLanguage;
 
   GameQuestion({
     required this.id,
@@ -11,6 +13,8 @@ class GameQuestion {
     required this.image,
     required this.prompt,
     required this.choices,
+    this.promptLanguage = 'en',
+    this.targetLanguage = 'hi',
   });
 
   factory GameQuestion.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class GameQuestion {
       id: json['id'],
       type: json['type'],
       image: json['image'],
+      promptLanguage: json['prompt_language'] as String? ?? 'en',
+      targetLanguage: json['target_language'] as String? ?? 'hi',
       prompt: promptJson.map(
         (key, value) => MapEntry(key, LanguageText.fromJson(value)),
       ),
@@ -55,7 +61,12 @@ class GameChoice {
   final Map<String, LanguageText> text;
   final bool correct;
 
-  GameChoice({required this.image,required this.id, required this.text, required this.correct});
+  GameChoice({
+    required this.image,
+    required this.id,
+    required this.text,
+    required this.correct,
+  });
 
   factory GameChoice.fromJson(Map<String, dynamic> json) {
     final textJson = json['text'] as Map<String, dynamic>;

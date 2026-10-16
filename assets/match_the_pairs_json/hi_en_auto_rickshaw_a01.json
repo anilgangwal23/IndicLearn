@@ -1,0 +1,8 @@
+{
+  "word_pair_list": [
+    {"left_word": "रेलवे स्टेशन", "right_definition": "railway station"},
+    {"left_word": "बाज़ार", "right_definition": "market"},
+    {"left_word": "नकद", "right_definition": "cash"},
+    {"left_word": "ऑटो रिक्शा", "right_definition": "auto rickshaw"}
+  ]
+}

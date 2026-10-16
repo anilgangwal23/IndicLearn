@@ -48,10 +48,6 @@ class _GamePageState extends State<GamePage>
   bool answered = false;
   String? selectedChoiceId;
 
-  // Learner configuration.
-  final String promptLanguage = 'en';
-  final String targetLanguage = 'hi';
-
   // Change this to "native" when the learner is ready.
   final String displayVariant = 'romanized';
 
@@ -199,8 +195,8 @@ class _GamePageState extends State<GamePage>
               isLastQuestion: currentQuestion == questions.length - 1,
               selectedChoiceId: selectedChoiceId,
               answered: answered,
-              promptLanguage: promptLanguage,
-              targetLanguage: targetLanguage,
+              promptLanguage: question.promptLanguage,
+              targetLanguage: question.targetLanguage,
               displayVariant: displayVariant,
               onChoiceSelected: selectChoice,
               onContinue: nextQuestion,

@@ -104,14 +104,16 @@ void main() {
     }
   });
 
-  test('Bundled level catalog has ten playable levels using existing data', () {
+  test('Bundled catalog preserves everyday levels and adds the auto scenario', () {
     const catalog = LevelLoader();
-    expect(catalog.scenarios, hasLength(1));
-    final levels = catalog.scenarios.single.levels;
-    expect(levels, hasLength(10));
-    expect(catalog.scenarios.single.unlocked, isTrue);
-    expect(levels.map((level) => level.assetPath).toSet(), hasLength(10));
-    expect(levels.map((level) => level.title).toSet(), hasLength(10));
+    expect(catalog.scenarios, hasLength(2));
+    expect(catalog.scenarios.first.levels, hasLength(10));
+    expect(catalog.scenarios.last.id, 'hi-en-auto-rickshaw');
+    expect(catalog.scenarios.last.levels.single.unlocked, isTrue);
+    final levels = catalog.scenarios.expand((scenario) => scenario.levels).toList();
+    expect(catalog.scenarios.every((scenario) => scenario.unlocked), isTrue);
+    expect(levels.map((level) => level.assetPath).toSet(), hasLength(11));
+    expect(levels.map((level) => level.title).toSet(), hasLength(11));
     const handlers = {
       'quiz': 'GamePage',
       'match_the_pair': 'WordMatchPage',
