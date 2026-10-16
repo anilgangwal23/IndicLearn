@@ -6,6 +6,7 @@ import 'quiz_loader.dart';
 import 'quiz_models.dart';
 import 'widgets/question_view.dart';
 import '../../audio/pronunciation_service.dart';
+import '../../ui/game_theme.dart';
 
 export 'quiz_loader.dart';
 export 'quiz_models.dart';
@@ -13,7 +14,12 @@ export 'widgets/choice_button.dart';
 
 @Preview(name: 'Game Page', size: Size(390, 844))
 Widget previewGamePage() {
-  return const MaterialApp(home: GamePage(assetPath: "packages/indic_learn/assets/Quizes/whatisthis_fruit_001.json"));
+  return MaterialApp(
+    theme: buildGameTheme(),
+    home: const GamePage(
+      assetPath: "packages/indic_learn/assets/Quizes/whatisthis_fruit_001.json",
+    ),
+  );
 }
 
 class GamePage extends StatefulWidget {
@@ -101,7 +107,6 @@ class _GamePageState extends State<GamePage>
   }
 
   void selectChoice(GameChoice choice) {
-    
     if (answered) {
       return;
     }

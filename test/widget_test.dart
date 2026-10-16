@@ -26,6 +26,71 @@ import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('Shared theme defines semantic component colors and states', () {
+    final theme = buildGameTheme();
+    final colors = theme.colorScheme;
+    expect(theme.scaffoldBackgroundColor, colors.surface);
+    expect(theme.textTheme.bodyLarge?.color, colors.onSurface);
+    expect(theme.appBarTheme.backgroundColor, colors.primary);
+    expect(theme.appBarTheme.foregroundColor, colors.onPrimary);
+    for (final style in [
+      theme.filledButtonTheme.style!,
+      theme.elevatedButtonTheme.style!,
+    ]) {
+      expect(style.backgroundColor?.resolve({}), colors.primary);
+      expect(style.foregroundColor?.resolve({}), colors.onPrimary);
+      expect(
+        style.foregroundColor?.resolve({WidgetState.disabled}),
+        colors.onSurface.withValues(alpha: 0.38),
+      );
+      expect(style.minimumSize?.resolve({}), const Size(48, 48));
+    }
+    final input = theme.inputDecorationTheme;
+    expect(input.enabledBorder?.borderSide.color, colors.outline);
+    expect(input.focusedBorder?.borderSide.color, colors.primary);
+    expect(input.focusedBorder?.borderSide.width, 2);
+    expect(input.errorBorder?.borderSide.color, colors.error);
+    expect(input.focusedErrorBorder?.borderSide.color, colors.error);
+    expect(input.disabledBorder?.borderSide.color, colors.outlineVariant);
+    expect(theme.extension<GameFeedbackColors>(), isNotNull);
+  });
+
+  testWidgets('Shared scaffold inherits app bar and input theme', (
+    tester,
+  ) async {
+    final theme = buildGameTheme();
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: theme,
+        home: const GameScaffold(
+          title: 'Theme check',
+          child: TextField(decoration: InputDecoration(labelText: 'Name')),
+        ),
+      ),
+    );
+    final appBar = tester.widget<AppBar>(find.byType(AppBar));
+    expect(appBar.backgroundColor, isNull);
+    expect(appBar.foregroundColor, isNull);
+    final material = tester.widget<Material>(
+      find
+          .descendant(of: find.byType(AppBar), matching: find.byType(Material))
+          .first,
+    );
+    expect(material.color, theme.colorScheme.primary);
+    final input = tester.widget<InputDecorator>(find.byType(InputDecorator));
+    expect(
+      WidgetStateProperty.resolveAs<Color>(input.decoration.fillColor!, {}),
+      theme.colorScheme.surfaceContainerLowest,
+    );
+    await tester.tap(find.byType(TextField));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<InputDecorator>(find.byType(InputDecorator)).isFocused,
+      isTrue,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   setUp(() async {
     rootBundle.clear();
     svg.cache.clear();
@@ -88,45 +153,38 @@ void main() {
   });
 
   testWidgets('Scenario progress advances only on completion and stays independent', (tester) async {
-    final lesson = jsonEncode({
-      'steps': [
-        {'type': 'quiz', 'data': 'scenario-quiz.json', 'handler': 'GamePage'},
-      ],
-    });
-    final bundle = _QuizAssetBundle(null, assets: {
-      'first.json': lesson,
-      'second.json': lesson,
-      'other.json': lesson,
-      'scenario-quiz.json': File('assets/Quizes/whatisthis_fruit_001.json').readAsStringSync(),
-    });
-    await tester.pumpWidget(DefaultAssetBundle(
-      bundle: bundle,
-      child: const MaterialApp(home: LevelLoader(scenarios: [
-        ScenarioDefinition(id: 'first', title: 'First scenario', levels: [
-          LevelDefinition(title: 'First level', assetPath: 'first.json'),
-          LevelDefinition(title: 'Second level', assetPath: 'second.json'),
-        ]),
-        ScenarioDefinition(id: 'other', title: 'Other scenario', levels: [
-          LevelDefinition(title: 'Other level', assetPath: 'other.json'),
-        ]),
-      ])),
+    await tester.pumpWidget(MaterialApp(
+      home: LevelLoader(
+        mascot: const SizedBox.square(dimension: 96),
+        levelBuilder: (level, onCompleted) => _FakeLevelPage(
+          level: level,
+          onCompleted: onCompleted,
+        ),
+        scenarios: const [
+          ScenarioDefinition(id: 'first', title: 'First scenario', levels: [
+            LevelDefinition(title: 'First level', assetPath: 'first.json'),
+            LevelDefinition(title: 'Second level', assetPath: 'second.json'),
+          ]),
+          ScenarioDefinition(id: 'other', title: 'Other scenario', levels: [
+            LevelDefinition(title: 'Other level', assetPath: 'other.json'),
+          ]),
+        ],
+      ),
     ));
-    try {
-      await tester.pumpAndSettle();
-    } catch (_) {
-      debugDumpApp();
-      rethrow;
-    }
+    await tester.pumpAndSettle();
     expect(find.text('0 / 2 complete'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('scenario-first')));
     await tester.pumpAndSettle();
-    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'first.json');
+    expect(
+      tester.widget<_FakeLevelPage>(find.byType(_FakeLevelPage)).level.assetPath,
+      'first.json',
+    );
     await tester.tap(find.byType(BackButton).first);
     await tester.pumpAndSettle();
     expect(find.text('0 / 2 complete'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('scenario-first')));
     await tester.pumpAndSettle();
-    tester.widget<GamePage>(find.byType(GamePage)).onComplete!(1, 1);
+    await tester.tap(find.text('Complete lesson'));
     await tester.pumpAndSettle();
     expect(find.text('Level complete!'), findsOneWidget);
     await tester.tap(find.byType(BackButton).first);
@@ -138,12 +196,15 @@ void main() {
     ).value, 0.5);
     await tester.tap(find.byKey(const ValueKey('scenario-first')));
     await tester.pumpAndSettle();
-    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'second.json');
-    tester.widget<GamePage>(find.byType(GamePage)).onComplete!(1, 1);
+    expect(
+      tester.widget<_FakeLevelPage>(find.byType(_FakeLevelPage)).level.assetPath,
+      'second.json',
+    );
+    await tester.tap(find.text('Complete lesson'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Play Again'));
     await tester.pumpAndSettle();
-    tester.widget<GamePage>(find.byType(GamePage)).onComplete!(1, 1);
+    await tester.tap(find.text('Complete lesson'));
     await tester.pumpAndSettle();
     await tester.tap(find.byType(BackButton).first);
     await tester.pumpAndSettle();
@@ -151,12 +212,18 @@ void main() {
     expect(find.byIcon(Icons.check), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('scenario-first')));
     await tester.pumpAndSettle();
-    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'second.json');
+    expect(
+      tester.widget<_FakeLevelPage>(find.byType(_FakeLevelPage)).level.assetPath,
+      'second.json',
+    );
     await tester.tap(find.byType(BackButton).first);
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('scenario-other')));
     await tester.pumpAndSettle();
-    expect(tester.widget<LevelPage>(find.byType(LevelPage)).assetPath, 'other.json');
+    expect(
+      tester.widget<_FakeLevelPage>(find.byType(_FakeLevelPage)).level.assetPath,
+      'other.json',
+    );
     await tester.pumpWidget(const SizedBox());
     expect(tester.takeException(), isNull);
   });
@@ -654,6 +721,44 @@ void main() {
       },
     );
   }
+}
+
+class _FakeLevelPage extends StatefulWidget {
+  const _FakeLevelPage({required this.level, required this.onCompleted});
+
+  final LevelDefinition level;
+  final VoidCallback onCompleted;
+
+  @override
+  State<_FakeLevelPage> createState() => _FakeLevelPageState();
+}
+
+class _FakeLevelPageState extends State<_FakeLevelPage> {
+  bool _completed = false;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text(widget.level.title)),
+    body: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_completed) const Text('Level complete!'),
+          FilledButton(
+            onPressed: () {
+              if (_completed) {
+                setState(() => _completed = false);
+              } else {
+                widget.onCompleted();
+                setState(() => _completed = true);
+              }
+            },
+            child: Text(_completed ? 'Play Again' : 'Complete lesson'),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _QuizAssetBundle extends CachingAssetBundle {

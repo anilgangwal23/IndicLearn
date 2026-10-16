@@ -5,13 +5,19 @@ import 'package:flutter/widget_previews.dart';
 
 import 'pair_model.dart';
 import 'pairing_loader.dart';
+import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
 
 @Preview(name: 'Game Page', size: Size(390, 844))
 Widget previewGamePage() {
-  return const MaterialApp(home: WordMatchPage(initialJsonData: "packages/indic_learn/assets/match_the_pairs_json/en_hi_lvl1.json"));
+  return MaterialApp(
+    theme: buildGameTheme(),
+    home: const WordMatchPage(
+      initialJsonData:
+          "packages/indic_learn/assets/match_the_pairs_json/en_hi_lvl1.json",
+    ),
+  );
 }
-
 
 class WordMatchPage extends StatefulWidget {
   final String initialJsonData;

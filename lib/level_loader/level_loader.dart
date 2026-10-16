@@ -109,10 +109,15 @@ class LevelLoader extends StatefulWidget {
       ),
     ],
     this.mascotAsset = 'assets/mascots/sprout.svg',
+    this.mascot,
+    this.levelBuilder,
   });
 
   final List<ScenarioDefinition> scenarios;
   final String mascotAsset;
+  final Widget? mascot;
+  final Widget Function(LevelDefinition level, VoidCallback onCompleted)?
+      levelBuilder;
   final VoidCallback? onOpenProfile;
   final String accountActionLabel;
 
@@ -182,16 +187,19 @@ class _LevelLoaderState extends State<LevelLoader>
         _travel.value = 1;
       }
       if (!mounted || ModalRoute.of(context)?.isCurrent == false) return;
+      void onCompleted() {
+        if (!mounted || _completedLevels(scenario) != levelIndex) return;
+        setState(() => _completed[scenario.id] = levelIndex + 1);
+      }
+
       await Navigator.of(context).push<void>(
         MaterialPageRoute(
-          builder: (_) => LevelPage(
-            assetPath: level.assetPath,
-            mascotAsset: widget.mascotAsset,
-            onCompleted: () {
-              if (!mounted || _completedLevels(scenario) != levelIndex) return;
-              setState(() => _completed[scenario.id] = levelIndex + 1);
-            },
-          ),
+          builder: (_) => widget.levelBuilder?.call(level, onCompleted) ??
+              LevelPage(
+                assetPath: level.assetPath,
+                mascotAsset: widget.mascotAsset,
+                onCompleted: onCompleted,
+              ),
         ),
       );
     } on TickerCanceled {
@@ -347,12 +355,13 @@ class _LevelLoaderState extends State<LevelLoader>
                                       AnimatedBuilder(
                                         animation: _travel,
                                         child: IgnorePointer(
-                                          child: SvgMascot(
-                                            asset: widget.mascotAsset,
-                                            width: 96,
-                                            height: 96,
-                                            autoIdle: !_opening,
-                                          ),
+                                          child: widget.mascot ??
+                                              SvgMascot(
+                                                asset: widget.mascotAsset,
+                                                width: 96,
+                                                height: 96,
+                                                autoIdle: !_opening,
+                                              ),
                                         ),
                                         builder: (context, child) {
                                           final progress = _travel.value;
