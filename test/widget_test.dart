@@ -633,6 +633,83 @@ void main() {
     },
   );
 
+  testWidgets('Quiz introductions precede answers without adding responses', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 640);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final source = (await tester.runAsync(
+      () => rootBundle.loadString('assets/Quizes/whatisthis_fruit_001.json'),
+    ))!;
+    final payload = [
+      ...(jsonDecode(source) as List<dynamic>),
+      ...(jsonDecode(source) as List<dynamic>),
+    ].take(2).toList();
+    for (final question in payload) {
+      question['introduce'] = true;
+      final correct = (question['choices'] as List<dynamic>).firstWhere(
+        (choice) => choice['correct'] == true,
+      );
+      correct['text']['en'] = {'native': 'Fruit'};
+    }
+    int? completedScore;
+    int? completedTotal;
+    await tester.pumpWidget(
+      DefaultAssetBundle(
+        bundle: _QuizAssetBundle(jsonEncode(payload)),
+        child: MaterialApp(
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: const TextScaler.linear(1.5)),
+            child: child!,
+          ),
+          home: GamePage(
+            onComplete: (score, total) {
+              completedScore = score;
+              completedTotal = total;
+            },
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    for (
+      var questionIndex = 0;
+      questionIndex < payload.length;
+      questionIndex++
+    ) {
+      expect(find.byType(ChoiceButton), findsNothing);
+      expect(find.text('Fruit'), findsOneWidget);
+      expect(find.byTooltip('Listen'), findsOneWidget);
+      expect(completedTotal, isNull);
+      await tester.ensureVisible(find.text('Continue'));
+      await tester.tap(find.text('Continue'));
+      await tester.pumpAndSettle();
+    }
+    for (
+      var questionIndex = 0;
+      questionIndex < payload.length;
+      questionIndex++
+    ) {
+      expect(find.byType(ChoiceButton), findsWidgets);
+      await tester.tap(
+        find.byWidgetPredicate(
+          (widget) => widget is ChoiceButton && widget.choice.correct,
+        ),
+      );
+      await tester.pumpAndSettle();
+      final isLast = questionIndex == payload.length - 1;
+      await tester.ensureVisible(find.text(isLast ? 'Finish' : 'Continue'));
+      await tester.tap(find.text(isLast ? 'Finish' : 'Continue'));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+    }
+    expect(completedScore, payload.length);
+    expect(completedTotal, payload.length);
+  });
+
   for (final assetAvailable in [true, false]) {
     testWidgets(
       'Quiz ${assetAvailable ? 'loads' : 'reports failure'} with inherited asset bundle',

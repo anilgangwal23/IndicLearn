@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../quiz.dart' show GamePage;
 import '../quiz_models.dart';
@@ -23,6 +24,9 @@ class QuestionView extends StatelessWidget {
   final String displayVariant;
   final ValueChanged<GameChoice> onChoiceSelected;
   final VoidCallback onContinue;
+  final bool introducing;
+  final VoidCallback? onIntroductionComplete;
+  final VoidCallback? onPlayPronunciation;
 
   const QuestionView({
     super.key,
@@ -36,10 +40,65 @@ class QuestionView extends StatelessWidget {
     required this.displayVariant,
     required this.onChoiceSelected,
     required this.onContinue,
+    this.introducing = false,
+    this.onIntroductionComplete,
+    this.onPlayPronunciation,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (introducing) {
+      final choice = question.choices.firstWhere((choice) => choice.correct);
+      final meaning =
+          choice.text[promptLanguage] ?? question.prompt[promptLanguage];
+      return SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            LinearProgressIndicator(value: progress),
+            const SizedBox(height: 24),
+            if (choice.image.isNotEmpty)
+              Semantics(
+                image: true,
+                label: meaning?.native ?? choice.text[targetLanguage]!.native,
+                child: AspectRatio(
+                  aspectRatio: 5 / 3,
+                  child: SvgPicture.asset(choice.image, fit: BoxFit.contain),
+                ),
+              ),
+            const SizedBox(height: 20),
+            Text(
+              choice.text[targetLanguage]!.display(variant: displayVariant),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            if (meaning != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                meaning.native,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+            const SizedBox(height: 12),
+            Center(
+              child: IconButton(
+                tooltip: 'Listen',
+                icon: const Icon(Icons.volume_up),
+                onPressed: onPlayPronunciation,
+              ),
+            ),
+            const SizedBox(height: 24),
+            GameButton(
+              onPressed: onIntroductionComplete,
+              label: 'Continue',
+              icon: Icons.arrow_forward,
+            ),
+          ],
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(

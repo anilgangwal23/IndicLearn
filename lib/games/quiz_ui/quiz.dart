@@ -47,6 +47,8 @@ class _GamePageState extends State<GamePage>
 
   bool answered = false;
   String? selectedChoiceId;
+  bool _introducing = false;
+  int _introductionIndex = 0;
 
   // Change this to "native" when the learner is ready.
   final String displayVariant = 'romanized';
@@ -92,6 +94,7 @@ class _GamePageState extends State<GamePage>
 
       setState(() {
         questions = loadedQuestions;
+        _introducing = loadedQuestions.any((question) => question.introduce);
         _loadError = loadedQuestions.isEmpty ? 'No questions available.' : null;
       });
     } catch (error) {
@@ -153,6 +156,8 @@ class _GamePageState extends State<GamePage>
                   score = 0;
                   answered = false;
                   selectedChoiceId = null;
+                  _introductionIndex = 0;
+                  _introducing = questions.any((question) => question.introduce);
                 });
               },
               child: const Text('Play Again'),
@@ -180,24 +185,48 @@ class _GamePageState extends State<GamePage>
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    final question = questions[currentQuestion];
+    final introductions = questions.where((question) => question.introduce).toList();
+    final question = _introducing
+      ? introductions[_introductionIndex]
+      : questions[currentQuestion];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Question ${currentQuestion + 1}/${questions.length}'),
+        title: Text(
+          _introducing
+              ? 'Learn ${_introductionIndex + 1}/${introductions.length}'
+              : 'Question ${currentQuestion + 1}/${questions.length}',
+        ),
       ),
       body: Stack(
         children: [
           SafeArea(
             child: QuestionView(
               question: question,
-              progress: (currentQuestion + 1) / questions.length,
+                progress: _introducing
+                  ? (_introductionIndex + 1) / introductions.length
+                  : (currentQuestion + 1) / questions.length,
               isLastQuestion: currentQuestion == questions.length - 1,
               selectedChoiceId: selectedChoiceId,
               answered: answered,
               promptLanguage: question.promptLanguage,
               targetLanguage: question.targetLanguage,
               displayVariant: displayVariant,
+              introducing: _introducing,
+              onIntroductionComplete: () {
+                setState(() {
+                  if (_introductionIndex + 1 < introductions.length) {
+                    _introductionIndex++;
+                  } else {
+                    _introducing = false;
+                  }
+                });
+              },
+              onPlayPronunciation: () {
+                pronunciationService.playPronunciation(
+                  question.choices.firstWhere((choice) => choice.correct).id,
+                );
+              },
               onChoiceSelected: selectChoice,
               onContinue: nextQuestion,
             ),

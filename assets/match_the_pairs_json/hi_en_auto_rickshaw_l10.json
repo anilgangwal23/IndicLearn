@@ -1,7 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"क्या आप मुझे ... ले चलेंगे?","right_definition":"Will you take me to ...?"},
-  {"left_word":"मुझे ... जाना है।","right_definition":"I need to go to ..."},
-  {"left_word":"अगले मोड़ पर","right_definition":"at the next junction"},
-  {"left_word":"रेलवे स्टेशन को / की ओर","right_definition":"to the railway station"},
-  {"left_word":"बाज़ार को / की ओर","right_definition":"to the market"}
+  {"left_word":"क्या आप रेलवे स्टेशन चलेंगे?","right_definition":"Will you take me to the railway station?"},
+  {"left_word":"मुझे बाज़ार जाना है।","right_definition":"I need to go to the market."},
+  {"left_word":"अगले मोड़ पर दाएँ मुड़िए।","right_definition":"Turn right at the next junction, please."}
 ]}

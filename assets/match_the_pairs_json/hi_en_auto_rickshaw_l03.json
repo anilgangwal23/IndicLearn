@@ -1,8 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"भविष्य का सूचक: करेंगे / होगा","right_definition":"will"},
-  {"left_word":"आप","right_definition":"you"},
-  {"left_word":"निश्चित वस्तु का सूचक","right_definition":"the"},
-  {"left_word":"किराया","right_definition":"fare"},
-  {"left_word":"होना","right_definition":"be"},
-  {"left_word":"कृपया","right_definition":"please"}
+  {"left_word":"किराया","right_definition":"the fare"},
+  {"left_word":"किराया कितना है?","right_definition":"how much is the fare?"},
+  {"left_word":"नकद","right_definition":"cash"}
 ]}

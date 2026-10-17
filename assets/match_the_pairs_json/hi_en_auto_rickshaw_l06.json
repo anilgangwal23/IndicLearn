@@ -1,8 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"दाएँ","right_definition":"right"},
-  {"left_word":"पर","right_definition":"at"},
-  {"left_word":"अगला","right_definition":"next"},
-  {"left_word":"मोड़ / रास्तों का मिलन","right_definition":"junction"},
-  {"left_word":"वाहन चलाना","right_definition":"drive"},
-  {"left_word":"धीरे","right_definition":"slowly"}
+  {"left_word":"धीरे चलाइए","right_definition":"drive slowly"},
+  {"left_word":"यहाँ रोकिए","right_definition":"stop here"},
+  {"left_word":"बाएँ मुड़िए","right_definition":"turn left"}
 ]}

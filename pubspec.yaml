@@ -69,6 +69,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/svg_assets/
+    - assets/svg_assets/rickshaw_scenario/
     - assets/Quizes/
     - assets/match_the_pairs_json/
     - assets/make_the_sentence/

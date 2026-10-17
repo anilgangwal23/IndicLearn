@@ -1,0 +1,22 @@
+[
+  {
+    "id":"rickshaw_slow","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"धीरे चलाइए"}},
+    "choices":[
+      {"id":"drive slowly","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"drive slowly"}},"correct":true},
+      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"}},"correct":false},
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_stop","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/stop_here.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यहाँ रोकिए"}},
+    "choices":[
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":false},
+      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"}},"correct":true},
+      {"id":"drive slowly","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"drive slowly"}},"correct":false}
+    ]
+  }
+]

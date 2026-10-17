@@ -1,0 +1,34 @@
+[
+  {
+    "id":"rickshaw_sentence_s04","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यह बहुत महँगा है।"}},
+    "choices":[
+      {"id":"That is too expensive.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"That is too expensive."}},"correct":true},
+      {"id":"Please drive slowly.","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"Please drive slowly."}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s06","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/turn_left.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यहाँ बाएँ मुड़िए।"}},
+    "choices":[
+      {"id":"Please stop here.","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"Please stop here."}},"correct":false},
+      {"id":"Turn left here, please.","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"Turn left here, please."}},"correct":true}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s08","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"कृपया धीरे चलाइए।"}},
+    "choices":[
+      {"id":"Please drive slowly.","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"Please drive slowly."}},"correct":true},
+      {"id":"Turn left here, please.","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"Turn left here, please."}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s09","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/stop_here.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"कृपया यहीं रोकिए।"}},
+    "choices":[
+      {"id":"That is too expensive.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"That is too expensive."}},"correct":false},
+      {"id":"Please stop here.","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"Please stop here."}},"correct":true}
+    ]
+  }
+]

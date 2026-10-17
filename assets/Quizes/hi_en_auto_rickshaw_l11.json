@@ -1,0 +1,26 @@
+[
+  {
+    "id":"rickshaw_sentence_s03","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया कितना होगा?"}},
+    "choices":[
+      {"id":"How much will the fare be?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"How much will the fare be?"}},"correct":true},
+      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s05","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"थोड़ा कम कीजिए।"}},
+    "choices":[
+      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"}},"correct":false},
+      {"id":"Please lower the fare a little.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"Please lower the fare a little."}},"correct":true}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s10","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"क्या मैं नकद दे सकता हूँ?"}},
+    "choices":[
+      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"}},"correct":true},
+      {"id":"How much will the fare be?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"How much will the fare be?"}},"correct":false}
+    ]
+  }
+]

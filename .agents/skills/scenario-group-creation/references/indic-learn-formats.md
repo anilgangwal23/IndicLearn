@@ -54,6 +54,17 @@ Use a JSON array of questions, following
 - `prompt`: language-code map with `native` and optional `romanized` fields.
 - `choices`: answer objects with `id`, `image`, `text`, and `correct`.
 - `text`: the same language-code map structure as `prompt`.
+- `prompt_language` and `target_language`: optional language codes, defaulting
+  to `en` and `hi` respectively.
+- `introduce`: optional boolean, default `false`. When true, the quiz shows an
+  unscored image/target-label/meaning preview with pronunciation. All opted-in
+  previews appear before any quiz questions. Meaning comes from the correct
+  choice's source-language text, or the question's source-language prompt.
+
+For image-first lessons, set `introduce: true` on each new teaching item, use a
+plain source-language meaning as its prompt, and supply audio mappings for the
+choice IDs. Every distractor must be introduced in the batch or an earlier level.
+Keep language labels in JSON rather than baking them into artwork.
 
 Provide one correct choice and plausible, visually distinguishable distractors.
 Do not use nonexistent images or assume a text-only quiz renderer exists.

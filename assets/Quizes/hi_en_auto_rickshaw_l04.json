@@ -1,0 +1,20 @@
+[
+  {
+    "id":"rickshaw_expensive","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बहुत महँगा"}},
+    "choices":[
+      {"id":"too expensive","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"too expensive"}},"correct":true},
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_lower_fare","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया थोड़ा कम कीजिए"}},
+    "choices":[
+      {"id":"to the railway station","image":"assets/svg_assets/station.svg","text":{"en":{"native":"to the railway station"}},"correct":false},
+      {"id":"lower the fare a little","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"lower the fare a little"}},"correct":true}
+    ]
+  }
+]

@@ -1,7 +1,7 @@
 {"word_pair_list":[
   {"left_word":"बाएँ मुड़िए","right_definition":"turn left"},
   {"left_word":"दाएँ मुड़िए","right_definition":"turn right"},
-  {"left_word":"अगला मोड़","right_definition":"next junction"},
+  {"left_word":"अगले मोड़ पर","right_definition":"at the next junction"},
   {"left_word":"धीरे चलाइए","right_definition":"drive slowly"},
   {"left_word":"यहाँ रोकिए","right_definition":"stop here"},
   {"left_word":"नकद भुगतान करना","right_definition":"pay in cash"}

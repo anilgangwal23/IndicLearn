@@ -1,0 +1,20 @@
+[
+  {
+    "id":"rickshaw_destination_market","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बाज़ार जाना"}},
+    "choices":[
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":true},
+      {"id":"to the railway station","image":"assets/svg_assets/station.svg","text":{"en":{"native":"to the railway station"}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_destination_station","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/station.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"रेलवे स्टेशन की ओर"}},
+    "choices":[
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":false},
+      {"id":"to the railway station","image":"assets/svg_assets/station.svg","text":{"en":{"native":"to the railway station"}},"correct":true}
+    ]
+  }
+]

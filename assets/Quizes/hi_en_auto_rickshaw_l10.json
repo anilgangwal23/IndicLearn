@@ -1,0 +1,26 @@
+[
+  {
+    "id":"rickshaw_sentence_s01","type":"image_choice","introduce":true,"image":"assets/svg_assets/station.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"क्या आप रेलवे स्टेशन चलेंगे?"}},
+    "choices":[
+      {"id":"I need to go to the market.","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"I need to go to the market."}},"correct":false},
+      {"id":"Will you take me to the railway station?","image":"assets/svg_assets/station.svg","text":{"en":{"native":"Will you take me to the railway station?"}},"correct":true}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s02","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"मुझे बाज़ार जाना है।"}},
+    "choices":[
+      {"id":"I need to go to the market.","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"I need to go to the market."}},"correct":true},
+      {"id":"Turn right at the next junction, please.","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"Turn right at the next junction, please."}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_sentence_s07","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/turn_right.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"अगले मोड़ पर दाएँ मुड़िए।"}},
+    "choices":[
+      {"id":"Will you take me to the railway station?","image":"assets/svg_assets/station.svg","text":{"en":{"native":"Will you take me to the railway station?"}},"correct":false},
+      {"id":"Turn right at the next junction, please.","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"Turn right at the next junction, please."}},"correct":true}
+    ]
+  }
+]

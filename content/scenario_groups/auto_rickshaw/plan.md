@@ -13,7 +13,9 @@
 - Implemented: all 12 levels, 38 target word forms plus two scaffold forms,
   12 short phrases, all ten complete sentences, and mixed review.
   The existing picker advances sequentially within the scenario.
-- User supplied and confirmed the four SVGs. No artwork was downloaded or created.
+- User supplied four initial SVGs and eight additional scenario scenes. All 12
+  are used. Small approved artwork edits remove English signs; no downloaded
+  artwork or language-specific SVG copies are needed.
 - Source sentence s10 intentionally retains the approved male Hindi form.
 
 ## Approved sentences
@@ -39,48 +41,49 @@ recorded below. Related grammatical forms are not merged.
 ## English vocabulary inventory
 
 38 target forms plus two explicitly identified scenario scaffold forms.
-All first-introduction levels below are generated. The multiword
+First levels below refer to supported image/meaning previews, not recall games.
+Grammar forms are tracked for coverage but never taught in isolation. The multiword
 concepts "railway station" and "auto rickshaw" introduce their component forms
 together. "To" appears twice in s02 and requires two separate selectable tiles
 when that full sentence is eventually authored.
 
 | Word ID | Native / surface form | Romanization | Meaning in context (Hindi) | Lemma / family | Sentence IDs | First level |
 | --- | --- | --- | --- | --- | --- | --- |
-| w01 | Will / will | same as native | क्या ... करेंगे / होगा | will, future question | s01, s03 | 3 |
-| w02 | you | same as native | आप | you | s01 | 3 |
-| w03 | take | same as native | ले जाना | take | s01 | 2 |
-| w04 | me | same as native | मुझे | I / me | s01 | 2 |
+| w01 | Will / will | same as native | क्या ... करेंगे / होगा | will, future question | s01, s03 | 10 |
+| w02 | you | same as native | आप | you | s01 | 10 |
+| w03 | take | same as native | ले जाना | take | s01 | 10 |
+| w04 | me | same as native | मुझे | I / me | s01 | 10 |
 | w05 | to | same as native | को / की ओर; infinitive marker | to | s01, s02 | 2 |
-| w06 | the | same as native | निश्चित वस्तु का सूचक | the | s01, s02, s03, s05, s07 | 3 |
+| w06 | the | same as native | निश्चित वस्तु का सूचक | the | s01, s02, s03, s05, s07 | 2 |
 | w07 | railway | same as native | रेलवे | railway | s01 | 1 |
 | w08 | station | same as native | स्टेशन | station | s01 | 1 |
-| w09 | I | same as native | मैं | I / me | s02, s10 | 2 |
-| w10 | need | same as native | ज़रूरत है | need | s02 | 2 |
+| w09 | I | same as native | मैं | I / me | s02, s10 | 10 |
+| w10 | need | same as native | ज़रूरत है | need | s02 | 10 |
 | w11 | go | same as native | जाना | go | s02 | 2 |
 | w12 | market | same as native | बाज़ार | market | s02 | 1 |
-| w13 | How | same as native | कैसे; कितना पूछने में | how | s03 | 4 |
-| w14 | much | same as native | कितना | much | s03 | 4 |
+| w13 | How | same as native | कैसे; कितना पूछने में | how | s03 | 3 |
+| w14 | much | same as native | कितना | much | s03 | 3 |
 | w15 | fare | same as native | किराया | fare | s03, s05 | 3 |
-| w16 | be | same as native | होना | be / is | s03 | 3 |
-| w17 | That | same as native | वह / यह कीमत | that | s04 | 4 |
-| w18 | is | same as native | है | be / is | s04 | 4 |
+| w16 | be | same as native | होना | be / is | s03 | 11 |
+| w17 | That | same as native | वह / यह कीमत | that | s04 | 9 |
+| w18 | is | same as native | है | be / is | s04 | 3 |
 | w19 | too | same as native | ज़रूरत से ज़्यादा | too | s04 | 4 |
 | w20 | expensive | same as native | महँगा | expensive | s04 | 4 |
-| w21 | Please / please | same as native | कृपया | please | s05, s06, s07, s08, s09 | 3 |
-| w22 | lower | same as native | कम कीजिए | lower (verb) | s05 | 5 |
-| w23 | a | same as native | एक; "a little" में थोड़ा | a | s05 | 5 |
-| w24 | little | same as native | थोड़ा | little | s05 | 5 |
+| w21 | Please / please | same as native | कृपया | please | s05, s06, s07, s08, s09 | 9 |
+| w22 | lower | same as native | कम कीजिए | lower (verb) | s05 | 4 |
+| w23 | a | same as native | एक; "a little" में थोड़ा | a | s05 | 4 |
+| w24 | little | same as native | थोड़ा | little | s05 | 4 |
 | w25 | Turn | same as native | मुड़िए | turn | s06, s07 | 5 |
 | w26 | left | same as native | बाएँ | left | s06 | 5 |
-| w27 | here | same as native | यहाँ | here | s06, s09 | 5 |
-| w28 | right | same as native | दाएँ | right | s07 | 6 |
-| w29 | at | same as native | पर | at | s07 | 6 |
-| w30 | next | same as native | अगला | next | s07 | 6 |
-| w31 | junction | same as native | मोड़ / रास्तों का मिलन | junction | s07 | 6 |
+| w27 | here | same as native | यहाँ | here | s06, s09 | 6 |
+| w28 | right | same as native | दाएँ | right | s07 | 5 |
+| w29 | at | same as native | पर | at | s07 | 5 |
+| w30 | next | same as native | अगला | next | s07 | 5 |
+| w31 | junction | same as native | मोड़ / रास्तों का मिलन | junction | s07 | 5 |
 | w32 | drive | same as native | वाहन चलाना | drive | s08 | 6 |
 | w33 | slowly | same as native | धीरे | slowly | s08 | 6 |
-| w34 | stop | same as native | रोकिए | stop | s09 | 7 |
-| w35 | Can | same as native | क्या ... सकता हूँ | can, permission | s10 | 7 |
+| w34 | stop | same as native | रोकिए | stop | s09 | 6 |
+| w35 | Can | same as native | क्या ... सकता हूँ | can, permission | s10 | 11 |
 | w36 | pay | same as native | भुगतान करना | pay | s10 | 7 |
 | w37 | in | same as native | में; नकद भुगतान के लिए | in | s10 | 7 |
 | w38 | cash | same as native | नकद | cash | s10 | 1 |
@@ -99,30 +102,43 @@ English token boundaries and dependencies must not be reused for Kannada.
 | Cash / w38 | Physical money, not a card or phone payment | money.svg | [cash](../../../assets/svg_assets/money.svg) | Ready, user supplied |
 | Auto rickshaw / w39, w40 | Three-wheeled auto rickshaw | auto-rickshaw.svg | [auto](../../../assets/svg_assets/auto-rickshaw.svg) | Ready, user supplied |
 
-No image is required for grammatical vocabulary. No missing SVG blocks Level 1.
-Other directions, actions, and abstract concepts use text pairing/context unless
-the user later supplies specifically matching artwork.
+| Go to the market / w05, w06, w11, w12 | Travel toward a market | go_to_market.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/go_to_market.svg) | Ready; English sign replaced by produce |
+| Turn left / w25, w26 | Rickshaw taking a left turn | turn_left.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/turn_left.svg) | Ready |
+| Turn right / w25, w28 | Rickshaw taking a right turn | turn_right.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/turn_right.svg) | Ready |
+| At the next junction / w29-w31 | Intersecting roads | junction.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/junction.svg) | Ready |
+| Drive slowly / w32, w33 | Rickshaw and speedometer | drive_slowly.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/drive_slowly.svg) | Ready; English sign removed |
+| Stop here / w27, w34 | Rickshaw stopping beside a raised-hand sign | stop_here.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/stop_here.svg) | Ready; English replaced by a hand |
+| Pay in cash / w36-w38 | Passenger handing cash to driver | pay_in_cash.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/pay_in_cash.svg) | Ready |
+| Fare and negotiation / w15, w20, w22-w24 | Quoted fare and high/reduced prices | the_fair.svg | [scene](../../../assets/svg_assets/rickshaw_scenario/the_fair.svg) | Ready; supplied filename preserved |
+
+Artwork is reusable across language tracks. Hindi meanings and English labels
+are supplied by lesson data, outside the SVG. Currency remains part of the scene.
+No image is requested for isolated grammar words; forms such as "the", "a",
+"to", "at", and "in" are introduced inside meaningful phrases.
 
 ## Prerequisite-ordered curriculum
 
-All levels below are generated. Each new batch starts with Hindi-English
-matching before listening or construction; there are no untaught distractors.
-Levels 2-7 use listening chunks made exclusively from introduced words.
-Level 8 explicitly teaches their contextual meanings before construction.
+All levels below are generated. Every new batch first presents all its image,
+English, Hindi meaning, and optional pronunciation previews, without scoring.
+Recognition begins only after the whole batch has been shown, so all choices
+are known. Matching, phrase construction, and listening then reuse taught units.
+Full sentences likewise have supported previews before assessment. The existing
+quiz format opts into this behavior with `introduce: true`; other lessons keep
+their previous behavior. English audio uses device TTS, not recordings.
 
 | Level | Objective | New words / patterns | Reviewed words | Games | Target IDs |
 | --- | --- | --- | --- | --- | --- |
-| 1 (implemented) | Destinations and payment vocabulary, then listening | w07, w08, w12, w38, w39, w40; railway station, auto rickshaw | Same four concepts after matching | matching, four image questions, four listening activities | preparation for s01, s02, s10; no full sentence |
-| 2 | Passenger and travel words | w03, w04, w05, w09, w10, w11 | Level 1 destinations | matching, listening | s01, s02, s10 prerequisites |
-| 3 | Polite questions and fares | w01, w02, w06, w15, w16, w21 | Levels 1-2 | matching, listening | s01, s03, s05-s09 prerequisites |
-| 4 | Price descriptions | w13, w14, w17, w18, w19, w20 | fare, will, be | matching, listening | s03, s04 prerequisites |
-| 5 | Negotiation and left turns | w22, w23, w24, w25, w26, w27 | please, the, fare | matching, listening | s05, s06, s09 prerequisites |
-| 6 | Right turns and safe speed | w28, w29, w30, w31, w32, w33 | turn, the, please | matching, listening | s07, s08 prerequisites |
-| 7 | Stopping and payment | w34, w35, w36, w37 | I, cash, here, please | matching, listening | s09, s10 prerequisites |
-| 8 | Two-to-four-word chunks | need to go; take me to; how much; the fare; too expensive; a little; turn left; turn right; next junction; drive slowly; stop here; pay in cash | All words already introduced | matching contextual chunks, short-phrase construction, listening | all |
-| 9 | Short sentence patterns | polite imperative; That is ...; sentence-initial capitalization; final please | turn left here; drive slowly; stop here; too expensive | pattern pairing before full construction and listening | s04, s06, s08, s09 |
-| 10 | Destination sentences | Will you take me to ...?; I need to go to ...; at the next junction | Level 8 chunks and Level 9 imperatives | pattern pairing before full construction and listening | s01, s02, s07 |
-| 11 | Fare and payment sentences | How much will ... be?; Please lower ... a little; Can I pay in ...? | fare, negotiation and cash chunks | pattern pairing before full construction and listening | s03, s05, s10 |
+| 1 | Visual basics | railway station; market; cash; auto rickshaw | Same four concepts after previews | image introduction, recognition, matching, listening | s01, s02, s10 prerequisites |
+| 2 | Destination phrases | go to the market; to the railway station | Market and station | image introduction, recognition, matching, construction, listening | s01, s02 prerequisites |
+| 3 | Asking about fares | the fare; how much is the fare? | Cash and destinations | image introduction, recognition, matching, construction, listening | s03 prerequisites |
+| 4 | Negotiation | too expensive; lower the fare a little | The fare | image introduction, recognition, matching, construction, listening | s04, s05 prerequisites |
+| 5 | Directions | turn left; turn right; at the next junction | Travel | image introduction, recognition, matching, construction, listening | s06, s07 prerequisites |
+| 6 | Safe driving and stopping | drive slowly; stop here | Left and right turns | image introduction, recognition, matching, construction, listening | s08, s09 prerequisites |
+| 7 | Cash payment | pay in cash | Cash and fare | image introduction, recognition, matching, construction, listening | s10 prerequisites |
+| 8 | Mixed phrase review | No new words | All twelve phrases from Levels 2-7 | matching and construction | all |
+| 9 | Short complete requests | Full s04, s06, s08, s09; polite please and That is within sentences | Price, turns, speed, stop | sentence previews, recognition, matching, construction, listening | s04, s06, s08, s09 |
+| 10 | Complete destination requests | Full s01, s02, s07; will you, take me, I need within sentences | Destinations and directions | sentence previews, recognition, matching, construction, listening | s01, s02, s07 |
+| 11 | Complete fare/payment requests | Full s03, s05, s10; will be and can I within sentences | Fare, negotiation and cash | sentence previews, recognition, matching, construction, listening | s03, s05, s10 |
 | 12 | Mixed full scenario review | No new words or patterns | All prior content | alternating construction and listening across all ten complete sentences | s01-s10 |
 
 ## Full-sentence coverage matrix
@@ -146,21 +162,23 @@ All paths are relative to the repository root and use already bundled directorie
 
 | Activity | Path | Content / coverage |
 | --- | --- | --- |
-| Level 1 | `assets/levels/hi_en_auto_rickshaw_l01.json` | Six nonempty steps, registered under `hi-en-auto-rickshaw` |
-| a01 | `assets/match_the_pairs_json/hi_en_auto_rickshaw_a01.json` | Four Hindi-English concept introductions |
-| a02 | `assets/Quizes/hi_en_auto_rickshaw_a02.json` | Four Hindi prompts, English choices; all alternatives introduced by a01 |
+| Level 1 | `assets/levels/hi_en_auto_rickshaw_l01.json` | Six steps, image previews before matching, registered under `hi-en-auto-rickshaw` |
+| a01 | `assets/match_the_pairs_json/hi_en_auto_rickshaw_a01.json` | Four Hindi-English concept reviews after a02 |
+| a02 | `assets/Quizes/hi_en_auto_rickshaw_a02.json` | Four visual introductions, then recognition using known choices |
 | a03 | `assets/make_the_sentence/hi_en_auto_rickshaw_a03.json` | Listen and reconstruct railway station |
 | a04 | `assets/make_the_sentence/hi_en_auto_rickshaw_a04.json` | Listen and select market |
 | a05 | `assets/make_the_sentence/hi_en_auto_rickshaw_a05.json` | Listen and select cash |
 | a06 | `assets/make_the_sentence/hi_en_auto_rickshaw_a06.json` | Listen and reconstruct auto rickshaw |
 | Levels 2-12 | `assets/levels/hi_en_auto_rickshaw_l02.json` through `hi_en_auto_rickshaw_l12.json` | Prerequisite-ordered progression and mixed review |
-| Vocabulary batches | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l02.json` through `hi_en_auto_rickshaw_l07.json` | Remaining 34 target forms; Level 7 reviews I and cash |
+| Visual phrase batches | `assets/Quizes/hi_en_auto_rickshaw_l02.json` through `hi_en_auto_rickshaw_l07.json` | Twelve contextual phrases; all previews precede recognition |
+| Phrase reviews | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l02.json` through `hi_en_auto_rickshaw_l07.json` | Known phrases and visual concepts only; no isolated grammar drills |
 | Phrase batches | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l08a.json`, `hi_en_auto_rickshaw_l08b.json` | Twelve contextual chunks, six pairs each |
-| Patterns | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l09.json` through `hi_en_auto_rickshaw_l11.json` | Explicit sentence patterns before reconstruction |
-| Phrases p01-p12 | `assets/make_the_sentence/hi_en_auto_rickshaw_p01.json` through `hi_en_auto_rickshaw_p12.json` | Listening in Levels 2-7, construction in Level 8 |
+| Full-sentence previews | `assets/Quizes/hi_en_auto_rickshaw_l09.json` through `hi_en_auto_rickshaw_l11.json` | All ten approved sentences modeled before recognition and construction |
+| Sentence reviews | `assets/match_the_pairs_json/hi_en_auto_rickshaw_l09.json` through `hi_en_auto_rickshaw_l11.json` | Complete known sentences, no grammatical placeholders |
+| Phrases p01-p12 | `assets/make_the_sentence/hi_en_auto_rickshaw_p01.json` through `hi_en_auto_rickshaw_p12.json` | Construction and listening in Levels 2-7, construction review in Level 8 |
 | Sentences s01-s10 | `assets/make_the_sentence/hi_en_auto_rickshaw_s01.json` through `hi_en_auto_rickshaw_s10.json` | Both construction and listening in Levels 9-11, mixed review in Level 12 |
 
-Quiz JSON uses optional `prompt_language` and `target_language`; omitted fields
+Quiz JSON uses optional `introduce`, `prompt_language` and `target_language`; omitted fields
 retain the existing English-to-Hindi behavior. No runtime language selector exists.
 The listening game plays the exact `translation` string, not `source`.
 
@@ -179,8 +197,9 @@ unused tile when a word repeats (s02 contains two occurrences of "to").
 Real-device English voice availability and pronunciation quality require a manual
 listening check; structural validation does not establish acoustic correctness.
 
-Latest checks: all 12 levels / 71 activity steps passed the one-off content
-integrity check, including bundled references, vocabulary prerequisites, exact
-tile reconstruction, and construction/listening coverage for all ten sentences.
-Both shared smoke checks passed. Targeted Dart analysis reported no errors or
-warnings; four existing game-class naming lint notices remain.
+Current content check: all 12 levels / 92 steps, 26 unscored teaching previews,
+12 referenced SVGs, known distractors and matching pairs, exact tile reconstruction,
+English audio mappings, bundled references, and construction/listening coverage
+for all ten sentences pass one-off validation. No scenario-specific tests added.
+The shared quiz introduction regression check also passes; final runtime analysis
+and device pronunciation/rendering checks are reported separately.

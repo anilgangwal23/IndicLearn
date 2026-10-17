@@ -1,8 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"कम कीजिए","right_definition":"lower"},
-  {"left_word":"एक; a little में थोड़ा","right_definition":"a"},
-  {"left_word":"थोड़ा","right_definition":"little"},
-  {"left_word":"मुड़िए","right_definition":"turn"},
-  {"left_word":"बाएँ","right_definition":"left"},
-  {"left_word":"यहाँ","right_definition":"here"}
+  {"left_word":"बाएँ मुड़िए","right_definition":"turn left"},
+  {"left_word":"दाएँ मुड़िए","right_definition":"turn right"},
+  {"left_word":"अगले मोड़ पर","right_definition":"at the next junction"}
 ]}

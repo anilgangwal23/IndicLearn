@@ -1,0 +1,32 @@
+[
+  {
+    "id":"rickshaw_left","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/turn_left.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बाएँ मुड़िए"}},
+    "choices":[
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":false},
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":true},
+      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_right","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/turn_right.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"दाएँ मुड़िए"}},
+    "choices":[
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":true},
+      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"}},"correct":false},
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":false}
+    ]
+  },
+  {
+    "id":"rickshaw_junction","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/junction.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"अगले मोड़ पर"}},
+    "choices":[
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":false},
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":false},
+      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"}},"correct":true}
+    ]
+  }
+]

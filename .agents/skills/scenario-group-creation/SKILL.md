@@ -19,7 +19,7 @@ server, or delegated agent is required.
 - Exactly ten distinct target sentences unless the user explicitly changes the count.
 - A deduplicated vocabulary inventory with sentence coverage and actual word forms.
 - An SVG collection checklist with explicit missing/ready status.
-- A prerequisite-ordered curriculum: words, pronunciation, short phrases,
+- A prerequisite-ordered curriculum: image-word association, pronunciation, short phrases,
   sentence construction, then practice covering all ten complete sentences.
 - Valid game-data files and level definitions after the approval and asset gates.
 
@@ -80,14 +80,26 @@ Maintain a vocabulary table:
 | Word ID | Native Form | Romanization | Meaning In Context | Lemma/Family | Sentence IDs | First Level |
 | --- | --- | --- | --- | --- | --- | --- |
 
-- Include function words, particles, pronouns, postpositions, auxiliaries, and
-  inflected forms, not just drawable nouns.
+- Account for function words, particles, pronouns, postpositions, auxiliaries,
+  and inflected forms in the inventory so sentence coverage is complete. An
+  inventory entry is not automatically a standalone teaching item.
+- Teach visually meaningful words through images. Teach grammar-related words
+  only within meaningful phrases anchored by those words, never as isolated
+  vocabulary, image questions, or word-matching pairs. For example, teach
+  "a ticket", "the station", "to the station", and "then stop" rather than
+  "a", "an", "the", "to", or "then" on their own. Apply this principle to
+  the target language's own grammar rather than translating English articles
+  or structures literally.
 - Deduplicate matching forms, but retain distinct grammatical forms and meanings.
   Connect related forms through the family field instead of losing them by stemming.
 - Keep useful multiword expressions as phrases while retaining their component words.
 - Record every occurrence when constructing sentences: a repeated word may need
   multiple selectable tiles even though it has one vocabulary entry.
 - Track which words and grammatical patterns each phrase and sentence requires.
+- Record the first teaching unit for each entry: an image-word association for
+  visual vocabulary, or a contextual phrase for grammar-related words. Introduce
+  the phrase's visual anchor first; keep the phrase intact for initial practice
+  before requiring its individual words in sentence construction.
 
 Check both directions: every sentence token is represented, and every taught word
 serves at least one target sentence or an explicitly identified minimal scaffold.
@@ -104,11 +116,13 @@ Ask the user to gather the missing related SVGs and place them in
 depict; a sentence's destination must not be represented by an unrelated icon.
 Reuse one SVG for the same concept where appropriate, not for distinguishable
 answer choices. Do not request pictures for abstract grammar words; teach those
-through text pairing and contextual phrases.
+only within contextual phrases containing already introduced visual vocabulary.
 
 Do not invent asset paths, download unapproved artwork, or create broken image
-questions. Mark missing assets as blocked. If the user explicitly chooses a
-text-only group, skip image quizzes rather than fabricating pictures.
+questions. Mark missing assets as blocked; do not substitute word matching for
+the required image-first introduction. If the user explicitly chooses a
+text-only group, record this exception and provide meanings in context before
+recall activities rather than fabricating pictures.
 
 Save the approved sentence table, vocabulary inventory, SVG checklist, language
 decisions, and curriculum draft in `content/scenario_groups/<scenario_slug>/plan.md`.
@@ -127,23 +141,37 @@ Build and present a prerequisite-ordered level table:
 
 Use these stages in increasing difficulty:
 
-1. **Word meaning:** introduce concrete words with image-choice quizzes when
-   SVGs exist, and use word matching for abstract or grammatical vocabulary.
+1. **Image-word association:** always begin with visually meaningful vocabulary
+  linked to its matching images, except for an explicitly approved text-only
+  group. Supply the image-word association and meaning before asking the
+  learner to recall it; an unexplained quiz is not an introduction. Use the
+  existing formats to provide this support. If they cannot present it, flag
+  that limitation before generating lessons rather than silently testing
+  untaught words or implementing a new game type. Never open a beginner group
+  with text-only word matching. Use matching only to review introduced items.
 2. **Pronunciation and listening:** reuse known words with supported playback
    and simple listening activities. This is listening practice, not speech grading.
-3. **Short phrases:** build useful two-to-four-word chunks from introduced words.
+3. **Short phrases:** introduce useful two-to-four-word chunks around known
+  visual vocabulary, supplying each chunk's meaning before testing it. Introduce
+  articles, particles, postpositions, auxiliaries, connectors, and other grammar
+  words inside these chunks, never through standalone drills or matching pairs.
 4. **Sentence patterns:** combine known chunks into short complete sentences;
-   introduce unavoidable new grammar or inflections explicitly before requiring it.
+  model unavoidable new grammar or inflections within meaningful phrases before
+  requiring them in construction.
 5. **Full scenario:** reconstruct and listen to all ten approved target sentences,
    distributing them across manageable levels and ending with mixed review.
 
-Prefer small batches of roughly four-to-six new words, adjusted for age and
-sentence complexity. Recycle earlier words and vary game types purposefully.
+Prefer small batches of roughly four-to-six new visual words, adjusted for age
+and sentence complexity, followed by short phrases that reuse them. Do not
+front-load the entire scenario inventory. Recycle earlier words and vary game
+types purposefully; increase one demand at a time from supported association to
+recognition, recall, phrase building, and full-sentence construction.
 For each required answer, its words and patterns must have been introduced in
 that level before testing or in an earlier level. Avoid untaught distractors
 unless their meaning is supplied; never accept a second valid answer as incorrect.
 
-Track first introduction and later practice for every word. Maintain a coverage
+Track first introduction and later practice for every word, including the
+contextual phrase that introduces each grammar-related word. Maintain a coverage
 matrix mapping all ten sentence IDs to their full-sentence activities. Do not
 claim a sentence is covered merely because one of its nouns appeared in a quiz.
 
@@ -174,7 +202,9 @@ Do not invent runtime scenario metadata that the app does not read.
 
 ## 7. Validate And Report
 
-Run focused checks, using the repository's parsers and test conventions:
+Run focused content checks using existing parsers, validators, or applicable
+existing tests. Do not add or extend test cases for each new scenario; creating
+scenario data does not require scenario-specific test files or runtime changes.
 
 - Exactly ten approved sentence IDs; vocabulary and full-sentence coverage complete.
 - All emitted JSON parses, loads through the intended model, and has nonempty steps.
@@ -189,10 +219,15 @@ Run focused checks, using the repository's parsers and test conventions:
 - Audio lookup resolves to the intended native text or an existing recording;
   distinguish structural validation from a real-device pronunciation check.
 - Curriculum dependencies hold and no final target sentence is missing.
+- The opening activities supply image-word associations before recall or
+  matching, unless the user explicitly approved a text-only group.
+- Every grammar-related word is introduced and practised in a meaningful phrase
+  with known visual vocabulary, never as a standalone vocabulary exercise.
 
-Reuse or extend nearby tests instead of introducing a new test framework.
-If Dart/Flutter runtime files changed, follow the host's required analysis,
-test, and reload procedure. Do not hot-reload merely for editing this skill.
+Report checks performed and any validation gaps without creating new test cases
+merely to validate scenario content. If a separately authorized Dart/Flutter
+runtime change is needed, follow the host's required analysis, test, and reload
+procedure for that change. Do not hot-reload merely for editing this skill.
 
 Finish with the scenario, sentence/word/level counts, generated paths, SVG or
 language-review blockers, validation results, and any unverified audio behavior.

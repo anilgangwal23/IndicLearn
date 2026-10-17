@@ -1,0 +1,12 @@
+[
+  {
+    "id":"rickshaw_payment","type":"image_choice","introduce":true,
+    "image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg",
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"नकद भुगतान करना"}},
+    "choices":[
+      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"}},"correct":false},
+      {"id":"pay in cash","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"pay in cash"}},"correct":true},
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":false}
+    ]
+  }
+]
