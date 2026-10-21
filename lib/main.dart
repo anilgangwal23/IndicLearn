@@ -4,14 +4,24 @@ import 'account/account.dart';
 import 'account/account_screens.dart';
 import 'account/firebase_bootstrap.dart';
 import 'level_loader/level_loader.dart';
+import 'progress/learning_progress.dart';
+import 'progress/progress_scope.dart';
 import 'ui/game_theme.dart';
 
 class LanguageGameApp extends StatelessWidget {
-  const LanguageGameApp({super.key, this.accounts, this.profiles})
-    : assert((accounts == null) == (profiles == null));
+  const LanguageGameApp({
+    super.key,
+    this.accounts,
+    this.profiles,
+    this.progress,
+  }) : assert(
+         (accounts == null) == (profiles == null) &&
+             (accounts == null) == (progress == null),
+       );
 
   final AccountService? accounts;
   final ProfileRepository? profiles;
+  final ProgressRepository? progress;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +34,20 @@ class LanguageGameApp extends StatelessWidget {
           : AccountGate(
               accounts: accounts!,
               profiles: profiles!,
-              homeBuilder: (identity, openProfile) => LevelLoader(
+              homeBuilder: (identity, openProfile) => ProgressScope(
                 key: ValueKey(identity.id),
-                onOpenProfile: openProfile,
+                userId: identity.id,
+                repository: progress!,
+                builder: (context, snapshot, completeLevel) => LevelLoader(
+                  completedLevelIds: {
+                    for (final entry in snapshot.scenarios.entries)
+                      entry.key: entry.value.completedLevelIds,
+                  },
+                  onLevelCompleted: completeLevel,
+                  progressHasPendingWrites: snapshot.hasPendingWrites,
+                  progressIsFromCache: snapshot.isFromCache,
+                  onOpenProfile: openProfile,
+                ),
               ),
               guestBuilder: (signIn) => LevelLoader(
                 key: const ValueKey('guest'),
@@ -62,6 +83,7 @@ class _AccountStartupState extends State<_AccountStartup> {
         return LanguageGameApp(
           accounts: dependencies.accounts,
           profiles: dependencies.profiles,
+          progress: dependencies.progress,
         );
       }
       return MaterialApp(

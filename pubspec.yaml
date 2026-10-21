@@ -74,6 +74,7 @@ flutter:
     - assets/match_the_pairs_json/
     - assets/make_the_sentence/
     - assets/levels/
+    - assets/scenarios/
     - assets/mascots/
     - assets/audio/hi/
     - assets/audio/

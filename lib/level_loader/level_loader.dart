@@ -1,145 +1,44 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../levels/level.dart';
 import '../widgets/svg_mascot.dart';
+import 'scenario_catalog.dart';
 
-class LevelDefinition {
-  const LevelDefinition({
-    required this.title,
-    required this.assetPath,
-    this.unlocked = false,
-  });
-
-  final String title;
-  final String assetPath;
-  final bool unlocked;
-}
-
-class ScenarioDefinition {
-  const ScenarioDefinition({
-    required this.id,
-    required this.title,
-    required this.levels,
-    this.unlocked = true,
-    this.completedLevels = 0,
-  });
-
-  final String id;
-  final String title;
-  final List<LevelDefinition> levels;
-  final bool unlocked;
-  final int completedLevels;
-
-  void validate() {
-    if (id.trim().isEmpty || title.trim().isEmpty) {
-      throw ArgumentError('Scenarios require a nonempty ID and title.');
-    }
-    if (levels.isEmpty || levels.length > 12) {
-      throw ArgumentError('A scenario must contain between 1 and 12 levels.');
-    }
-    if (completedLevels < 0 || completedLevels > levels.length) {
-      throw ArgumentError('Completed levels must be within the scenario.');
-    }
-  }
-}
+export 'scenario_catalog.dart' show LevelDefinition, ScenarioDefinition;
 
 class LevelLoader extends StatefulWidget {
   const LevelLoader({
     super.key,
     this.onOpenProfile,
     this.accountActionLabel = 'Your profile',
-    this.scenarios = const [
-      ScenarioDefinition(
-        id: 'everyday-practice',
-        title: 'Everyday practice',
-        levels: [
-      LevelDefinition(
-        title: 'First words',
-        assetPath: 'assets/levels/level_1.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Fruit basket',
-        assetPath: 'assets/levels/level_2.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'At home',
-        assetPath: 'assets/levels/level_3.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Everyday words',
-        assetPath: 'assets/levels/level_4.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Build a sentence',
-        assetPath: 'assets/levels/level_5.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Listen closely',
-        assetPath: 'assets/levels/level_6.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Mango market',
-        assetPath: 'assets/levels/level_7.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Water break',
-        assetPath: 'assets/levels/level_8.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Pineapple practice',
-        assetPath: 'assets/levels/level_9.json',
-        unlocked: true,
-      ),
-      LevelDefinition(
-        title: 'Mixed challenge',
-        assetPath: 'assets/levels/level_10.json',
-        unlocked: true,
-      ),
-        ],
-      ),
-      ScenarioDefinition(
-        id: 'hi-en-auto-rickshaw',
-        title: 'Auto-rickshaw (Hindi to English)',
-        levels: [
-          LevelDefinition(
-            title: 'Level 1: Destinations and payment',
-            assetPath: 'assets/levels/hi_en_auto_rickshaw_l01.json',
-            unlocked: true,
-          ),
-          LevelDefinition(title: 'Level 2: Passenger and travel words', assetPath: 'assets/levels/hi_en_auto_rickshaw_l02.json', unlocked: true),
-          LevelDefinition(title: 'Level 3: Polite questions and fares', assetPath: 'assets/levels/hi_en_auto_rickshaw_l03.json', unlocked: true),
-          LevelDefinition(title: 'Level 4: Talking about prices', assetPath: 'assets/levels/hi_en_auto_rickshaw_l04.json', unlocked: true),
-          LevelDefinition(title: 'Level 5: Negotiating and turning left', assetPath: 'assets/levels/hi_en_auto_rickshaw_l05.json', unlocked: true),
-          LevelDefinition(title: 'Level 6: Directions and safe speed', assetPath: 'assets/levels/hi_en_auto_rickshaw_l06.json', unlocked: true),
-          LevelDefinition(title: 'Level 7: Stopping and paying', assetPath: 'assets/levels/hi_en_auto_rickshaw_l07.json', unlocked: true),
-          LevelDefinition(title: 'Level 8: Useful short phrases', assetPath: 'assets/levels/hi_en_auto_rickshaw_l08.json', unlocked: true),
-          LevelDefinition(title: 'Level 9: Polite requests', assetPath: 'assets/levels/hi_en_auto_rickshaw_l09.json', unlocked: true),
-          LevelDefinition(title: 'Level 10: Asking for destinations', assetPath: 'assets/levels/hi_en_auto_rickshaw_l10.json', unlocked: true),
-          LevelDefinition(title: 'Level 11: Fares and cash payment', assetPath: 'assets/levels/hi_en_auto_rickshaw_l11.json', unlocked: true),
-          LevelDefinition(title: 'Level 12: Your complete ride', assetPath: 'assets/levels/hi_en_auto_rickshaw_l12.json', unlocked: true),
-        ],
-      ),
-    ],
+    this.scenarios,
+    this.catalogAsset = ScenarioCatalog.defaultAsset,
     this.mascotAsset = 'assets/mascots/sprout.svg',
     this.mascot,
     this.levelBuilder,
+    this.completedLevelIds,
+    this.onLevelCompleted,
+    this.progressHasPendingWrites = false,
+    this.progressIsFromCache = false,
   });
 
-  final List<ScenarioDefinition> scenarios;
+  final List<ScenarioDefinition>? scenarios;
+  final String catalogAsset;
   final String mascotAsset;
   final Widget? mascot;
   final Widget Function(LevelDefinition level, VoidCallback onCompleted)?
-      levelBuilder;
+  levelBuilder;
+  final Map<String, Set<String>>? completedLevelIds;
+  final Future<void> Function({
+    required String scenarioId,
+    required String levelId,
+  })?
+  onLevelCompleted;
+  final bool progressHasPendingWrites;
+  final bool progressIsFromCache;
   final VoidCallback? onOpenProfile;
   final String accountActionLabel;
 
@@ -147,7 +46,89 @@ class LevelLoader extends StatefulWidget {
   State<LevelLoader> createState() => _LevelLoaderState();
 }
 
-class _LevelLoaderState extends State<LevelLoader>
+class _LevelLoaderState extends State<LevelLoader> {
+  AssetBundle? _bundle;
+  Future<List<ScenarioDefinition>>? _catalog;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final bundle = DefaultAssetBundle.of(context);
+    if (_bundle != bundle) {
+      _bundle = bundle;
+      if (widget.scenarios == null) _loadCatalog();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant LevelLoader oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.scenarios == null &&
+        (oldWidget.scenarios != null ||
+            oldWidget.catalogAsset != widget.catalogAsset)) {
+      _loadCatalog();
+    }
+  }
+
+  void _loadCatalog() {
+    _catalog = ScenarioCatalog.load(_bundle!, assetPath: widget.catalogAsset);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scenarios = widget.scenarios;
+    if (scenarios != null) {
+      return _ScenarioPicker(configuration: widget, scenarios: scenarios);
+    }
+    return FutureBuilder<List<ScenarioDefinition>>(
+      future: _catalog,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (snapshot.hasError) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Your scenarios')),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(24),
+                    child: Text('Your scenarios could not be loaded.'),
+                  ),
+                  FilledButton.icon(
+                    onPressed: () => setState(_loadCatalog),
+                    icon: const Icon(Icons.refresh),
+                    label: const Text('Retry'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return _ScenarioPicker(
+          configuration: widget,
+          scenarios: snapshot.requireData,
+        );
+      },
+    );
+  }
+}
+
+class _ScenarioPicker extends StatefulWidget {
+  const _ScenarioPicker({required this.configuration, required this.scenarios});
+
+  final LevelLoader configuration;
+  final List<ScenarioDefinition> scenarios;
+
+  @override
+  State<_ScenarioPicker> createState() => _ScenarioPickerState();
+}
+
+class _ScenarioPickerState extends State<_ScenarioPicker>
     with SingleTickerProviderStateMixin {
   late final AnimationController _travel;
   late int _selected;
@@ -155,9 +136,20 @@ class _LevelLoaderState extends State<LevelLoader>
   bool _opening = false;
   final Map<String, int> _completed = {};
 
-  int _completedLevels(ScenarioDefinition scenario) =>
-      (_completed[scenario.id] ?? scenario.completedLevels)
-          .clamp(0, scenario.levels.length);
+  int _completedLevels(ScenarioDefinition scenario) {
+    final storedIds = widget.configuration.completedLevelIds?[scenario.id];
+    var completed = scenario.completedLevels;
+    if (widget.configuration.completedLevelIds != null) {
+      completed = 0;
+      for (final level in scenario.levels) {
+        if (storedIds?.contains(level.progressId) != true) break;
+        completed++;
+      }
+    }
+    return math
+        .max(completed, _completed[scenario.id] ?? 0)
+        .clamp(0, scenario.levels.length);
+  }
 
   void _validateScenarios() {
     final ids = <String>{};
@@ -212,14 +204,19 @@ class _LevelLoaderState extends State<LevelLoader>
       void onCompleted() {
         if (!mounted || _completedLevels(scenario) != levelIndex) return;
         setState(() => _completed[scenario.id] = levelIndex + 1);
+        final persist = widget.configuration.onLevelCompleted;
+        if (persist != null) {
+          unawaited(_persistCompletion(persist, scenario.id, level.progressId));
+        }
       }
 
       await Navigator.of(context).push<void>(
         MaterialPageRoute(
-          builder: (_) => widget.levelBuilder?.call(level, onCompleted) ??
+          builder: (_) =>
+              widget.configuration.levelBuilder?.call(level, onCompleted) ??
               LevelPage(
                 assetPath: level.assetPath,
-                mascotAsset: widget.mascotAsset,
+                mascotAsset: widget.configuration.mascotAsset,
                 onCompleted: onCompleted,
               ),
         ),
@@ -231,6 +228,30 @@ class _LevelLoaderState extends State<LevelLoader>
     }
   }
 
+  Future<void> _persistCompletion(
+    Future<void> Function({required String scenarioId, required String levelId})
+    persist,
+    String scenarioId,
+    String levelId,
+  ) async {
+    try {
+      await persist(scenarioId: scenarioId, levelId: levelId);
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Progress was not saved. Check your connection.'),
+          action: SnackBarAction(
+            label: 'Retry',
+            onPressed: () {
+              unawaited(_persistCompletion(persist, scenarioId, levelId));
+            },
+          ),
+        ),
+      );
+    }
+  }
+
   Widget _buildScenarioHop(int index, ColorScheme colors) {
     final scenario = widget.scenarios[index];
     final completed = _completedLevels(scenario);
@@ -238,9 +259,9 @@ class _LevelLoaderState extends State<LevelLoader>
     final label = !scenario.unlocked
         ? '${scenario.title}, locked'
         : finished
-            ? '${scenario.title}, complete. Replay final level'
-            : '${scenario.title}, $completed of ${scenario.levels.length} complete. '
-                'Continue level ${completed + 1}';
+        ? '${scenario.title}, complete. Replay final level'
+        : '${scenario.title}, $completed of ${scenario.levels.length} complete. '
+              'Continue level ${completed + 1}';
     return Semantics(
       label: label,
       button: true,
@@ -277,8 +298,8 @@ class _LevelLoaderState extends State<LevelLoader>
                     !scenario.unlocked
                         ? Icons.lock_outline
                         : finished
-                            ? Icons.check
-                            : Icons.route_outlined,
+                        ? Icons.check
+                        : Icons.route_outlined,
                   ),
                 ),
               ),
@@ -296,10 +317,10 @@ class _LevelLoaderState extends State<LevelLoader>
       appBar: AppBar(
         title: const Text('Your scenarios'),
         actions: [
-          if (widget.onOpenProfile != null)
+          if (widget.configuration.onOpenProfile != null)
             IconButton(
-              tooltip: widget.accountActionLabel,
-              onPressed: widget.onOpenProfile,
+              tooltip: widget.configuration.accountActionLabel,
+              onPressed: widget.configuration.onOpenProfile,
               icon: const Icon(Icons.account_circle_outlined),
             ),
         ],
@@ -316,8 +337,19 @@ class _LevelLoaderState extends State<LevelLoader>
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
+            if (widget.configuration.progressHasPendingWrites ||
+                widget.configuration.progressIsFromCache)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  widget.configuration.progressHasPendingWrites
+                      ? 'Saving progress…'
+                      : 'Showing locally cached progress',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
             Expanded(
-                child: widget.scenarios.isEmpty
+              child: widget.scenarios.isEmpty
                   ? const Center(child: Text('No scenarios available'))
                   : SingleChildScrollView(
                       child: Center(
@@ -368,7 +400,9 @@ class _LevelLoaderState extends State<LevelLoader>
                                               ' / ${widget.scenarios[index].levels.length}'
                                               ' complete',
                                               textAlign: TextAlign.center,
-                                              style: Theme.of(context).textTheme.bodySmall,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
                                             ),
                                           ],
                                         ),
@@ -377,9 +411,12 @@ class _LevelLoaderState extends State<LevelLoader>
                                       AnimatedBuilder(
                                         animation: _travel,
                                         child: IgnorePointer(
-                                          child: widget.mascot ??
+                                          child:
+                                              widget.configuration.mascot ??
                                               SvgMascot(
-                                                asset: widget.mascotAsset,
+                                                asset: widget
+                                                    .configuration
+                                                    .mascotAsset,
                                                 width: 96,
                                                 height: 96,
                                                 autoIdle: !_opening,

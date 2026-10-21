@@ -36,6 +36,32 @@ service cloud.firestore {
         && request.resource.data.diff(resource.data).affectedKeys()
           .hasOnly(['displayName', 'sourceLanguage', 'targetLanguage', 'updatedAt']);
       allow delete: if ownsProfile(userId);
+
+      match /progress/{scenarioId} {
+        function validProgress() {
+          let data = request.resource.data;
+          return data.keys().hasAll([
+              'schemaVersion', 'completedLevelIds', 'updatedAt'
+            ])
+            && data.keys().hasOnly([
+              'schemaVersion', 'completedLevelIds', 'updatedAt'
+            ])
+            && data.schemaVersion == 1
+            && data.completedLevelIds is list
+            && data.completedLevelIds.size() <= 12
+            && data.updatedAt == request.time;
+        }
+
+        allow get, list: if ownsProfile(userId);
+        allow create: if ownsProfile(userId) && validProgress();
+        allow update: if ownsProfile(userId)
+          && validProgress()
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['completedLevelIds', 'updatedAt'])
+          && request.resource.data.completedLevelIds
+            .hasAll(resource.data.completedLevelIds);
+        allow delete: if false;
+      }
     }
   }
 }

@@ -1,0 +1,17 @@
+{
+  "id": "everyday-practice",
+  "title": "Everyday practice",
+  "unlocked": true,
+  "levels": [
+    {"id": "everyday-01", "title": "First words", "assetPath": "assets/levels/level_1.json", "unlocked": true},
+    {"id": "everyday-02", "title": "Fruit basket", "assetPath": "assets/levels/level_2.json", "unlocked": true},
+    {"id": "everyday-03", "title": "At home", "assetPath": "assets/levels/level_3.json", "unlocked": true},
+    {"id": "everyday-04", "title": "Everyday words", "assetPath": "assets/levels/level_4.json", "unlocked": true},
+    {"id": "everyday-05", "title": "Build a sentence", "assetPath": "assets/levels/level_5.json", "unlocked": true},
+    {"id": "everyday-06", "title": "Listen closely", "assetPath": "assets/levels/level_6.json", "unlocked": true},
+    {"id": "everyday-07", "title": "Mango market", "assetPath": "assets/levels/level_7.json", "unlocked": true},
+    {"id": "everyday-08", "title": "Water break", "assetPath": "assets/levels/level_8.json", "unlocked": true},
+    {"id": "everyday-09", "title": "Pineapple practice", "assetPath": "assets/levels/level_9.json", "unlocked": true},
+    {"id": "everyday-10", "title": "Mixed challenge", "assetPath": "assets/levels/level_10.json", "unlocked": true}
+  ]
+}

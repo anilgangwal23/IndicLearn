@@ -30,7 +30,9 @@ action on the guest lesson screen returns to sign-in. Leaving guest mode starts
 a separate signed-in session; guest progress is not migrated into that account.
 
 Guest mode is held in memory and is not restored after restarting the app.
-Lesson progress is currently in memory for all users and is not persisted.
+Signed-in users' completed levels are saved under their profile in Firestore
+and restored when they return. Guest progress remains in memory only and is not
+migrated into a signed-in account.
 If Firebase initialization fails, **Continue without signing in** remains
 available from the startup error screen.
 
@@ -73,18 +75,19 @@ client secrets. Configure secret provider credentials in the appropriate console
   in the Runner target. Check keychain/capability requirements.
 - macOS: temporarily disabled in `FirebaseAccountService.supportsGoogle`, so
   the button is hidden and direct Google sign-in requests are rejected before
-  calling the native SDK. Local builds use ad-hoc signing without Google's
-  Keychain Sharing entitlement or an assigned development team. Email/password
-  sign-in remains available; use the web target to test Google sign-in for now.
-  To re-enable native macOS Google sign-in:
+  calling the native SDK. The Runner target is signed with development team
+  `6MMWC9L9UU` and declares the
+  `$(AppIdentifierPrefix)com.example.indicLearn` keychain access group, which
+  Firebase Auth needs to persist sessions (without it, sign-in fails with
+  `keychain-error`). Email/password sign-in works; use the web target to test
+  Google sign-in for now. To re-enable native macOS Google sign-in:
   1. Enable Google in Firebase Authentication and refresh FlutterFire/native
     configuration so the macOS OAuth client ID is available.
   2. Configure `GIDClientID` and the matching reversed-client-ID URL scheme in
     `macos/Runner/Info.plist`.
-  3. Add `keychain-access-groups` with
-    `$(AppIdentifierPrefix)com.google.GIDSignIn` to both macOS entitlement files.
-  4. Configure development signing and a valid provisioning profile in Xcode
-    for those entitlements; ad-hoc signing is insufficient.
+  3. Add `$(AppIdentifierPrefix)com.google.GIDSignIn` to
+    `keychain-access-groups` in both macOS entitlement files.
+  4. Rebuild so automatic signing refreshes the provisioning profile.
   5. Restore macOS in `supportsGoogle`, fully rebuild, and verify real sign-in.
 - The adapter accepts `GOOGLE_CLIENT_ID` and `GOOGLE_SERVER_CLIENT_ID` Dart
   defines when required; otherwise the native Google SDK uses platform setup.
@@ -146,14 +149,17 @@ connection because Firestore transactions cannot run offline. Existing profiles
 can use the native SDK's cache; web persistent caching is not explicitly enabled.
 This is cloud-backed profile storage, not a standalone local SQLite implementation.
 
-Learning attempts, answers, scores, and persisted scenario progress are not part
-of the profile document or implemented by this change. The scenario picker is
-keyed by user ID so mounted in-memory state is not shared between accounts.
+Completed level IDs are stored separately from profile fields at
+`profiles/{firebaseUid}/progress/{scenarioId}`. Each scenario document contains
+`schemaVersion`, `completedLevelIds`, and `updatedAt`. The rules allow only the
+profile owner to read and update this progress, prevent removing completed
+levels, and deny deletion. Level IDs are stable catalog identifiers. Guest
+progress, attempts, answers, and scores are not persisted.
 
 ## Verification And Remaining Release Work
 
-Run `flutter test test/account_test.dart` and
-`flutter analyze lib/account lib/main.dart lib/level_loader/level_loader.dart`.
+Run `flutter test test/account_test.dart test/progress_scope_test.dart` and
+`flutter analyze lib/account lib/main.dart lib/level_loader/level_loader.dart lib/progress lib/diagnostics`.
 Tests use injected fake services and do not send SMS or access live accounts.
 
 Before deployment, verify actual provider flows on each supported device,

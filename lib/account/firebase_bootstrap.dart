@@ -3,13 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../firebase_options.dart';
+import '../progress/firestore_progress.dart';
+import '../progress/learning_progress.dart';
 import 'account.dart';
 import 'firebase_account.dart';
 
 class AccountDependencies {
-  const AccountDependencies({required this.accounts, required this.profiles});
+  const AccountDependencies({
+    required this.accounts,
+    required this.profiles,
+    required this.progress,
+  });
   final AccountService accounts;
   final ProfileRepository profiles;
+  final ProgressRepository progress;
 }
 
 Future<AccountDependencies> initializeAccounts() async {
@@ -25,7 +32,7 @@ Future<AccountDependencies> initializeAccounts() async {
   }
   final app = await Firebase.initializeApp(
     options: apiKey.isEmpty
-      ? DefaultFirebaseOptions.currentPlatform
+        ? DefaultFirebaseOptions.currentPlatform
         : const FirebaseOptions(
             apiKey: apiKey,
             appId: appId,
@@ -34,10 +41,12 @@ Future<AccountDependencies> initializeAccounts() async {
             authDomain: authDomain == '' ? null : authDomain,
           ),
   );
+
+  final firestore = FirebaseFirestore.instanceFor(app: app);
+
   return AccountDependencies(
     accounts: FirebaseAccountService(auth: FirebaseAuth.instanceFor(app: app)),
-    profiles: FirestoreProfileRepository(
-      firestore: FirebaseFirestore.instanceFor(app: app),
-    ),
+    profiles: FirestoreProfileRepository(firestore: firestore),
+    progress: FirestoreProgressRepository(firestore: firestore),
   );
 }

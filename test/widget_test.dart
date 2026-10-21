@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:indic_learn/animations/confetti.dart';
 import 'package:indic_learn/main.dart';
 import 'package:indic_learn/level_loader/level_loader.dart';
+import 'package:indic_learn/level_loader/scenario_catalog.dart';
 import 'package:indic_learn/levels/level.dart';
 import 'package:indic_learn/levels/level_model.dart';
 import 'package:indic_learn/widgets/svg_mascot.dart';
@@ -120,14 +121,23 @@ void main() {
     }
   });
 
-  test('Bundled catalog preserves everyday levels and adds the auto scenario', () {
-    const catalog = LevelLoader();
-    expect(catalog.scenarios, hasLength(2));
-    expect(catalog.scenarios.first.levels, hasLength(10));
-    expect(catalog.scenarios.last.id, 'hi-en-auto-rickshaw');
-    expect(catalog.scenarios.last.levels, hasLength(12));
-    final levels = catalog.scenarios.expand((scenario) => scenario.levels).toList();
-    expect(catalog.scenarios.every((scenario) => scenario.unlocked), isTrue);
+  test('Bundled catalog preserves everyday levels and adds the auto scenario', () async {
+    final scenarios = await ScenarioCatalog.load(rootBundle);
+    expect(scenarios, hasLength(2));
+    expect(scenarios.first.id, 'everyday-practice');
+    expect(scenarios.first.levels, hasLength(10));
+    expect(scenarios.last.id, 'hi-en-auto-rickshaw');
+    expect(scenarios.last.levels, hasLength(12));
+    final levels = scenarios.expand((scenario) => scenario.levels).toList();
+    expect(scenarios.every((scenario) => scenario.unlocked), isTrue);
+    expect(
+      scenarios.first.levels.map((level) => level.progressId),
+      List.generate(10, (index) => 'everyday-${(index + 1).toString().padLeft(2, '0')}'),
+    );
+    expect(
+      scenarios.last.levels.map((level) => level.progressId),
+      List.generate(12, (index) => 'auto-rickshaw-${(index + 1).toString().padLeft(2, '0')}'),
+    );
     expect(levels.map((level) => level.assetPath).toSet(), hasLength(22));
     expect(levels.map((level) => level.title).toSet(), hasLength(22));
     const handlers = {
@@ -161,13 +171,26 @@ void main() {
       expect(scenario.validate, throwsArgumentError);
     }
     final full = ScenarioDefinition(
-      id: 'full', title: 'Full', levels: List.filled(12, level), completedLevels: 12,
+      id: 'full', title: 'Full', levels: List.generate(12, (index) => LevelDefinition(
+        id: 'level-$index',
+        title: level.title,
+        assetPath: level.assetPath,
+      )), completedLevels: 12,
     );
     expect(full.validate, returnsNormally);
     const invalidProgress = ScenarioDefinition(
       id: 'invalid', title: 'Invalid', levels: [level], completedLevels: 2,
     );
     expect(invalidProgress.validate, throwsArgumentError);
+    const duplicateIds = ScenarioDefinition(
+      id: 'duplicate',
+      title: 'Duplicate',
+      levels: [
+        LevelDefinition(id: 'same', title: 'First', assetPath: 'first.json'),
+        LevelDefinition(id: 'same', title: 'Second', assetPath: 'second.json'),
+      ],
+    );
+    expect(duplicateIds.validate, throwsArgumentError);
   });
 
   testWidgets('Scenario progress advances only on completion and stays independent', (tester) async {
@@ -333,7 +356,12 @@ void main() {
   });
 
   testWidgets('Scenario picker cancels safely when removed during a jump', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: LevelLoader()));
+    await tester.pumpWidget(const MaterialApp(
+      home: LevelLoader(mascot: SizedBox.square(dimension: 96)),
+    ));
+    final bundle = DefaultAssetBundle.of(tester.element(find.byType(LevelLoader)));
+    await tester.runAsync(() => ScenarioCatalog.load(bundle));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('scenario-everyday-practice')));
     await tester.pump(const Duration(milliseconds: 100));
     await tester.pumpWidget(const SizedBox());
