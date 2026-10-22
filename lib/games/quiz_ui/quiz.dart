@@ -12,12 +12,12 @@ export 'quiz_loader.dart';
 export 'quiz_models.dart';
 export 'widgets/choice_button.dart';
 
-@Preview(name: 'Game Page', size: Size(390, 844))
+@Preview(name: 'Game Page', size: Size(1280, 800))
 Widget previewGamePage() {
   return MaterialApp(
     theme: buildGameTheme(),
     home: const GamePage(
-      assetPath: "packages/indic_learn/assets/Quizes/whatisthis_fruit_001.json",
+      assetPath: "packages/indic_learn/assets/Quizes/hi_en_auto_rickshaw_a02.json",
     ),
   );
 }

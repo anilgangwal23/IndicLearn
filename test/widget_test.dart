@@ -738,6 +738,90 @@ void main() {
     expect(completedTotal, payload.length);
   });
 
+  for (final (size, textScale) in [
+    (const Size(1280, 800), 1.0),
+    (const Size(390, 844), 1.0),
+    (const Size(320, 640), 1.5),
+    (const Size(1280, 480), 2.0),
+  ]) {
+    testWidgets('Quiz introduction fits $size with text scale $textScale', (
+      tester,
+    ) async {
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final questions = (await tester.runAsync(
+        () => GameLoader.loadQuestions(
+          'assets/Quizes/hi_en_auto_rickshaw_a02.json',
+        ),
+      ))!;
+      var listens = 0;
+      var continues = 0;
+      final question = questions.first;
+      final choice = question.choices.firstWhere((choice) => choice.correct);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: buildGameTheme(),
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: TextScaler.linear(textScale)),
+            child: child!,
+          ),
+          home: Scaffold(
+            appBar: AppBar(title: const Text('Learn 1/4')),
+            body: SafeArea(
+              child: QuestionView(
+                question: question,
+                progress: 0.25,
+                isLastQuestion: false,
+                selectedChoiceId: null,
+                answered: false,
+                promptLanguage: question.promptLanguage,
+                targetLanguage: question.targetLanguage,
+                displayVariant: 'native',
+                introducing: true,
+                onChoiceSelected: (_) => fail('Introductions have no choices'),
+                onContinue: () => fail('Introductions do not submit answers'),
+                onIntroductionComplete: () => continues++,
+                onPlayPronunciation: () => listens++,
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final image = find.byType(SvgPicture);
+      final progress = find.byType(LinearProgressIndicator);
+      final continueButton = find.widgetWithText(FilledButton, 'Continue');
+      expect(tester.getSize(image).width, lessThanOrEqualTo(480));
+      expect(tester.getSize(image).height, lessThanOrEqualTo(280));
+      expect(tester.getSize(progress).width, lessThanOrEqualTo(592));
+      expect(tester.getCenter(progress).dx, closeTo(size.width / 2, 1));
+      expect(
+        find.text(choice.text[question.targetLanguage]!.native),
+        findsOneWidget,
+      );
+      expect(find.byType(ChoiceButton), findsNothing);
+      if (size == const Size(1280, 800)) {
+        expect(continueButton.hitTestable(), findsOneWidget);
+        expect(tester.getRect(continueButton).bottom, lessThan(size.height));
+        final scrollable = tester.state<ScrollableState>(
+          find.byType(Scrollable),
+        );
+        expect(scrollable.position.maxScrollExtent, 0);
+      }
+      await tester.ensureVisible(find.byTooltip('Listen'));
+      await tester.tap(find.byTooltip('Listen'));
+      expect(listens, 1);
+      await tester.ensureVisible(continueButton);
+      await tester.tap(continueButton);
+      expect(continues, 1);
+      expect(tester.takeException(), isNull);
+    });
+  }
+
   for (final assetAvailable in [true, false]) {
     testWidgets(
       'Quiz ${assetAvailable ? 'loads' : 'reports failure'} with inherited asset bundle',

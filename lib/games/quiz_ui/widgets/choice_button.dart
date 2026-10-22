@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../quiz_models.dart';
 import '../../../ui/game_widgets.dart';
+import '../../../animations/correct_answer.dart';
+import '../../../ui/game_theme.dart';
 
 class ChoiceButton extends StatelessWidget {
   final GameChoice choice;
@@ -33,7 +35,7 @@ class ChoiceButton extends StatelessWidget {
         ? AnswerVisualState.selected
         : AnswerVisualState.idle;
 
-    return SizedBox(
+    final tile =  SizedBox(
       width: double.infinity,
       child: GameAnswerTile(
         state: state,
@@ -68,6 +70,35 @@ class ChoiceButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+    final theme = Theme.of(context);
+    final burstColor = 
+      theme.extension<GameFeedbackColors>()?.success ?? 
+      theme.colorScheme.primary;
+    return Stack(
+      children: [
+        tile,
+        if(answered &&
+        selected &&
+        choice.correct &&
+        !MediaQuery.of(context).disableAnimations)
+        Positioned.fill(
+          child: IgnorePointer(
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin : 0, end : 1), 
+              duration: Duration(milliseconds: 500), 
+              builder: (context, value, child) {
+                return CustomPaint(
+                  painter: CorrectAnswerBurstPainter(
+                    color: burstColor,
+                    progress: AlwaysStoppedAnimation<double>(value),
+                  ),
+                );
+              },
+            )
+          )
+        )
+      ]
     );
   }
 }

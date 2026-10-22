@@ -51,51 +51,74 @@ class QuestionView extends StatelessWidget {
       final choice = question.choices.firstWhere((choice) => choice.correct);
       final meaning =
           choice.text[promptLanguage] ?? question.prompt[promptLanguage];
-      return SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            LinearProgressIndicator(value: progress),
-            const SizedBox(height: 24),
-            if (choice.image.isNotEmpty)
-              Semantics(
-                image: true,
-                label: meaning?.native ?? choice.text[targetLanguage]!.native,
-                child: AspectRatio(
-                  aspectRatio: 5 / 3,
-                  child: SvgPicture.asset(choice.image, fit: BoxFit.contain),
+      return Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 640),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                LinearProgressIndicator(value: progress),
+                const SizedBox(height: 24),
+                if (choice.image.isNotEmpty)
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: 480,
+                        maxHeight: 280,
+                      ),
+                      child: Semantics(
+                        image: true,
+                        label:
+                            meaning?.native ??
+                            choice.text[targetLanguage]!.native,
+                        child: AspectRatio(
+                          aspectRatio: 5 / 3,
+                          child: SvgPicture.asset(
+                            choice.image,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: 20),
+                Text(
+                  choice.text[targetLanguage]!.display(variant: displayVariant),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
-              ),
-            const SizedBox(height: 20),
-            Text(
-              choice.text[targetLanguage]!.display(variant: displayVariant),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge,
+                if (meaning != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    meaning.native,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 16),
+                Center(
+                  child: IconButton.filledTonal(
+                    tooltip: 'Listen',
+                    iconSize: 28,
+                    padding: const EdgeInsets.all(16),
+                    icon: const Icon(Icons.volume_up),
+                    onPressed: onPlayPronunciation,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                GameButton(
+                  onPressed: onIntroductionComplete,
+                  label: 'Continue',
+                  icon: Icons.arrow_forward,
+                ),
+              ],
             ),
-            if (meaning != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                meaning.native,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-            const SizedBox(height: 12),
-            Center(
-              child: IconButton(
-                tooltip: 'Listen',
-                icon: const Icon(Icons.volume_up),
-                onPressed: onPlayPronunciation,
-              ),
-            ),
-            const SizedBox(height: 24),
-            GameButton(
-              onPressed: onIntroductionComplete,
-              label: 'Continue',
-              icon: Icons.arrow_forward,
-            ),
-          ],
+          ),
         ),
       );
     }
