@@ -22,11 +22,14 @@ Widget previewGamePage() {
 class WordMatchPage extends StatefulWidget {
   final String initialJsonData;
   final void Function(int score, int total)? onComplete;
-
+  final bool embeddedInLevel;
+  final VoidCallback? onLoseLife;
   const WordMatchPage({
     super.key,
     required this.initialJsonData,
     this.onComplete,
+    this.embeddedInLevel = false,
+    this.onLoseLife,
   });
 
   @override
@@ -83,6 +86,7 @@ class _WordMatchGameState extends State<WordMatchPage> {
         _selectedLeft = null;
       } else {
         _incorrectRight = pair;
+        widget.onLoseLife?.call();
       }
     });
     if (_incorrectRight != null) {
@@ -147,7 +151,10 @@ class _WordMatchGameState extends State<WordMatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Match Words (Score ${_matchedIds.length})')),
+      appBar: AppBar(
+        automaticallyImplyLeading: !widget.embeddedInLevel,
+        title: Text('Match Words (Score ${_matchedIds.length})'),
+      ),
       body: SafeArea(
         child: _loading
             ? const Center(child: CircularProgressIndicator())

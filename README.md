@@ -65,6 +65,11 @@ Set `mascotAsset` on `LevelLoader` to use another character throughout the path
 and level screen. See `lib/widgets/README.md` for the SVG layer contract and
 shared jump, yawn, and blink animations.
 
+Games inside `LevelPage` use `embeddedInLevel: true` to suppress their app bar's
+automatic back button; the level header owns navigation. Standalone games keep
+their automatic back button by default. Pass the same flag to `GameScaffold`
+when adding a new embedded game.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

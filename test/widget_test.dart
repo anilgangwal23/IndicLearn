@@ -11,6 +11,7 @@ import 'package:indic_learn/main.dart';
 import 'package:indic_learn/level_loader/level_loader.dart';
 import 'package:indic_learn/level_loader/scenario_catalog.dart';
 import 'package:indic_learn/levels/level.dart';
+import 'package:indic_learn/levels/level_factory.dart';
 import 'package:indic_learn/levels/level_model.dart';
 import 'package:indic_learn/widgets/svg_mascot.dart';
 import 'package:indic_learn/widgets/svg_mascot_parser.dart';
@@ -107,6 +108,83 @@ void main() {
     );
     expect(tester.takeException(), isNull);
   });
+
+  for (final entry in {
+    'GamePage': 'assets/Quizes/whatisthis_fruit_001.json',
+    'WordMatchPage': 'assets/match_the_pairs_json/en_hi_lvl1.json',
+    'MTSPage': 'assets/make_the_sentence/en_hi_lvl1.json',
+    'FollowTheSound': 'assets/make_the_sentence/en_hi_lvl1.json',
+  }.entries) {
+    for (final embedded in [false, true]) {
+      testWidgets(
+        '${entry.key} ${embedded ? 'hides embedded' : 'keeps standalone'} back button',
+        (tester) async {
+          final json = await tester.runAsync(
+            () => rootBundle.loadString(entry.value),
+          );
+          final bundle = _QuizAssetBundle(
+            json,
+            path: entry.value,
+            assets: {
+              'navigation-level.json': jsonEncode({
+                'steps': [
+                  {
+                    'type': 'navigation-test',
+                    'data': entry.value,
+                    'handler': entry.key,
+                  },
+                ],
+              }),
+            },
+          );
+          final navigator = GlobalKey<NavigatorState>();
+          await tester.pumpWidget(
+            MaterialApp(
+              navigatorKey: navigator,
+              home: const Scaffold(body: Text('Home')),
+            ),
+          );
+          await tester.runAsync(() async {
+            navigator.currentState!.push<void>(
+              MaterialPageRoute(
+                builder: (_) => DefaultAssetBundle(
+                  bundle: bundle,
+                  child: embedded
+                      ? const LevelPage(assetPath: 'navigation-level.json')
+                      : getHandler(
+                          entry.key,
+                          const ValueKey('navigation-test'),
+                          entry.value,
+                          (_, _) {},
+                        ),
+                ),
+              ),
+            );
+            await tester.pump();
+          });
+          // Level mascots keep animating while the page is visible.
+          await tester.pump(const Duration(milliseconds: 500));
+          await tester.pump();
+          expect(find.byType(AppBar), findsOneWidget);
+          expect(
+            find.descendant(
+              of: find.byType(AppBar),
+              matching: find.byType(BackButton),
+            ),
+            embedded ? findsNothing : findsOneWidget,
+          );
+          expect(find.byType(BackButton), findsOneWidget);
+          if (embedded) {
+            expect(find.text('Step 1/1'), findsOneWidget);
+          }
+          await tester.tap(find.byType(BackButton));
+          await tester.pumpAndSettle();
+          expect(find.text('Home'), findsOneWidget);
+          expect(tester.takeException(), isNull);
+        },
+      );
+    }
+  }
 
   setUp(() async {
     rootBundle.clear();

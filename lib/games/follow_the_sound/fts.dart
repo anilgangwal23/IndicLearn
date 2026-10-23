@@ -25,8 +25,16 @@ Widget previewQuiz() {
 class fts extends StatefulWidget {
   final String initialJsonData;
   final void Function(int score, int total)? onComplete;
+  final bool embeddedInLevel;
+  final VoidCallback? onLoseLife;
 
-  const fts({super.key, required this.initialJsonData, this.onComplete});
+  const fts({
+    super.key,
+    required this.initialJsonData,
+    this.onComplete,
+    this.embeddedInLevel = false,
+    this.onLoseLife,
+  });
 
   @override
   State<fts> createState() => _ftsGameState();
@@ -64,11 +72,13 @@ class _ftsGameState extends State<fts> {
   Widget _buildGame() {
     if (_loadError != null) {
       return GameScaffold(
+        embeddedInLevel: widget.embeddedInLevel,
         title: 'Follow the sound',
         child: Text(_loadError!, textAlign: TextAlign.center),
       );
     }
     return GameScaffold(
+      embeddedInLevel: widget.embeddedInLevel,
       title: 'Follow the sound',
       footer: isSolved
           ? Column(
@@ -166,7 +176,10 @@ class _ftsGameState extends State<fts> {
     });
     _wrongPickTimer = Timer(const Duration(milliseconds: 500), () {
       if (!mounted) return;
-      setState(() => wrongWordID = null);
+      setState(() {
+        wrongWordID = null;
+        widget.onLoseLife?.call();
+      });
     });
   }
 

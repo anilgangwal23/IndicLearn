@@ -1,18 +1,25 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
+
 import 'level_model.dart';
 import 'level_factory.dart';
 import '../widgets/svg_mascot.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
+
 class LevelPage extends StatefulWidget {
   final String assetPath;
   final String mascotAsset;
   final VoidCallback? onCompleted;
+  int initialLives;
 
-  const LevelPage({
+  LevelPage({
     super.key,
     required this.assetPath,
     this.mascotAsset = 'assets/mascots/sprout.svg',
     this.onCompleted,
+    this.initialLives = 3,
   });
 
   @override
@@ -37,6 +44,11 @@ class _LevelPageState extends State<LevelPage> {
     }
   }
 
+  void _loseLife() {
+    setState(() {
+      widget.initialLives--;
+    });
+  }
 
   Future<void> _loadLevel(AssetBundle bundle) async {
     try {
@@ -117,7 +129,14 @@ class _LevelPageState extends State<LevelPage> {
     final step = _steps[_currentStep];
     final key = ValueKey('$_attempt-$_currentStep');
     // Get the appropriate game handler based on the step's handler field
-    final game = getHandler(step.handler,key,step.assetPath,_completeStep);
+    final game = getHandler(
+      step.handler,
+      key,
+      step.assetPath,
+      _completeStep,
+      embeddedInLevel: true,
+      onLoseLife: _loseLife,
+    );
 
     // final game = gameHandler(
     //   key: key,
@@ -152,6 +171,28 @@ class _LevelPageState extends State<LevelPage> {
                     height: 88,
                     autoIdle: true,
                   ),
+                  SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/svg_assets/heart.svg",
+                          width: 40,
+                          height: 40,
+                        ),
+                        Text(
+                          widget.initialLives.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -162,5 +203,3 @@ class _LevelPageState extends State<LevelPage> {
     );
   }
 }
-
-

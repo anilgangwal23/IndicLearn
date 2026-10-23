@@ -23,13 +23,16 @@ Widget previewGamePage() {
 }
 
 class GamePage extends StatefulWidget {
-  final String assetPath;
   final void Function(int score, int total)? onComplete;
-
+  final String assetPath;
+  final bool embeddedInLevel;
+  final VoidCallback? onLoseLife;
   const GamePage({
     super.key,
     this.assetPath = 'Quizes/whatisthis_fruit_001.json',
     this.onComplete,
+    this.embeddedInLevel = false,
+    this.onLoseLife,
   });
 
   @override
@@ -116,6 +119,8 @@ class _GamePageState extends State<GamePage>
 
       if (choice.correct) {
         score++;
+      }else{
+        widget.onLoseLife?.call();
       }
     });
   }
@@ -192,6 +197,7 @@ class _GamePageState extends State<GamePage>
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: !widget.embeddedInLevel,
         title: Text(
           _introducing
               ? 'Learn ${_introductionIndex + 1}/${introductions.length}'

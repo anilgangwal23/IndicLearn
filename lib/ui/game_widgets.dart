@@ -34,6 +34,7 @@ class GameScaffold extends StatelessWidget {
   final Widget child;
   final Widget? footer;
   final Widget? floatingActionButton;
+  final bool embeddedInLevel;
 
   const GameScaffold({
     super.key,
@@ -41,12 +42,16 @@ class GameScaffold extends StatelessWidget {
     required this.child,
     this.footer,
     this.floatingActionButton,
+    this.embeddedInLevel = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        automaticallyImplyLeading: !embeddedInLevel,
+        title: Text(title),
+      ),
       floatingActionButton: floatingActionButton,
       body: SafeArea(
         child: Column(
