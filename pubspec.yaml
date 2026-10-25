@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^6.0.0
   cloud_firestore: ^6.0.0
   google_sign_in: ^7.2.0
+  just_audio_windows: ^0.2.3
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,7 @@ flutter:
     - assets/mascots/
     - assets/audio/hi/
     - assets/audio/
+    - assets/audio/game_sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

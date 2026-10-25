@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:indic_learn/audio/pronunciation_service.dart';
 
 class SessionStats extends ChangeNotifier {
   int _lives = 5;
@@ -14,6 +15,12 @@ class SessionStats extends ChangeNotifier {
   void loseLife() {
     if (_lives == 0) return;
     _lives--;
+    PronunciationService().playGameAudio(gameAudioTypes.incorrectAnswer);
+    notifyListeners();
+  }
+
+  void correctAnswer() {
+    PronunciationService().playGameAudio(gameAudioTypes.correctAnswer);
     notifyListeners();
   }
 

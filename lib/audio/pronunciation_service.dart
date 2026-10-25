@@ -4,6 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+enum gameAudioTypes {
+  correctAnswer,
+  incorrectAnswer,
+  levelComplete,
+  levelFailed
+}
+
 class PronunciationService {
   Map<String, dynamic> _pronunciationMapping = {};
   final audioPlayer = AudioPlayer();
@@ -18,6 +25,31 @@ class PronunciationService {
       await rootBundle.loadString('assets/audio/mapping.json'),
     );
   }
+
+
+  Future<void> playGameAudio(gameAudioTypes type) async {
+    // Implementation for playing game audio based on the type
+    String file = '';
+    switch (type) {
+      case gameAudioTypes.correctAnswer:
+        file = 'correct_answer.wav';
+        break;
+      case gameAudioTypes.incorrectAnswer:
+        file = 'wrong_answer.wav';
+        break;
+      case gameAudioTypes.levelComplete:
+        file = 'level_complete.wav';
+        break;
+      case gameAudioTypes.levelFailed:
+        file = 'level_failed.wav';
+        break;
+    }
+    if (file.isNotEmpty) {
+      await audioPlayer.setAsset('assets/audio/game_sounds/$file');
+      await audioPlayer.play();
+    }
+  }
+
 
   Future<void> playPronunciation(String id) async {
     await _mappingReady;

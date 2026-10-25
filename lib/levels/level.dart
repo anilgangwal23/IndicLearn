@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:indic_learn/audio/pronunciation_service.dart';
 import 'package:indic_learn/levels/fail_screen.dart';
 
 import 'level_model.dart';
@@ -44,6 +45,49 @@ class _LevelPageState extends State<LevelPage> {
     if (!_loadStarted) {
       _loadStarted = true;
       _loadLevel(DefaultAssetBundle.of(context));
+    }
+  }
+
+  Widget? _handleWinOrLose(int stepCount) {
+    if (_currentStep == _steps.length) {
+      PronunciationService().playGameAudio(gameAudioTypes.levelComplete);
+      return WinScreen(
+        score: _score,
+        total: _total,
+        mascotAsset: widget.mascotAsset,
+        onPlayAgain: () {
+          setState(() {
+            _currentStep = 0;
+            _score = 0;
+            _total = 0;
+            _attempt++;
+          });
+        },
+        onContinue: () {
+          Navigator.of(context).pop(true);
+        },
+      );
+    }
+
+    if (widget.sessionStats.lives <= 0) {
+      PronunciationService().playGameAudio(gameAudioTypes.levelFailed);
+      return FailScreen(
+        score: _score,
+        total: _total,
+        mascotAsset: widget.mascotAsset,
+        onPlayAgain: () {
+          setState(() {
+            widget.sessionStats.lives = 5;
+            _currentStep = 0;
+            _score = 0;
+            _total = 0;
+            _attempt++;
+          });
+        },
+        onContinue: () {
+          Navigator.of(context).pop(true);
+        },
+      );
     }
   }
 
@@ -101,43 +145,9 @@ class _LevelPageState extends State<LevelPage> {
         body: const Center(child: CircularProgressIndicator()),
       );
     }
-    if (_currentStep == _steps.length) {
-      return WinScreen(
-        score: _score,
-        total: _total,
-        mascotAsset: widget.mascotAsset,
-        onPlayAgain: () {
-          setState(() {
-            _currentStep = 0;
-            _score = 0;
-            _total = 0;
-            _attempt++;
-          });
-        },
-        onContinue: () {
-          Navigator.of(context).pop(true);
-        },
-      );
-    }
-
-    if (widget.sessionStats.lives <= 0) {
-      return FailScreen(
-        score: _score,
-        total: _total,
-        mascotAsset: widget.mascotAsset,
-        onPlayAgain: () {
-          setState(() {
-            widget.sessionStats.lives = 5;
-            _currentStep = 0;
-            _score = 0;
-            _total = 0;
-            _attempt++;
-          });
-        },
-        onContinue: () {
-          Navigator.of(context).pop(true);
-        },
-      );
+    final overlay = _handleWinOrLose(_currentStep);
+    if (overlay != null) {
+      return overlay;
     }
 
     final step = _steps[_currentStep];
