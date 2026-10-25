@@ -25,7 +25,7 @@ import 'package:indic_learn/games/quiz_ui/quiz.dart' show GamePage;
 import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 import 'package:indic_learn/games/make_the_sentence/mts_model.dart';
-
+import 'package:indic_learn/session/session.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -150,7 +150,7 @@ void main() {
                 builder: (_) => DefaultAssetBundle(
                   bundle: bundle,
                   child: embedded
-                      ? const LevelPage(assetPath: 'navigation-level.json')
+                      ? LevelPage(assetPath: 'navigation-level.json',sessionStats: SessionStats())
                       : getHandler(
                           entry.key,
                           const ValueKey('navigation-test'),
@@ -197,6 +197,25 @@ void main() {
         () => loader.loadBytes(null),
       );
     }
+  });
+
+  test('Failure mascot matches the direct-child layer contract', () async {
+    final source = await rootBundle.loadString('assets/mascots/grim_reaper.svg');
+    expect(
+      SvgMascotParser.parse(source).map((layer) => layer.id),
+      [
+        'left_leg',
+        'right_leg',
+        'left_hand',
+        'right_hand',
+        'body',
+        'left_eye',
+        'right_eye',
+        'left_eyebrow',
+        'right_eyebrow',
+        'mouth',
+      ],
+    );
   });
 
   test('Bundled catalog preserves everyday levels and adds the auto scenario', () async {
@@ -270,6 +289,64 @@ void main() {
     );
     expect(duplicateIds.validate, throwsArgumentError);
   });
+
+  for (final useSystemBack in [false, true]) {
+    testWidgets(
+      'Scenario Continue advances and ${useSystemBack ? 'system' : 'header'} Back returns to ladder',
+      (tester) async {
+        await tester.pumpWidget(MaterialApp(
+          home: LevelLoader(
+            mascot: const SizedBox.square(dimension: 96),
+            levelBuilder: (level, onCompleted) => _FakeLevelPage(
+              level: level,
+              onCompleted: onCompleted,
+            ),
+            scenarios: const [
+              ScenarioDefinition(id: 'navigation', title: 'Navigation', levels: [
+                LevelDefinition(title: 'First level', assetPath: 'first.json'),
+                LevelDefinition(title: 'Second level', assetPath: 'second.json'),
+                LevelDefinition(title: 'Third level', assetPath: 'third.json'),
+              ]),
+            ],
+          ),
+        ));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const ValueKey('scenario-navigation')));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Complete lesson'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Continue'));
+        await tester.pumpAndSettle();
+        expect(find.text('Second level'), findsOneWidget);
+        expect(find.text('First level'), findsNothing);
+
+        if (useSystemBack) {
+          await tester.binding.handlePopRoute();
+        } else {
+          await tester.tap(find.byType(BackButton));
+        }
+        await tester.pumpAndSettle();
+        expect(find.byType(_FakeLevelPage), findsNothing);
+        expect(find.byKey(const ValueKey('scenario-navigation')), findsOneWidget);
+        expect(find.text('1 / 3 complete'), findsOneWidget);
+
+        await tester.tap(find.byKey(const ValueKey('scenario-navigation')));
+        await tester.pumpAndSettle();
+        expect(find.text('Second level'), findsOneWidget);
+        for (final title in ['Third level', null]) {
+          await tester.tap(find.text('Complete lesson'));
+          await tester.pumpAndSettle();
+          await tester.tap(find.text('Continue'));
+          await tester.pumpAndSettle();
+          if (title != null) expect(find.text(title), findsOneWidget);
+        }
+        expect(find.byType(_FakeLevelPage), findsNothing);
+        expect(find.byKey(const ValueKey('scenario-navigation')), findsOneWidget);
+        expect(find.text('3 / 3 complete'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
 
   testWidgets('Scenario progress advances only on completion and stays independent', (tester) async {
     await tester.pumpWidget(MaterialApp(
@@ -529,9 +606,9 @@ void main() {
       (tester) async {
         final assets = <String, String>{};
         for (final path in [
-          'levels/level_1.json',
-          'Quizes/whatisthis_fruit_001.json',
-          'match_the_pairs_json/en_hi_lvl1.json',
+          'assets/levels/level_1.json',
+          'assets/Quizes/whatisthis_fruit_001.json',
+          'assets/match_the_pairs_json/en_hi_lvl1.json',
         ]) {
           assets[path] = (await tester.runAsync(
             () => rootBundle.loadString(path),
@@ -618,7 +695,7 @@ void main() {
   testWidgets('Pairs load the bundled word_pair_list asset', (tester) async {
     final pairs = await tester.runAsync(
       () => pairing.GameLoader.loadPairings(
-        'match_the_pairs_json/en_hi_lvl1.json',
+        'assets/match_the_pairs_json/en_hi_lvl1.json',
       ),
     );
     expect(pairs!.map((pair) => pair.leftWord), ['Apple', 'Banana', 'Carrot']);
@@ -633,7 +710,7 @@ void main() {
         {'left_word': 'Apple', 'right_definition': 'Seb', 'original_index': 1},
         {'left_word': 'Mango', 'right_definition': 'Aam', 'original_index': 2},
       ]),
-      path: 'match_the_pairs_json/en_hi_lvl1.json',
+      path: 'assets/match_the_pairs_json/en_hi_lvl1.json',
     );
     await tester.pumpWidget(
       DefaultAssetBundle(
@@ -641,7 +718,7 @@ void main() {
         child: MaterialApp(
           theme: buildGameTheme(),
           home: const WordMatchPage(
-            initialJsonData: 'match_the_pairs_json/en_hi_lvl1.json',
+            initialJsonData: 'assets/match_the_pairs_json/en_hi_lvl1.json',
           ),
         ),
       ),
@@ -905,7 +982,7 @@ void main() {
       'Quiz ${assetAvailable ? 'loads' : 'reports failure'} with inherited asset bundle',
       (WidgetTester tester) async {
         final json = await tester.runAsync(
-          () => rootBundle.loadString('Quizes/whatisthis_fruit_001.json'),
+          () => rootBundle.loadString('assets/Quizes/whatisthis_fruit_001.json'),
         );
         final bundle = _QuizAssetBundle(assetAvailable ? json : null);
 
@@ -919,7 +996,7 @@ void main() {
 
         expect(
           bundle.requestedPaths,
-          contains('Quizes/whatisthis_fruit_001.json'),
+          contains('assets/Quizes/whatisthis_fruit_001.json'),
         );
         expect(find.byType(CircularProgressIndicator), findsNothing);
         if (assetAvailable) {
@@ -937,7 +1014,7 @@ void main() {
       'Quiz scores ${answerCorrectly ? 'correct' : 'incorrect'} answers and restarts',
       (WidgetTester tester) async {
         final questions = (await tester.runAsync(
-          () => GameLoader.loadQuestions('Quizes/whatisthis_fruit_001.json'),
+          () => GameLoader.loadQuestions('assets/Quizes/whatisthis_fruit_001.json'),
         ))!;
 
         await tester.runAsync(() async {
@@ -1040,6 +1117,11 @@ class _FakeLevelPageState extends State<_FakeLevelPage> {
             },
             child: Text(_completed ? 'Play Again' : 'Complete lesson'),
           ),
+          if (_completed)
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Continue'),
+            ),
         ],
       ),
     ),
@@ -1049,7 +1131,7 @@ class _FakeLevelPageState extends State<_FakeLevelPage> {
 class _QuizAssetBundle extends CachingAssetBundle {
   _QuizAssetBundle(
     this.json, {
-    this.path = 'Quizes/whatisthis_fruit_001.json',
+    this.path = 'assets/Quizes/whatisthis_fruit_001.json',
     this.assets = const {},
   });
 

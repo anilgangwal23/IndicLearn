@@ -29,7 +29,7 @@ class GamePage extends StatefulWidget {
   final VoidCallback? onLoseLife;
   const GamePage({
     super.key,
-    this.assetPath = 'Quizes/whatisthis_fruit_001.json',
+    this.assetPath = 'assets/Quizes/whatisthis_fruit_001.json',
     this.onComplete,
     this.embeddedInLevel = false,
     this.onLoseLife,

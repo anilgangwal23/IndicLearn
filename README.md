@@ -70,6 +70,13 @@ automatic back button; the level header owns navigation. Standalone games keep
 their automatic back button by default. Pass the same flag to `GameScaffold`
 when adding a new embedded game.
 
+The level completion layout lives in [WinScreen](lib/levels/winscreen.dart).
+`LevelPage` supplies the score and mascot asset and handles the replay callback,
+keeping attempt state separate from the completion UI.
+Continue returns `true` to the loader to open the next level in the scenario.
+Back returns to the scenario ladder without opening another level; Continue on
+the final level also returns to the ladder.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

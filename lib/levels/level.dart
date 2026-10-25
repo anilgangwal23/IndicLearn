@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:indic_learn/levels/fail_screen.dart';
 
 import 'level_model.dart';
 import 'level_factory.dart';
+import 'winscreen.dart';
 import '../widgets/svg_mascot.dart';
+import '../session/session.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,14 +15,14 @@ class LevelPage extends StatefulWidget {
   final String assetPath;
   final String mascotAsset;
   final VoidCallback? onCompleted;
-  int initialLives;
+  final SessionStats sessionStats;
 
-  LevelPage({
+  const LevelPage({
     super.key,
     required this.assetPath,
     this.mascotAsset = 'assets/mascots/sprout.svg',
     this.onCompleted,
-    this.initialLives = 3,
+    required this.sessionStats,
   });
 
   @override
@@ -46,7 +49,7 @@ class _LevelPageState extends State<LevelPage> {
 
   void _loseLife() {
     setState(() {
-      widget.initialLives--;
+      widget.sessionStats.loseLife();
     });
   }
 
@@ -99,30 +102,41 @@ class _LevelPageState extends State<LevelPage> {
       );
     }
     if (_currentStep == _steps.length) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Level complete!')),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgMascot(asset: widget.mascotAsset, autoIdle: true, height: 100),
-              Text('You scored $_score out of $_total'),
-              const SizedBox(height: 16),
-              FilledButton.icon(
-                icon: const Icon(Icons.replay),
-                label: const Text('Play Again'),
-                onPressed: () {
-                  setState(() {
-                    _currentStep = 0;
-                    _score = 0;
-                    _total = 0;
-                    _attempt++;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
+      return WinScreen(
+        score: _score,
+        total: _total,
+        mascotAsset: widget.mascotAsset,
+        onPlayAgain: () {
+          setState(() {
+            _currentStep = 0;
+            _score = 0;
+            _total = 0;
+            _attempt++;
+          });
+        },
+        onContinue: () {
+          Navigator.of(context).pop(true);
+        },
+      );
+    }
+
+    if (widget.sessionStats.lives <= 0) {
+      return FailScreen(
+        score: _score,
+        total: _total,
+        mascotAsset: widget.mascotAsset,
+        onPlayAgain: () {
+          setState(() {
+            widget.sessionStats.lives = 5;
+            _currentStep = 0;
+            _score = 0;
+            _total = 0;
+            _attempt++;
+          });
+        },
+        onContinue: () {
+          Navigator.of(context).pop(true);
+        },
       );
     }
 
@@ -183,7 +197,7 @@ class _LevelPageState extends State<LevelPage> {
                           height: 40,
                         ),
                         Text(
-                          widget.initialLives.toString(),
+                          widget.sessionStats.lives.toString(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,

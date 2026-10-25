@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../levels/level.dart';
 import '../widgets/svg_mascot.dart';
 import 'scenario_catalog.dart';
-
+import '../session/session.dart';
 export 'scenario_catalog.dart' show LevelDefinition, ScenarioDefinition;
 
 class LevelLoader extends StatefulWidget {
@@ -77,8 +77,13 @@ class _LevelLoaderState extends State<LevelLoader> {
   @override
   Widget build(BuildContext context) {
     final scenarios = widget.scenarios;
+    final sessionStats = SessionStats();
     if (scenarios != null) {
-      return _ScenarioPicker(configuration: widget, scenarios: scenarios);
+      return _ScenarioPicker(
+        configuration: widget,
+        scenarios: scenarios,
+        sessionStats: sessionStats,
+      );
     }
     return FutureBuilder<List<ScenarioDefinition>>(
       future: _catalog,
@@ -112,6 +117,7 @@ class _LevelLoaderState extends State<LevelLoader> {
         return _ScenarioPicker(
           configuration: widget,
           scenarios: snapshot.requireData,
+          sessionStats: sessionStats,
         );
       },
     );
@@ -119,11 +125,15 @@ class _LevelLoaderState extends State<LevelLoader> {
 }
 
 class _ScenarioPicker extends StatefulWidget {
-  const _ScenarioPicker({required this.configuration, required this.scenarios});
+  const _ScenarioPicker({
+    required this.configuration,
+    required this.scenarios,
+    required this.sessionStats,
+  });
 
   final LevelLoader configuration;
   final List<ScenarioDefinition> scenarios;
-
+  final SessionStats sessionStats;
   @override
   State<_ScenarioPicker> createState() => _ScenarioPickerState();
 }
@@ -188,7 +198,6 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
     final scenario = widget.scenarios[index];
     final levelIndex = _completedLevels(scenario)
         .clamp(0, scenario.levels.length - 1);
-    final level = scenario.levels[levelIndex];
     setState(() {
       _opening = true;
       _from = _selected;
@@ -201,26 +210,41 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
         _travel.value = 1;
       }
       if (!mounted || ModalRoute.of(context)?.isCurrent == false) return;
-      void onCompleted() {
-        if (!mounted || _completedLevels(scenario) != levelIndex) return;
-        setState(() => _completed[scenario.id] = levelIndex + 1);
-        final persist = widget.configuration.onLevelCompleted;
-        if (persist != null) {
-          unawaited(_persistCompletion(persist, scenario.id, level.progressId));
+      for (
+        var currentIndex = levelIndex;
+        currentIndex < scenario.levels.length;
+        currentIndex++
+      ) {
+        final index = currentIndex;
+        final currentLevel = scenario.levels[index];
+        void onCompleted() {
+          if (!mounted || _completedLevels(scenario) != index) return;
+          setState(() => _completed[scenario.id] = index + 1);
+          final persist = widget.configuration.onLevelCompleted;
+          if (persist != null) {
+            unawaited(
+              _persistCompletion(persist, scenario.id, currentLevel.progressId),
+            );
+          }
         }
-      }
 
-      await Navigator.of(context).push<void>(
-        MaterialPageRoute(
-          builder: (_) =>
-              widget.configuration.levelBuilder?.call(level, onCompleted) ??
-              LevelPage(
-                assetPath: level.assetPath,
-                mascotAsset: widget.configuration.mascotAsset,
-                onCompleted: onCompleted,
-              ),
-        ),
-      );
+        final shallContinue = await Navigator.of(context).push<bool>(
+          MaterialPageRoute<bool>(
+            builder: (_) =>
+                widget.configuration.levelBuilder?.call(
+                  currentLevel,
+                  onCompleted,
+                ) ??
+                LevelPage(
+                  assetPath: currentLevel.assetPath,
+                  mascotAsset: widget.configuration.mascotAsset,
+                  onCompleted: onCompleted,
+                  sessionStats: widget.sessionStats,
+                ),
+          ),
+        );
+        if (!mounted || shallContinue != true) break;
+      }
     } on TickerCanceled {
       return;
     } finally {

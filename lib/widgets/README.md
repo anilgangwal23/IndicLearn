@@ -5,6 +5,7 @@
 - `lib/widgets/svg_mascot_parser.dart`: extracts named top-level SVG groups into renderable layers.
 - `assets/mascots/fox.svg`: sample mascot asset.
 - `assets/mascots/sprout.svg`: default learning-path character with an animated mouth.
+- `assets/mascots/grim_reaper.svg`: failure mascot using the same direct-child layer contract.
 
 ## Dependencies
 Add these to your app's `pubspec.yaml` (use versions compatible with your project):
