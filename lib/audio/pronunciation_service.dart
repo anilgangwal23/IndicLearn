@@ -12,18 +12,30 @@ enum gameAudioTypes {
 }
 
 class PronunciationService {
-  Map<String, dynamic> _pronunciationMapping = {};
+  //Map<String, dynamic> _pronunciationMapping = {};
   final audioPlayer = AudioPlayer();
   final tts = FlutterTts();
-  late final Future<void> _mappingReady;
-  PronunciationService() {
-    _mappingReady = _loadPronunciationMapping();
+  //late final Future<void> _mappingReady;
+  PronunciationService._();
+  static final PronunciationService instance = PronunciationService._();
+
+  Future<Map<String, dynamic>>? _mappingFuture;
+  String? _currentLanguage;
+
+  Future<void> _setLanguageIfChanged(String language) async {
+    if (_currentLanguage == language) return;
+    await tts.setLanguage(language);
+    _currentLanguage = language;
   }
 
-  Future<void> _loadPronunciationMapping() async {
-    _pronunciationMapping = jsonDecode(
-      await rootBundle.loadString('assets/audio/mapping.json'),
-    );
+  Future<Map<String, dynamic>> _loadMapping() {
+    return _mappingFuture ??= rootBundle
+        .loadString('assets/audio/mapping.json')
+        .then((s) => jsonDecode(s) as Map<String, dynamic>)
+        .catchError((Object e) {
+          _mappingFuture = null;
+          throw e;
+        });
   }
 
 
@@ -52,18 +64,18 @@ class PronunciationService {
 
 
   Future<void> playPronunciation(String id) async {
-    await _mappingReady;
-    final entry = _pronunciationMapping[id];
-    await tts.setLanguage(entry?['language'] as String? ?? 'hi-IN');
+    final mapping = await _loadMapping();
+    final entry = mapping[id];
+    await _setLanguageIfChanged(entry?['language'] as String? ?? 'hi-IN');
     // Implementation for playing pronunciation audio
-    if (_pronunciationMapping[id] != null) {
-      String file = _pronunciationMapping[id]['file'];
+    if (mapping[id] != null) {
+      String file = mapping[id]['file'];
       if (file.isNotEmpty) {
         // Play the audio file using your preferred audio player
         await audioPlayer.setAsset('assets/audio/$file');
         await audioPlayer.play();
       } else {
-        String native = _pronunciationMapping[id]['native'];
+        String native = mapping[id]['native'];
         await tts.speak(native);
       }
     } else {

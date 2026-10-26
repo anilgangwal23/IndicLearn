@@ -48,7 +48,6 @@ class _ftsGameState extends State<fts> {
   bool isSolved = false;
   Timer? _wrongPickTimer;
   int? wrongWordID;
-  final PronunciationService _pronunciationService = PronunciationService();
   @override
   void initState() {
     super.initState();
@@ -111,7 +110,7 @@ class _ftsGameState extends State<fts> {
                         tooltip: 'Play sound',
                         onPressed: () {
                           // TODO: Play the sound.
-                          _pronunciationService.playPronunciation(_model.translation);
+                          PronunciationService.instance.playPronunciation(_model.translation);
                         },
                         iconSize: 100,
                         icon: SvgPicture.asset(

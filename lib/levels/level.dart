@@ -50,7 +50,7 @@ class _LevelPageState extends State<LevelPage> {
 
   Widget? _handleWinOrLose(int stepCount) {
     if (_currentStep == _steps.length) {
-      PronunciationService().playGameAudio(gameAudioTypes.levelComplete);
+      PronunciationService.instance.playGameAudio(gameAudioTypes.levelComplete);
       return WinScreen(
         score: _score,
         total: _total,
@@ -70,7 +70,7 @@ class _LevelPageState extends State<LevelPage> {
     }
 
     if (widget.sessionStats.lives <= 0) {
-      PronunciationService().playGameAudio(gameAudioTypes.levelFailed);
+      PronunciationService.instance.playGameAudio(gameAudioTypes.levelFailed);
       return FailScreen(
         score: _score,
         total: _total,

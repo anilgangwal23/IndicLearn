@@ -15,12 +15,12 @@ class SessionStats extends ChangeNotifier {
   void loseLife() {
     if (_lives == 0) return;
     _lives--;
-    PronunciationService().playGameAudio(gameAudioTypes.incorrectAnswer);
+    PronunciationService.instance.playGameAudio(gameAudioTypes.incorrectAnswer);
     notifyListeners();
   }
 
   void correctAnswer() {
-    PronunciationService().playGameAudio(gameAudioTypes.correctAnswer);
+    PronunciationService.instance.playGameAudio(gameAudioTypes.correctAnswer);
     notifyListeners();
   }
 

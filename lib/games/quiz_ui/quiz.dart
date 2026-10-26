@@ -44,7 +44,6 @@ class _GamePageState extends State<GamePage>
   List<GameQuestion> questions = [];
   bool _loadStarted = false;
   String? _loadError;
-  final pronunciationService = PronunciationService();
   int currentQuestion = 0;
   int score = 0;
 
@@ -112,7 +111,7 @@ class _GamePageState extends State<GamePage>
     if (answered) {
       return;
     }
-    pronunciationService.playPronunciation(choice.id);
+    PronunciationService.instance.playPronunciation(choice.id);
     setState(() {
       answered = true;
       selectedChoiceId = choice.id;
@@ -229,7 +228,7 @@ class _GamePageState extends State<GamePage>
                 });
               },
               onPlayPronunciation: () {
-                pronunciationService.playPronunciation(
+                PronunciationService.instance.playPronunciation(
                   question.choices.firstWhere((choice) => choice.correct).id,
                 );
               },
