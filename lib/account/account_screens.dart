@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
+import '../l10n/app_localizations.dart';
 import 'account.dart';
 
-String _errorMessage(Object error) => error is AccountFailure
+String _errorMessage(Object error, AppLocalizations l10n) => error is AccountFailure
     ? error.message
-    : 'Unable to reach your account. Check your connection and try again.';
+    : l10n.accountUnableToReach;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, required this.accounts, this.onContinueAsGuest});
@@ -41,7 +42,7 @@ class _SignInPageState extends State<SignInPage> {
   String? _validateEmail(String? value) =>
       RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value?.trim() ?? '')
       ? null
-      : 'Enter a valid email address.';
+      : AppLocalizations.of(context)!.accountEmailInvalid;
 
   Future<void> _perform(Future<void> Function() operation) async {
     if (_busy) return;
@@ -53,7 +54,9 @@ class _SignInPageState extends State<SignInPage> {
     try {
       await operation();
     } catch (error) {
-      if (mounted) setState(() => _error = _errorMessage(error));
+      if (mounted) {
+        setState(() => _error = _errorMessage(error, AppLocalizations.of(context)!));
+      }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -80,8 +83,9 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     final accounts = widget.accounts;
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('IndicLearn')),
+      appBar: AppBar(title: Text(l10n.appName)),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -96,23 +100,23 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       Text(
                         _register && !_phoneMode
-                            ? 'Create your account'
-                            : 'Sign in',
+                            ? l10n.accountCreateTitle
+                                                        : l10n.signIn,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 24),
                       if (accounts.supportsPhone) ...[
                         SegmentedButton<bool>(
-                          segments: const [
+                          segments: [
                             ButtonSegment(
                               value: false,
                               icon: Icon(Icons.email_outlined),
-                              label: Text('Email'),
+                              label: Text(l10n.accountEmailLabel),
                             ),
                             ButtonSegment(
                               value: true,
                               icon: Icon(Icons.phone_outlined),
-                              label: Text('Phone'),
+                              label: Text(l10n.accountPhoneLabel),
                             ),
                           ],
                           selected: {_phoneMode},
@@ -136,7 +140,7 @@ class _SignInPageState extends State<SignInPage> {
                           autofillHints: const [AutofillHints.email],
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(labelText: 'Email'),
+                          decoration: InputDecoration(labelText: l10n.accountEmailLabel),
                           validator: _validateEmail,
                         ),
                         const SizedBox(height: 16),
@@ -153,11 +157,11 @@ class _SignInPageState extends State<SignInPage> {
                                 : AutofillHints.password,
                           ],
                           decoration: InputDecoration(
-                            labelText: 'Password',
+                            labelText: l10n.accountPasswordLabel,
                             suffixIcon: IconButton(
                               tooltip: _hidePassword
-                                  ? 'Show password'
-                                  : 'Hide password',
+                                  ? l10n.accountShowPassword
+                                                                    : l10n.accountHidePassword,
                               onPressed: () => setState(
                                 () => _hidePassword = !_hidePassword,
                               ),
@@ -170,10 +174,10 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your password.';
+                              return l10n.accountPasswordRequired;
                             }
                             if (_register && value.length < 8) {
-                              return 'Use at least 8 characters.';
+                              return l10n.accountPasswordTooShort;
                             }
                             return null;
                           },
@@ -185,15 +189,15 @@ class _SignInPageState extends State<SignInPage> {
                           enabled: !_busy && _challenge == null,
                           keyboardType: TextInputType.phone,
                           autofillHints: const [AutofillHints.telephoneNumber],
-                          decoration: const InputDecoration(
-                            labelText: 'Phone number',
-                            hintText: '+919876543210',
+                          decoration: InputDecoration(
+                            labelText: l10n.accountPhoneNumberLabel,
+                            hintText: l10n.accountPhoneExample,
                           ),
                           validator: (value) =>
                               RegExp(r'^\+[1-9]\d{7,14}$')
                                   .hasMatch(value?.trim() ?? '')
                               ? null
-                              : 'Include the country code, for example +91.',
+                              : l10n.accountPhoneCountryCodeHint,
                         ),
                         if (_challenge != null) ...[
                           const SizedBox(height: 16),
@@ -202,13 +206,13 @@ class _SignInPageState extends State<SignInPage> {
                             enabled: !_busy,
                             keyboardType: TextInputType.number,
                             autofillHints: const [AutofillHints.oneTimeCode],
-                            decoration: const InputDecoration(
-                              labelText: 'Verification code',
+                            decoration:                             InputDecoration(
+                                                          labelText: l10n.accountVerificationCodeLabel,
                             ),
                             validator: (value) =>
                                 RegExp(r'^\d{6}$').hasMatch(value?.trim() ?? '')
                                 ? null
-                                : 'Enter the 6-digit code.',
+                                : l10n.accountVerificationCodeInvalid,
                             onFieldSubmitted: _busy ? null : (_) => _submit(),
                           ),
                           TextButton(
@@ -219,14 +223,14 @@ class _SignInPageState extends State<SignInPage> {
                                     _code.clear();
                                     _error = null;
                                   }),
-                            child: const Text(
-                              'Change number or request another code',
+                            child:                             Text(
+                                                          l10n.accountChangeNumber,
                             ),
                           ),
                         ],
                         const SizedBox(height: 8),
-                        const Text(
-                          'By requesting a code, you agree to receive a verification SMS. Carrier charges may apply.',
+                        Text(
+                                                  l10n.accountSmsConsent,
                         ),
                       ],
                       if (_error != null) ...[
@@ -259,9 +263,9 @@ class _SignInPageState extends State<SignInPage> {
                         label: Text(
                           _phoneMode
                               ? (_challenge == null
-                                    ? 'Send code'
-                                    : 'Verify and sign in')
-                              : (_register ? 'Create account' : 'Sign in'),
+                                    ? l10n.accountSendCode
+                                                                        : l10n.accountVerifyAndSignIn)
+                                                                  : (_register ? l10n.accountCreateAccount : l10n.signIn),
                         ),
                       ),
                       if (!_phoneMode) ...[
@@ -276,8 +280,8 @@ class _SignInPageState extends State<SignInPage> {
                                 }),
                           child: Text(
                             _register
-                                ? 'Already have an account? Sign in'
-                                : 'Create an email account',
+                                ? l10n.accountAlreadyHaveAccount
+                                                                : l10n.accountCreateEmailAccount,
                           ),
                         ),
                         TextButton(
@@ -287,7 +291,7 @@ class _SignInPageState extends State<SignInPage> {
                                   if (_validateEmail(_email.text) != null) {
                                     setState(
                                       () => _error =
-                                          'Enter your email address first.',
+                                          l10n.accountEmailRequiredFirst,
                                     );
                                     return;
                                   }
@@ -297,12 +301,12 @@ class _SignInPageState extends State<SignInPage> {
                                     );
                                     if (mounted) {
                                       setState(
-                                        () => _notice = 'If an account exists, a password-reset email has been sent.',
+                                        () => _notice = l10n.accountPasswordResetSent,
                                       );
                                     }
                                   });
                                 },
-                          child: const Text('Forgot password?'),
+                          child: Text(l10n.accountForgotPassword),
                         ),
                       ],
                       if (accounts.supportsGoogle ||
@@ -317,7 +321,7 @@ class _SignInPageState extends State<SignInPage> {
                               ? null
                               : () => _perform(accounts.signInWithGoogle),
                           icon: const Icon(Icons.login),
-                          label: const Text('Continue with Google'),
+                          label: Text(l10n.accountContinueGoogle),
                         ),
                       if (accounts.supportsApple) ...[
                         const SizedBox(height: 12),
@@ -326,7 +330,7 @@ class _SignInPageState extends State<SignInPage> {
                               ? null
                               : () => _perform(accounts.signInWithApple),
                           icon: const Icon(Icons.apple),
-                          label: const Text('Sign in with Apple'),
+                          label: Text(l10n.accountSignInApple),
                         ),
                       ],
                       if (widget.onContinueAsGuest != null) ...[
@@ -334,7 +338,7 @@ class _SignInPageState extends State<SignInPage> {
                         TextButton.icon(
                           onPressed: _busy ? null : widget.onContinueAsGuest,
                           icon: const Icon(Icons.person_outline),
-                          label: const Text('Continue as guest'),
+                          label: Text(l10n.accountContinueGuest),
                         ),
                       ],
                     ],
@@ -392,7 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       await operation();
     } catch (error) {
-      if (mounted) setState(() => _error = _errorMessage(error));
+      if (mounted) setState(() => _error = _errorMessage(error, AppLocalizations.of(context)!));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -400,10 +404,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Your profile')),
+    appBar: AppBar(title: Text(AppLocalizations.of(context)!.accountProfileTitle)),
     body: StreamBuilder<UserProfile?>(
       stream: _profile,
       builder: (context, snapshot) {
+        final l10n = AppLocalizations.of(context)!;
         final profile = snapshot.data;
         if (!_initialized && profile != null) {
           _name.text = profile.displayName;
@@ -418,8 +423,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (snapshot.hasError)
-                    const Text(
-                      'Unable to load your profile. Check your connection.',
+                    Text(
+                                          l10n.accountProfileLoadError,
                     )
                   else if (profile == null)
                     const LinearProgressIndicator(),
@@ -428,8 +433,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     enabled: !_busy && profile != null,
                     maxLength: 80,
                     textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(
-                      labelText: 'Display name',
+                    decoration:                     InputDecoration(
+                                          labelText: l10n.accountDisplayNameLabel,
                     ),
                   ),
                   if (widget.identity.email != null)
@@ -458,8 +463,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         : () => _perform(() async {
                             final name = _name.text.trim();
                             if (name.isEmpty || name.length > 80) {
-                              throw const AccountFailure(
-                                'Use a name between 1 and 80 characters.',
+                              throw AccountFailure(
+                                                              l10n.accountNameLengthError,
                               );
                             }
                             await widget.profiles.updateDisplayName(
@@ -468,12 +473,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             );
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Profile saved')),
+                                SnackBar(content: Text(l10n.accountProfileSaved)),
                               );
                             }
                           }),
                     icon: const Icon(Icons.save_outlined),
-                    label: const Text('Save profile'),
+                    label: Text(l10n.accountSaveProfile),
                   ),
                   const SizedBox(height: 12),
                   OutlinedButton.icon(
@@ -487,7 +492,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             }
                           }),
                     icon: const Icon(Icons.logout),
-                    label: const Text('Sign out'),
+                    label: Text(l10n.accountSignOut),
                   ),
                   if (_busy)
                     const Padding(
@@ -533,10 +538,10 @@ class _AccountGateState extends State<AccountGate> {
     initialData: widget.accounts.currentUser,
     builder: (context, snapshot) {
       if (snapshot.hasError) {
-        return const Scaffold(
+        return Scaffold(
           body: Center(
             child: Text(
-              'Account session unavailable. Restart the app to retry.',
+              AppLocalizations.of(context)!.accountSessionUnavailable,
             ),
           ),
         );
@@ -594,16 +599,17 @@ class _ProfileBootstrapState extends State<_ProfileBootstrap> {
     future: _ready,
     builder: (context, snapshot) {
       if (snapshot.hasError) {
+        final l10n = AppLocalizations.of(context)!;
         return Scaffold(
-          appBar: AppBar(title: const Text('Your account')),
+          appBar: AppBar(title: Text(l10n.accountYourAccountTitle)),
           body: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(24),
                   child: Text(
-                    'Your profile could not be loaded. Check your connection.',
+                                    l10n.accountProfileNotLoaded,
                   ),
                 ),
                 FilledButton.icon(
@@ -611,7 +617,7 @@ class _ProfileBootstrapState extends State<_ProfileBootstrap> {
                     _ready = widget.profiles.ensureProfile(widget.identity);
                   }),
                   icon: const Icon(Icons.refresh),
-                  label: const Text('Retry'),
+                  label: Text(l10n.retry),
                 ),
                 TextButton(
                   onPressed: () async {
@@ -620,14 +626,14 @@ class _ProfileBootstrapState extends State<_ProfileBootstrap> {
                     } catch (_) {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Sign-out failed. Try again.'),
+                          SnackBar(
+                                                      content: Text(l10n.accountSignOutFailed),
                           ),
                         );
                       }
                     }
                   },
-                  child: const Text('Sign out'),
+                  child: Text(l10n.accountSignOut),
                 ),
               ],
             ),

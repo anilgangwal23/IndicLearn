@@ -1,16 +1,19 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widget_previews.dart';
 
 import 'pair_model.dart';
 import 'pairing_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
+import '../../l10n/app_localizations.dart';
 
 @Preview(name: 'Game Page', size: Size(390, 844))
 Widget previewGamePage() {
   return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const WordMatchPage(
       initialJsonData:
@@ -70,8 +73,9 @@ class _WordMatchGameState extends State<WordMatchPage> {
       });
     } catch (error) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
-        _loadError = 'Unable to load pairs: $error';
+        _loadError = l10n.pairingUnableToLoad('$error');
         _loading = false;
       });
     }
@@ -150,10 +154,11 @@ class _WordMatchGameState extends State<WordMatchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: !widget.embeddedInLevel,
-        title: Text('Match Words (Score ${_matchedIds.length})'),
+        title: Text(l10n.pairingTitle(_matchedIds.length)),
       ),
       body: SafeArea(
         child: _loading
@@ -161,15 +166,15 @@ class _WordMatchGameState extends State<WordMatchPage> {
             : _loadError != null
             ? Center(child: Text(_loadError!))
             : _pairs.isEmpty
-            ? const Center(child: Text('No pairs available'))
+            ? Center(child: Text(l10n.pairingNoPairs))
             : Column(
                 children: [
                   if (_matchedIds.length == _pairs.length)
-                    const Padding(
-                      padding: EdgeInsets.all(16),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
                       child: GameFeedback(
                         correct: true,
-                        message: 'All pairs matched!',
+                        message: l10n.pairingAllMatched,
                       ),
                     ),
                   if (_matchedIds.length == _pairs.length &&
@@ -178,7 +183,7 @@ class _WordMatchGameState extends State<WordMatchPage> {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: GameButton(
                         icon: Icons.arrow_forward,
-                        label: 'Continue',
+                        label: l10n.continueLabel,
                         onPressed: () => widget.onComplete!(
                           _matchedIds.length,
                           _pairs.length,

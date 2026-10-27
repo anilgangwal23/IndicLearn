@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:indic_learn/audio/pronunciation_service.dart';
 import 'package:indic_learn/levels/fail_screen.dart';
 
 import 'level_model.dart';
 import 'level_factory.dart';
 import 'winscreen.dart';
+import '../l10n/app_localizations.dart';
 import '../widgets/svg_mascot.dart';
 import '../session/session.dart';
 
@@ -110,7 +111,8 @@ class _LevelPageState extends State<LevelPage> {
       setState(() => _steps = steps);
     } catch (error) {
       if (!mounted) return;
-      setState(() => _loadError = 'Unable to load level: $error');
+      final l10n = AppLocalizations.of(context)!;
+      setState(() => _loadError = l10n.levelLoadError('$error'));
     }
   }
 
@@ -128,9 +130,10 @@ class _LevelPageState extends State<LevelPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (_loadError != null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Level unavailable')),
+        appBar: AppBar(title: Text(l10n.levelUnavailableTitle)),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -141,7 +144,7 @@ class _LevelPageState extends State<LevelPage> {
     }
     if (_steps.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Loading level')),
+        appBar: AppBar(title: Text(l10n.levelLoading)),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
@@ -181,7 +184,10 @@ class _LevelPageState extends State<LevelPage> {
                   Expanded(
                     child: Column(
                       children: [
-                        Text('Step ${_currentStep + 1}/${_steps.length}'),
+                        Text(l10n.levelStepProgress(
+                          _currentStep + 1,
+                          _steps.length,
+                        )),
                         const SizedBox(height: 8),
                         LinearProgressIndicator(
                           value: _currentStep / _steps.length,

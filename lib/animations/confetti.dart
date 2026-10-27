@@ -1,6 +1,8 @@
 
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
+import '../l10n/app_localizations.dart';
 
 class WinScreen extends StatefulWidget {
   const WinScreen({super.key});
@@ -38,6 +40,7 @@ class _WinScreenState extends State<WinScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: const Color(0xFF17132F),
       body: Stack(
@@ -73,13 +76,13 @@ class _WinScreenState extends State<WinScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    '🏆',
-                    style: TextStyle(fontSize: 100),
+                  Text(
+                    l10n.celebrationTrophy,
+                    style: const TextStyle(fontSize: 100),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'YOU WON!',
+                  Text(
+                    l10n.celebrationWon,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 42,
@@ -95,8 +98,8 @@ class _WinScreenState extends State<WinScreen>
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Amazing job!',
+                  Text(
+                    l10n.celebrationAmazingJob,
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -107,7 +110,7 @@ class _WinScreenState extends State<WinScreen>
                   ElevatedButton.icon(
                     onPressed: _replay,
                     icon: const Icon(Icons.celebration),
-                    label: const Text('Celebrate Again!'),
+                    label: Text(l10n.celebrationCelebrateAgain),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFFC857),
                       foregroundColor: const Color(0xFF21183F),

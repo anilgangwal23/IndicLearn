@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widget_previews.dart';
 import 'dart:async';
 import 'mts_model.dart';
 import 'mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
+import '../../l10n/app_localizations.dart';
 
 import '../../animations/common_animations.dart';
 import '../../widgets/svg_mascot.dart';
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
   return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const mts(
       initialJsonData:
@@ -61,32 +64,34 @@ class _mtsGameState extends State<mts> {
       });
     } catch (error) {
       if (!mounted) return;
-      setState(() => _loadError = 'Unable to load sentence: $error');
+      final l10n = AppLocalizations.of(context)!;
+      setState(() => _loadError = l10n.unableToLoadSentence('$error'));
     }
   }
 
   Widget _buildGame() {
+    final l10n = AppLocalizations.of(context)!;
     if (_loadError != null) {
       return GameScaffold(
         embeddedInLevel: widget.embeddedInLevel,
-        title: 'Make the Sentence',
+        title: l10n.mtsTitle,
         child: Text(_loadError!, textAlign: TextAlign.center),
       );
     }
     return GameScaffold(
       embeddedInLevel: widget.embeddedInLevel,
-      title: 'Make the Sentence',
+      title: l10n.mtsTitle,
       footer: isSolved
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GameFeedback(
+                GameFeedback(
                   correct: true,
-                  message: 'Sentence complete!',
+                  message: l10n.sentenceComplete,
                 ),
                 const SizedBox(height: 12),
                 GameButton(
-                  label: 'Continue',
+                  label: l10n.continueLabel,
                   icon: Icons.arrow_forward,
                   onPressed: () => widget.onComplete?.call(1, 1),
                 ),

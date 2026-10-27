@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widget_previews.dart';
 
 import '../../animations/confetti.dart';
@@ -7,6 +7,7 @@ import 'quiz_models.dart';
 import 'widgets/question_view.dart';
 import '../../audio/pronunciation_service.dart';
 import '../../ui/game_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 export 'quiz_loader.dart';
 export 'quiz_models.dart';
@@ -15,6 +16,8 @@ export 'widgets/choice_button.dart';
 @Preview(name: 'Game Page', size: Size(1280, 800))
 Widget previewGamePage() {
   return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const GamePage(
       assetPath: "packages/indic_learn/assets/Quizes/hi_en_auto_rickshaw_a02.json",
@@ -94,15 +97,17 @@ class _GamePageState extends State<GamePage>
       );
       if (!mounted) return;
 
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
         questions = loadedQuestions;
         _introducing = loadedQuestions.any((question) => question.introduce);
-        _loadError = loadedQuestions.isEmpty ? 'No questions available.' : null;
+        _loadError = loadedQuestions.isEmpty ? l10n.quizNoQuestions : null;
       });
     } catch (error) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
-        _loadError = 'Unable to load quiz: $error';
+        _loadError = l10n.quizUnableToLoad('$error');
       });
     }
   }
@@ -147,9 +152,10 @@ class _GamePageState extends State<GamePage>
       context: context,
       barrierDismissible: false,
       builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
         return AlertDialog(
-          title: const Text('Complete!'),
-          content: Text('You scored $score out of ${questions.length}'),
+          title: Text(l10n.quizComplete),
+          content: Text(l10n.quizScoreResult(score, questions.length)),
           actions: [
             TextButton(
               onPressed: () {
@@ -164,7 +170,7 @@ class _GamePageState extends State<GamePage>
                   _introducing = questions.any((question) => question.introduce);
                 });
               },
-              child: const Text('Play Again'),
+              child: Text(l10n.quizPlayAgain),
             ),
           ],
         );
@@ -189,6 +195,7 @@ class _GamePageState extends State<GamePage>
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    final l10n = AppLocalizations.of(context)!;
     final introductions = questions.where((question) => question.introduce).toList();
     final question = _introducing
       ? introductions[_introductionIndex]
@@ -199,8 +206,8 @@ class _GamePageState extends State<GamePage>
         automaticallyImplyLeading: !widget.embeddedInLevel,
         title: Text(
           _introducing
-              ? 'Learn ${_introductionIndex + 1}/${introductions.length}'
-              : 'Question ${currentQuestion + 1}/${questions.length}',
+              ? l10n.quizLearnProgress(_introductionIndex + 1, introductions.length)
+              : l10n.quizQuestionProgress(currentQuestion + 1, questions.length),
         ),
       ),
       body: Stack(

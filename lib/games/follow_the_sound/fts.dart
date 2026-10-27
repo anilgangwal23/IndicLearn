@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widget_previews.dart';
 
 import 'dart:async';
@@ -10,10 +10,13 @@ import '../make_the_sentence/mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
 import '../../audio/pronunciation_service.dart';
+import '../../l10n/app_localizations.dart';
 
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
   return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const fts(
       initialJsonData:
@@ -64,32 +67,34 @@ class _ftsGameState extends State<fts> {
       });
     } catch (error) {
       if (!mounted) return;
-      setState(() => _loadError = 'Unable to load sentence: $error');
+      final l10n = AppLocalizations.of(context)!;
+      setState(() => _loadError = l10n.unableToLoadSentence('$error'));
     }
   }
 
   Widget _buildGame() {
+    final l10n = AppLocalizations.of(context)!;
     if (_loadError != null) {
       return GameScaffold(
         embeddedInLevel: widget.embeddedInLevel,
-        title: 'Follow the sound',
+        title: l10n.ftsTitle,
         child: Text(_loadError!, textAlign: TextAlign.center),
       );
     }
     return GameScaffold(
       embeddedInLevel: widget.embeddedInLevel,
-      title: 'Follow the sound',
+      title: l10n.ftsTitle,
       footer: isSolved
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GameFeedback(
+                GameFeedback(
                   correct: true,
-                  message: 'Sentence complete!',
+                  message: l10n.sentenceComplete,
                 ),
                 const SizedBox(height: 12),
                 GameButton(
-                  label: 'Continue',
+                  label: l10n.continueLabel,
                   icon: Icons.arrow_forward,
                   onPressed: () => widget.onComplete?.call(1, 1),
                 ),
@@ -107,7 +112,7 @@ class _ftsGameState extends State<fts> {
                     children: [
                       const SizedBox(width: 24),
                       IconButton(
-                        tooltip: 'Play sound',
+                        tooltip: l10n.ftsPlaySound,
                         onPressed: () {
                           // TODO: Play the sound.
                           PronunciationService.instance.playPronunciation(_model.translation);

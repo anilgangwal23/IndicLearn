@@ -1,11 +1,15 @@
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widget_previews.dart';
+
+import '../l10n/app_localizations.dart';
 
 @Preview(name: 'Cartoon Mascot', size: Size(390, 844))
 Widget previewMascot() {
   return const MaterialApp(
     debugShowCheckedModeBanner: false,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     home: MascotDemo(),
   );
 }
@@ -103,8 +107,9 @@ class _MascotDemoState extends State<MascotDemo>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Cartoon Mascot')),
+      appBar: AppBar(title: Text(l10n.mascotCartoonTitle)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -200,13 +205,13 @@ class _MascotDemoState extends State<MascotDemo>
                       eyebrowsUp = !eyebrowsUp;
                     });
                   },
-                  child: const Text('Raise eyebrows'),
+                  child: Text(l10n.mascotRaiseEyebrows),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     spinController.forward(from: 0);
                   },
-                  child: const Text('Spin'),
+                  child: Text(l10n.mascotSpin),
                 ),
               ],
             ),

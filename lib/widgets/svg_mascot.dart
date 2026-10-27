@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../l10n/app_localizations.dart';
 import 'svg_mascot_parser.dart';
 
 enum MascotAnimation {
@@ -139,7 +140,7 @@ class SvgMascotState extends State<SvgMascot>
           if (snapshot.hasError) {
             return Center(
               child: Tooltip(
-                message: '${snapshot.error}',
+              message: AppLocalizations.of(context)!.mascotImageLoadFailed,
                 child: const Icon(Icons.broken_image_outlined),
               ),
             );

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'account/account.dart';
 import 'account/account_screens.dart';
 import 'account/firebase_bootstrap.dart';
+import 'l10n/app_localizations.dart';
 import 'level_loader/level_loader.dart';
 import 'progress/learning_progress.dart';
 import 'progress/progress_scope.dart';
@@ -27,8 +28,11 @@ class LanguageGameApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Language Game',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       theme: buildGameTheme(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('hi', ''),
       home: accounts == null
           ? const LevelLoader()
           : AccountGate(
@@ -49,10 +53,12 @@ class LanguageGameApp extends StatelessWidget {
                   onOpenProfile: openProfile,
                 ),
               ),
-              guestBuilder: (signIn) => LevelLoader(
-                key: const ValueKey('guest'),
-                onOpenProfile: signIn,
-                accountActionLabel: 'Sign in',
+              guestBuilder: (signIn) => Builder(
+                builder: (context) => LevelLoader(
+                  key: const ValueKey('guest'),
+                  onOpenProfile: signIn,
+                  accountActionLabel: AppLocalizations.of(context)!.signIn,
+                ),
               ),
             ),
     );
@@ -89,43 +95,51 @@ class _AccountStartupState extends State<_AccountStartup> {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: buildGameTheme(),
-        home: Scaffold(
-          appBar: AppBar(title: const Text('IndicLearn')),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: snapshot.hasError
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Account services unavailable. Firebase setup or a connection may be required.',
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        FilledButton.icon(
-                          onPressed: () => setState(() {
-                            _startup = initializeAccounts();
-                          }),
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Retry'),
-                        ),
-                        const SizedBox(height: 12),
-                        Builder(
-                          builder: (context) => TextButton(
-                            onPressed: () => Navigator.of(context).push<void>(
-                              MaterialPageRoute(
-                                builder: (_) => const LevelLoader(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('hi', ''),
+        home: Builder(
+          builder: (context) {
+            final l10n = AppLocalizations.of(context)!;
+            return Scaffold(
+              appBar: AppBar(title: Text(l10n.appName)),
+              body: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: snapshot.hasError
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              l10n.accountServicesUnavailable,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            FilledButton.icon(
+                              onPressed: () => setState(() {
+                                _startup = initializeAccounts();
+                              }),
+                              icon: const Icon(Icons.refresh),
+                              label: Text(l10n.retry),
+                            ),
+                            const SizedBox(height: 12),
+                            Builder(
+                              builder: (context) => TextButton(
+                                onPressed: () => Navigator.of(context).push<void>(
+                                  MaterialPageRoute(
+                                    builder: (_) => const LevelLoader(),
+                                  ),
+                                ),
+                                child: Text(l10n.continueWithoutSignIn),
                               ),
                             ),
-                            child: const Text('Continue without signing in'),
-                          ),
-                        ),
-                      ],
-                    )
-                  : const CircularProgressIndicator(),
-            ),
-          ),
+                          ],
+                        )
+                      : const CircularProgressIndicator(),
+                ),
+              ),
+            );
+          },
         ),
       );
     },

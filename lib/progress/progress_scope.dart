@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
+import '../l10n/app_localizations.dart';
 import 'learning_progress.dart';
 
 typedef CompleteProgressLevel = Future<void> Function({
@@ -89,25 +90,26 @@ class _ProgressScopeState extends State<ProgressScope> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final error = _error;
     if (error != null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Learning progress')),
+        appBar: AppBar(title: Text(l10n.progressTitle)),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Your learning progress could not be loaded. Check your connection and try again.',
+                Text(
+                  l10n.progressLoadFailed,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 FilledButton.icon(
                   onPressed: _listen,
                   icon: const Icon(Icons.refresh),
-                  label: const Text('Retry'),
+                  label: Text(l10n.retry),
                 ),
               ],
             ),

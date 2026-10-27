@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,10 +7,16 @@ import '../quiz_models.dart';
 import 'choice_button.dart';
 import '../../../ui/game_theme.dart';
 import '../../../ui/game_widgets.dart';
+import '../../../l10n/app_localizations.dart';
 
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
-  return MaterialApp(theme: buildGameTheme(), home: const GamePage());
+  return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    theme: buildGameTheme(),
+    home: const GamePage(),
+  );
 }
 
 class QuestionView extends StatelessWidget {
@@ -47,6 +53,7 @@ class QuestionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (introducing) {
       final choice = question.choices.firstWhere((choice) => choice.correct);
       final meaning =
@@ -103,7 +110,7 @@ class QuestionView extends StatelessWidget {
                 const SizedBox(height: 16),
                 Center(
                   child: IconButton.filledTonal(
-                    tooltip: 'Listen',
+                    tooltip: l10n.quizQuestionListen,
                     iconSize: 28,
                     padding: const EdgeInsets.all(16),
                     icon: const Icon(Icons.volume_up),
@@ -113,7 +120,7 @@ class QuestionView extends StatelessWidget {
                 const SizedBox(height: 24),
                 GameButton(
                   onPressed: onIntroductionComplete,
-                  label: 'Continue',
+                  label: l10n.continueLabel,
                   icon: Icons.arrow_forward,
                 ),
               ],
@@ -161,15 +168,15 @@ class QuestionView extends StatelessWidget {
                   question.choices.any(
                     (choice) => choice.id == selectedChoiceId && choice.correct,
                   )
-                  ? 'Correct!'
-                  : 'Not quite. The correct answer is highlighted.',
+                  ? l10n.quizQuestionCorrect
+                  : l10n.quizQuestionNotQuite,
             ),
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: GameButton(
                 onPressed: onContinue,
-                label: isLastQuestion ? 'Finish' : 'Continue',
+                label: isLastQuestion ? l10n.quizQuestionFinish : l10n.continueLabel,
                 icon: isLastQuestion ? Icons.check : Icons.arrow_forward,
               ),
             ),

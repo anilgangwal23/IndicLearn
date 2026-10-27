@@ -44,6 +44,10 @@ dependencies:
   google_sign_in: ^7.2.0
   just_audio_windows: ^0.2.3
 
+  material_ui: any
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,6 +59,9 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   reflectable: ^5.2.3
+  custom_lint: ^0.8.1
+  hardcoded_string_lint:
+    path: tools/hardcoded_string_lint
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,7 +73,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/svg_assets/
