@@ -1,4 +1,4 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 
 import 'account/account.dart';
 import 'account/account_screens.dart';
@@ -30,9 +30,12 @@ class LanguageGameApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       theme: buildGameTheme(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localizationsDelegates: [
+        AppLocalizations.delegate, // Add this line
+        ...AppLocalizations.localizationsDelegates,
+      ],
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('hi', ''),
+      locale: const Locale('hi'),
       home: accounts == null
           ? const LevelLoader()
           : AccountGate(
@@ -97,7 +100,7 @@ class _AccountStartupState extends State<_AccountStartup> {
         theme: buildGameTheme(),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('hi', ''),
+        locale: const Locale('hi'),
         home: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;

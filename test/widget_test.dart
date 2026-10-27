@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,6 +24,7 @@ import 'package:indic_learn/games/quiz_ui/quiz_loader.dart';
 import 'package:indic_learn/games/quiz_ui/quiz.dart' show GamePage;
 import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
+import 'package:indic_learn/l10n/app_localizations.dart';
 import 'package:indic_learn/games/make_the_sentence/mts_model.dart';
 import 'package:indic_learn/session/session.dart';
 void main() {
@@ -843,6 +844,8 @@ void main() {
       DefaultAssetBundle(
         bundle: _QuizAssetBundle(jsonEncode(payload)),
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context)
                 .copyWith(textScaler: const TextScaler.linear(1.5)),
@@ -917,6 +920,8 @@ void main() {
       final choice = question.choices.firstWhere((choice) => choice.correct);
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context)
@@ -989,7 +994,11 @@ void main() {
         await tester.pumpWidget(
           DefaultAssetBundle(
             bundle: bundle,
-            child: const MaterialApp(home: GamePage()),
+            child: const MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              home: GamePage(),
+            ),
           ),
         );
         await tester.pumpAndSettle();
@@ -1018,7 +1027,11 @@ void main() {
         ))!;
 
         await tester.runAsync(() async {
-          await tester.pumpWidget(const MaterialApp(home: GamePage()));
+          await tester.pumpWidget(const MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: GamePage(),
+          ));
         });
         await tester.pumpAndSettle();
 

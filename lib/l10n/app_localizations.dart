@@ -98,12 +98,6 @@ abstract class AppLocalizations {
     Locale('hi'),
   ];
 
-  /// The conventional newborn programmer greeting
-  ///
-  /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
-
   /// Brand name shown in the app bar; not translated
   ///
   /// In en, this message translates to:

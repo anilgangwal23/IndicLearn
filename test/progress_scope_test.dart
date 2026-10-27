@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:indic_learn/level_loader/level_loader.dart';
 import 'package:indic_learn/progress/learning_progress.dart';

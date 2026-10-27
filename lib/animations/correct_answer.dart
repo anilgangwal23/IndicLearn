@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 class CorrectAnswerBurstPainter extends CustomPainter {
   CorrectAnswerBurstPainter({required this.progress, required this.color}):super(repaint: progress);
 

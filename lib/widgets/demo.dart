@@ -1,4 +1,4 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import '../l10n/app_localizations.dart';
 import 'svg_mascot.dart';
