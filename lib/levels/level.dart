@@ -8,21 +8,22 @@ import 'level_model.dart';
 import 'level_factory.dart';
 import 'winscreen.dart';
 import '../l10n/app_localizations.dart';
-import '../widgets/svg_mascot.dart';
+import '../ui/mascot_catalog.dart';
+import '../ui/svg_mascot.dart';
 import '../session/session.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LevelPage extends StatefulWidget {
   final String assetPath;
-  final String mascotAsset;
+  final String? mascotAsset;
   final VoidCallback? onCompleted;
   final SessionStats sessionStats;
 
   const LevelPage({
     super.key,
     required this.assetPath,
-    this.mascotAsset = 'assets/mascots/sprout.svg',
+    this.mascotAsset,
     this.onCompleted,
     required this.sessionStats,
   });
@@ -32,6 +33,7 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
+  late final String _mascotAsset = widget.mascotAsset ?? pickSpeakingMascot();
   List<LevelStep> _steps = [];
   bool _loadStarted = false;
   String? _loadError;
@@ -49,13 +51,16 @@ class _LevelPageState extends State<LevelPage> {
     }
   }
 
+  // Games that show their own mascot in the main game area, so the header mascot is hidden.
+  static const _handlersWithOwnMascot = {'FollowTheSound', 'MTSPage'};
+
   Widget? _handleWinOrLose(int stepCount) {
     if (_currentStep == _steps.length) {
       PronunciationService.instance.playGameAudio(gameAudioTypes.levelComplete);
       return WinScreen(
         score: _score,
         total: _total,
-        mascotAsset: widget.mascotAsset,
+        mascotAsset: _mascotAsset,
         onPlayAgain: () {
           setState(() {
             _currentStep = 0;
@@ -75,7 +80,7 @@ class _LevelPageState extends State<LevelPage> {
       return FailScreen(
         score: _score,
         total: _total,
-        mascotAsset: widget.mascotAsset,
+        mascotAsset: _mascotAsset,
         onPlayAgain: () {
           setState(() {
             widget.sessionStats.lives = 5;
@@ -163,6 +168,7 @@ class _LevelPageState extends State<LevelPage> {
       _completeStep,
       embeddedInLevel: true,
       onLoseLife: _loseLife,
+      mascotAsset: _mascotAsset,
     );
 
     // final game = gameHandler(
@@ -182,25 +188,54 @@ class _LevelPageState extends State<LevelPage> {
                 children: [
                   if (Navigator.of(context).canPop()) const BackButton(),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Text(l10n.levelStepProgress(
-                          _currentStep + 1,
-                          _steps.length,
-                        )),
-                        const SizedBox(height: 8),
-                        LinearProgressIndicator(
-                          value: _currentStep / _steps.length,
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 260),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              l10n.levelStepProgress(
+                                _currentStep + 1,
+                                _steps.length,
+                              ),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(999),
+                              child: TweenAnimationBuilder<double>(
+                                tween: Tween(
+                                  end: _currentStep / _steps.length,
+                                ),
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeOutCubic,
+                                builder: (context, value, _) =>
+                                    LinearProgressIndicator(
+                                  value: value,
+                                  minHeight: 12,
+                                  backgroundColor: Colors.grey.shade300,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                  SvgMascot(
-                    asset: widget.mascotAsset,
-                    width: 88,
-                    height: 88,
-                    autoIdle: true,
-                  ),
+                  if (!_handlersWithOwnMascot.contains(step.handler))
+                    SvgMascot(
+                      asset: _mascotAsset,
+                      width: 88,
+                      height: 88,
+                      autoIdle: true,
+                      speaking: PronunciationService.instance.speaking,
+                    ),
                   SizedBox(
                     width: 40,
                     height: 40,

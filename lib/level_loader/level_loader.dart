@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../levels/level.dart';
-import '../widgets/svg_mascot.dart';
+import '../ui/mascot_catalog.dart';
+import '../ui/svg_mascot.dart';
 import 'scenario_catalog.dart';
 import '../session/session.dart';
 export 'scenario_catalog.dart' show LevelDefinition, ScenarioDefinition;
@@ -17,7 +18,7 @@ class LevelLoader extends StatefulWidget {
     this.accountActionLabel,
     this.scenarios,
     this.catalogAsset = ScenarioCatalog.defaultAsset,
-    this.mascotAsset = 'assets/mascots/sprout.svg',
+    this.mascotAsset,
     this.mascot,
     this.levelBuilder,
     this.completedLevelIds,
@@ -28,7 +29,7 @@ class LevelLoader extends StatefulWidget {
 
   final List<ScenarioDefinition>? scenarios;
   final String catalogAsset;
-  final String mascotAsset;
+  final String? mascotAsset;
   final Widget? mascot;
   final Widget Function(LevelDefinition level, VoidCallback onCompleted)?
   levelBuilder;
@@ -457,8 +458,9 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
                                               widget.configuration.mascot ??
                                               SvgMascot(
                                                 asset: widget
-                                                    .configuration
-                                                    .mascotAsset,
+                                                        .configuration
+                                                        .mascotAsset ??
+                                                    defaultMascotAsset,
                                                 width: 96,
                                                 height: 96,
                                                 autoIdle: !_opening,

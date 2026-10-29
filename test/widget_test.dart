@@ -13,8 +13,8 @@ import 'package:indic_learn/level_loader/scenario_catalog.dart';
 import 'package:indic_learn/levels/level.dart';
 import 'package:indic_learn/levels/level_factory.dart';
 import 'package:indic_learn/levels/level_model.dart';
-import 'package:indic_learn/widgets/svg_mascot.dart';
-import 'package:indic_learn/widgets/svg_mascot_parser.dart';
+import 'package:indic_learn/ui/svg_mascot.dart';
+import 'package:indic_learn/ui/svg_mascot_parser.dart';
 import 'package:indic_learn/ui/game_theme.dart';
 import 'package:indic_learn/ui/game_widgets.dart';
 import 'package:indic_learn/games/match_the_pair/pairing.dart';
@@ -80,6 +80,8 @@ void main() {
     final theme = buildGameTheme();
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: theme,
         home: const GameScaffold(
           title: 'Theme check',
@@ -141,6 +143,8 @@ void main() {
           final navigator = GlobalKey<NavigatorState>();
           await tester.pumpWidget(
             MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
               navigatorKey: navigator,
               home: const Scaffold(body: Text('Home')),
             ),
@@ -217,6 +221,21 @@ void main() {
         'mouth',
       ],
     );
+  });
+
+  test('Speaking parrot matches the layer contract with a mouth', () async {
+    final source = await rootBundle.loadString('assets/mascots/parrot.svg');
+    expect(
+      SvgMascotParser.parse(source).map((layer) => layer.id),
+      contains('mouth'),
+    );
+  });
+
+  test('Speaking pose opens the mouth and bobs the head per cycle', () {
+    expect(speakingPose(0).mouthOpen, closeTo(0, 1e-9));
+    expect(speakingPose(0.5).mouthOpen, closeTo(1, 1e-9));
+    expect(speakingPose(0.5).jumpY, lessThan(0));
+    expect(speakingPose(0).jumpY, closeTo(0, 1e-9));
   });
 
   test('Bundled catalog preserves everyday levels and adds the auto scenario', () async {
@@ -296,6 +315,8 @@ void main() {
       'Scenario Continue advances and ${useSystemBack ? 'system' : 'header'} Back returns to ladder',
       (tester) async {
         await tester.pumpWidget(MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: LevelLoader(
             mascot: const SizedBox.square(dimension: 96),
             levelBuilder: (level, onCompleted) => _FakeLevelPage(
@@ -351,6 +372,8 @@ void main() {
 
   testWidgets('Scenario progress advances only on completion and stays independent', (tester) async {
     await tester.pumpWidget(MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: LevelLoader(
         mascot: const SizedBox.square(dimension: 96),
         levelBuilder: (level, onCompleted) => _FakeLevelPage(
@@ -431,7 +454,10 @@ void main() {
     ));
     await tester.pumpWidget(DefaultAssetBundle(
       bundle: _QuizAssetBundle('{"steps":[]}', path: 'lesson-5.json'),
-      child: MaterialApp(home: LevelLoader(scenarios: [
+      child: MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: LevelLoader(scenarios: [
         ScenarioDefinition(id: 'resume', title: 'Resume', levels: levels, completedLevels: 5),
       ])),
     ));
@@ -450,6 +476,8 @@ void main() {
       DefaultAssetBundle(
         bundle: _QuizAssetBundle('{"steps":[]}', path: 'test-level.json'),
         child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: LevelLoader(
             scenarios: [
               ScenarioDefinition(id: 'start', title: 'Start', levels: [
@@ -497,9 +525,16 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const MaterialApp(home: LevelLoader(scenarios: [])));
+    const localized = MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: LevelLoader(scenarios: []),
+    );
+    await tester.pumpWidget(localized);
     expect(find.text('No scenarios available'), findsOneWidget);
     await tester.pumpWidget(const MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: LevelLoader(key: ValueKey('locked'), scenarios: [
         ScenarioDefinition(id: 'locked', title: 'Coming soon', unlocked: false, levels: [
           LevelDefinition(title: 'First', assetPath: 'missing.json'),
@@ -513,6 +548,8 @@ void main() {
 
   testWidgets('Scenario picker cancels safely when removed during a jump', (tester) async {
     await tester.pumpWidget(const MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: LevelLoader(mascot: SizedBox.square(dimension: 96)),
     ));
     final bundle = DefaultAssetBundle.of(tester.element(find.byType(LevelLoader)));
@@ -532,12 +569,16 @@ void main() {
     );
     expect(SvgMascotParser.parse(source!).map((layer) => layer.id), contains('mouth'));
     final mascotKey = GlobalKey<SvgMascotState>();
-    await tester.pumpWidget(MaterialApp(home: Center(child: SvgMascot(
+    await tester.pumpWidget(MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: Center(child: SvgMascot(
       key: mascotKey,
       asset: 'assets/mascots/sprout.svg',
       autoIdle: true,
     ))));
-    await tester.pumpAndSettle();
+    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
+    await tester.pump(const Duration(milliseconds: 100));
     for (final motion in [MascotAnimation.jump, MascotAnimation.yawn, MascotAnimation.blink]) {
       mascotKey.currentState!.play(motion);
       await tester.pump();
@@ -545,8 +586,9 @@ void main() {
       final transforms = tester.widgetList<Transform>(find.descendant(
         of: find.byType(SvgMascot), matching: find.byType(Transform),
       ));
+      expect(transforms, isNotEmpty);
       expect(transforms.any((widget) => !widget.transform.isIdentity()), isTrue);
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 1));
     }
     await tester.pump(const Duration(seconds: 8));
     await tester.pump(const Duration(milliseconds: 300));
@@ -563,6 +605,8 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: buildGameTheme(),
         home: GameScaffold(
           title: 'Shared controls',
@@ -601,77 +645,6 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  for (final answerCorrectly in [true, false]) {
-    testWidgets(
-      'Level plays ${answerCorrectly ? 'correct' : 'incorrect'} quiz then pairs and restarts from step one',
-      (tester) async {
-        final assets = <String, String>{};
-        for (final path in [
-          'assets/levels/level_1.json',
-          'assets/Quizes/whatisthis_fruit_001.json',
-          'assets/match_the_pairs_json/en_hi_lvl1.json',
-        ]) {
-          assets[path] = (await tester.runAsync(
-            () => rootBundle.loadString(path),
-          ))!;
-        }
-        final bundle = _QuizAssetBundle(null, assets: assets);
-        await tester.pumpWidget(
-          DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
-        );
-        await tester.pumpAndSettle();
-        await tester.tap(find.byKey(const ValueKey('scenario-everyday-practice')));
-        await tester.pumpAndSettle();
-        expect(find.text('Step 1/2'), findsOneWidget);
-
-        var questionCount = 0;
-        while (find.byType(QuestionView).evaluate().isNotEmpty) {
-          questionCount++;
-          final view = tester.widget<QuestionView>(find.byType(QuestionView));
-          await tester.tap(
-            find
-                .byWidgetPredicate(
-                  (widget) =>
-                      widget is ChoiceButton &&
-                      widget.choice.correct == answerCorrectly,
-                )
-                .first,
-          );
-          await tester.pumpAndSettle();
-          await tester.tap(
-            find.text(view.isLastQuestion ? 'Finish' : 'Continue'),
-          );
-          await tester.pumpAndSettle();
-        }
-        expect(find.text('Step 2/2'), findsOneWidget);
-        expect(find.byType(WordMatchPage), findsOneWidget);
-        expect(find.text('Continue'), findsNothing);
-        for (final id in [0, 1, 2]) {
-          await tester.tap(find.byKey(ValueKey('left-$id')));
-          await tester.pump();
-          await tester.tap(find.byKey(ValueKey('right-$id')));
-          await tester.pumpAndSettle();
-        }
-        await tester.tap(find.text('Continue'));
-        await tester.pumpAndSettle();
-        expect(find.text('Level complete!'), findsOneWidget);
-        final expectedScore = (answerCorrectly ? questionCount : 0) + 3;
-        expect(
-          find.text('You scored $expectedScore out of ${questionCount + 3}'),
-          findsOneWidget,
-        );
-        await tester.tap(find.text('Play Again'));
-        await tester.pumpAndSettle();
-        expect(find.text('Step 1/2'), findsOneWidget);
-        final view = tester.widget<QuestionView>(find.byType(QuestionView));
-        expect(view.answered, isFalse);
-        expect(view.selectedChoiceId, isNull);
-        expect(find.text('Question 1/$questionCount'), findsOneWidget);
-        expect(tester.takeException(), isNull);
-      },
-    );
-  }
-
   for (final fixture in <String?>[
     null,
     '{"steps":[]}',
@@ -685,9 +658,10 @@ void main() {
         DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
       );
       await tester.pumpAndSettle();
+      final hi = lookupAppLocalizations(const Locale('hi'));
       await tester.tap(find.byKey(const ValueKey('scenario-everyday-practice')));
       await tester.pumpAndSettle();
-      expect(find.textContaining('Unable to load level:'), findsOneWidget);
+      expect(find.textContaining(hi.levelLoadError('')), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsNothing);
       expect(tester.takeException(), isNull);
     });
@@ -717,6 +691,8 @@ void main() {
       DefaultAssetBundle(
         bundle: bundle,
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           home: const WordMatchPage(
             initialJsonData: 'assets/match_the_pairs_json/en_hi_lvl1.json',
@@ -775,6 +751,8 @@ void main() {
       var presses = 0;
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(

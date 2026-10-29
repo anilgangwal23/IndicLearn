@@ -9,7 +9,8 @@ dynamic getHandler(
   String? assetPath,
   void Function(int, int)? onComplete, {
   bool embeddedInLevel = false,
-  VoidCallback? onLoseLife
+  VoidCallback? onLoseLife,
+  String? mascotAsset,
 }) {
   switch (handler) {
     case 'GamePage':
@@ -43,6 +44,7 @@ dynamic getHandler(
         onComplete: onComplete!,
         embeddedInLevel: embeddedInLevel,
         onLoseLife: onLoseLife,
+        mascotAsset: mascotAsset,
       );
     default:
       return null;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
-import '../widgets/svg_mascot.dart';
+import '../ui/svg_mascot.dart';
 
 class WinScreen extends StatelessWidget {
   final int score;

@@ -8,7 +8,7 @@ import '../../ui/game_widgets.dart';
 import '../../l10n/app_localizations.dart';
 
 import '../../animations/common_animations.dart';
-import '../../widgets/svg_mascot.dart';
+import '../../ui/svg_mascot.dart';
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
   return MaterialApp(

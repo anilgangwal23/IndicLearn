@@ -9,6 +9,8 @@ import '../make_the_sentence/mts_model.dart';
 import '../make_the_sentence/mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
+import '../../ui/svg_mascot.dart';
+import '../../ui/mascot_catalog.dart';
 import '../../audio/pronunciation_service.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -30,6 +32,7 @@ class fts extends StatefulWidget {
   final void Function(int score, int total)? onComplete;
   final bool embeddedInLevel;
   final VoidCallback? onLoseLife;
+  final String? mascotAsset;
 
   const fts({
     super.key,
@@ -37,6 +40,7 @@ class fts extends StatefulWidget {
     this.onComplete,
     this.embeddedInLevel = false,
     this.onLoseLife,
+    this.mascotAsset,
   });
 
   @override
@@ -44,6 +48,8 @@ class fts extends StatefulWidget {
 }
 
 class _ftsGameState extends State<fts> {
+  late final String _mascotAsset = widget.mascotAsset ?? pickSpeakingMascot();
+
   late final MTSModel _model;
   bool _isModelLoaded = false;
   String? _loadError;
@@ -111,6 +117,12 @@ class _ftsGameState extends State<fts> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(width: 24),
+                      SvgMascot(
+                        asset: _mascotAsset,
+                        width: 100,
+                        height: 100,
+                        speaking: PronunciationService.instance.speaking,
+                      ),
                       IconButton(
                         tooltip: l10n.ftsPlaySound,
                         onPressed: () {

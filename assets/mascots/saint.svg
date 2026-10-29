@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <g id="left_leg"><path d="M125 246v16h-14" fill="none" stroke="#7A5C2E" stroke-width="10" stroke-linecap="round"/></g>
+  <g id="right_leg"><path d="M175 246v16h14" fill="none" stroke="#7A5C2E" stroke-width="10" stroke-linecap="round"/></g>
+  <g id="left_hand"><path d="M82 130Q52 165 74 204Q94 184 98 150Z" fill="#F2C9A0" stroke="#A8744A" stroke-width="4" stroke-linejoin="round"/></g>
+  <g id="right_hand">
+    <path d="M218 130Q248 165 226 204Q206 184 202 150Z" fill="#F2C9A0" stroke="#A8744A" stroke-width="4" stroke-linejoin="round"/></g>
+  <g id="body">
+    <ellipse cx="150" cy="40" rx="48" ry="12" fill="none" stroke="#F9D949" stroke-width="8"/>
+    <path d="M96 222Q150 198 204 222L212 270H88Z" fill="#FFFFFF" stroke="#8A97A8" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M86 214Q150 186 214 214L222 300H78Z" fill="#3C6FD1" stroke="#244A8F" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M150 206V300" fill="none" stroke="#E8B923" stroke-width="5"/>
+    <path d="M150 258V290M136 270H164" fill="none" stroke="#F9D949" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="150" cy="150" rx="76" ry="80" fill="#F2C9A0" stroke="#A8744A" stroke-width="5"/>
+    <path d="M80 130Q86 70 150 66Q214 70 220 130Q206 96 150 94Q94 96 80 130Z" fill="#8A6A4A"/>
+    <path d="M104 168Q106 236 150 244Q194 236 196 168Q180 186 150 188Q120 186 104 168Z" fill="#D9D9D9" stroke="#8A97A8" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="150" cy="134" rx="6" ry="4" fill="#C9906A"/>
+  </g>
+  <g id="left_eyebrow"><path d="M108 92Q120 86 132 92" fill="none" stroke="#5A4632" stroke-width="5" stroke-linecap="round"/></g>
+  <g id="right_eyebrow"><path d="M168 92Q180 86 192 92" fill="none" stroke="#5A4632" stroke-width="5" stroke-linecap="round"/></g>
+  <g id="left_eye"><ellipse cx="120" cy="116" rx="10" ry="11" fill="#FFFFFF" stroke="#5A4632" stroke-width="3"/><circle cx="121" cy="116" r="5" fill="#5A4632"/></g>
+  <g id="right_eye"><ellipse cx="180" cy="116" rx="10" ry="11" fill="#FFFFFF" stroke="#5A4632" stroke-width="3"/><circle cx="179" cy="116" r="5" fill="#5A4632"/></g>
+  <g id="mouth"><ellipse cx="150" cy="150" rx="8" ry="2.5" fill="#B5544A"/></g>
+</svg>

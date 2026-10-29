@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -16,11 +17,28 @@ class PronunciationService {
   final audioPlayer = AudioPlayer();
   final tts = FlutterTts();
   //late final Future<void> _mappingReady;
-  PronunciationService._();
+  PronunciationService._() {
+    audioPlayer.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        _setSpeaking(false);
+      }
+    });
+    tts.setStartHandler(() => _setSpeaking(true));
+    tts.setCompletionHandler(() => _setSpeaking(false));
+    tts.setCancelHandler(() => _setSpeaking(false));
+    tts.setErrorHandler((_) => _setSpeaking(false));
+  }
   static final PronunciationService instance = PronunciationService._();
+
+  /// True while a pronunciation (audio file or TTS) is playing.
+  final ValueNotifier<bool> speaking = ValueNotifier<bool>(false);
 
   Future<Map<String, dynamic>>? _mappingFuture;
   String? _currentLanguage;
+
+  void _setSpeaking(bool value) {
+    if (speaking.value != value) speaking.value = value;
+  }
 
   Future<void> _setLanguageIfChanged(String language) async {
     if (_currentLanguage == language) return;
@@ -72,6 +90,7 @@ class PronunciationService {
       String file = mapping[id]['file'];
       if (file.isNotEmpty) {
         // Play the audio file using your preferred audio player
+        _setSpeaking(true);
         await audioPlayer.setAsset('assets/audio/$file');
         await audioPlayer.play();
       } else {

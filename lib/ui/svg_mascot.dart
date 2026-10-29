@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,6 +20,7 @@ class SvgMascot extends StatefulWidget {
     this.height = 240,
     this.autoBlink = false,
     this.autoIdle = false,
+    this.speaking,
     this.onAssetError,
   });
 
@@ -26,10 +28,13 @@ class SvgMascot extends StatefulWidget {
   final double width;
   final double height;
 
-  /// When true, plays a blink every few seconds.
+  /// When true, plays a basic blink every few seconds.
   /// Manual blinking remains available through [SvgMascotState.play].
   final bool autoBlink;
   final bool autoIdle;
+
+  /// While this is true, the mascot loops a speaking pose (mouth and bob).
+  final ValueListenable<bool>? speaking;
 
   final ValueChanged<Object>? onAssetError;
 
@@ -38,8 +43,9 @@ class SvgMascot extends StatefulWidget {
 }
 
 class SvgMascotState extends State<SvgMascot>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _controller;
+  late final AnimationController _speakController;
   late Future<List<SvgMascotLayer>> _layersFuture;
 
   MascotAnimation? _activeAnimation;
@@ -53,6 +59,16 @@ class SvgMascotState extends State<SvgMascot>
       vsync: this,
       duration: const Duration(milliseconds: 650),
     );
+    _speakController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    widget.speaking?.addListener(_onSpeakingChanged);
+    if (widget.speaking?.value ?? false) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _onSpeakingChanged();
+      });
+    }
     _layersFuture = _loadLayers();
     _scheduleIdle();
   }
@@ -63,11 +79,29 @@ class SvgMascotState extends State<SvgMascot>
     if (oldWidget.asset != widget.asset) {
       _layersFuture = _loadLayers();
     }
+    if (oldWidget.speaking != widget.speaking) {
+      oldWidget.speaking?.removeListener(_onSpeakingChanged);
+      widget.speaking?.addListener(_onSpeakingChanged);
+      _onSpeakingChanged();
+    }
     if (oldWidget.autoIdle != widget.autoIdle ||
         oldWidget.autoBlink != widget.autoBlink) {
       _scheduleIdle();
     }
   }
+
+  void _onSpeakingChanged() {
+    final speaking = widget.speaking?.value ?? false;
+    if (speaking && TickerMode.valuesOf(context).enabled &&
+        !MediaQuery.disableAnimationsOf(context)) {
+      _speakController.repeat();
+    } else {
+      _speakController
+        ..stop()
+        ..reset();
+    }
+  }
+
 
   void _scheduleIdle() {
     _idleTimer?.cancel();
@@ -119,7 +153,9 @@ class SvgMascotState extends State<SvgMascot>
   @override
   void dispose() {
     _idleTimer?.cancel();
+    widget.speaking?.removeListener(_onSpeakingChanged);
     _controller.dispose();
+    _speakController.dispose();
     super.dispose();
   }
 
@@ -150,9 +186,11 @@ class SvgMascotState extends State<SvgMascot>
           }
 
           return AnimatedBuilder(
-            animation: _controller,
+            animation: Listenable.merge([_controller, _speakController]),
             builder: (context, _) {
-              final pose = mascotPoseFor(_activeAnimation, _controller.value);
+              final pose = _speakController.isAnimating
+                  ? speakingPose(_speakController.value)
+                  : mascotPoseFor(_activeAnimation, _controller.value);
 
               final layers = snapshot.data!;
               return ClipRect(

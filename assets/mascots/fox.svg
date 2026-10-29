@@ -24,8 +24,7 @@
     <path d="M214 67 L219 43 L196 67 Z" fill="#FFCFB0"/>
     <circle cx="150" cy="120" r="76" fill="#FFB547" stroke="#573323" stroke-width="4"/>
     <ellipse cx="150" cy="147" rx="47" ry="30" fill="#FFF0D7"/>
-    <path d="M141 137 Q150 130 159 137 Q157 147 150 147 Q143 147 141 137 Z" fill="#573323"/>
-    <path d="M150 147 L150 157 M150 157 Q139 168 130 157 M150 157 Q161 168 170 157" stroke="#573323" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M141 131 Q150 124 159 131 Q157 141 150 141 Q143 141 141 131 Z" fill="#573323"/>
     <path d="M104 180 Q150 166 196 180 L211 224 Q150 244 89 224 Z" fill="#F28C38" stroke="#573323" stroke-width="4" stroke-linejoin="round"/>
     <ellipse cx="150" cy="210" rx="27" ry="20" fill="#FFF0D7"/>
   </g>
@@ -45,4 +44,5 @@
     <ellipse cx="176" cy="114" rx="7" ry="11" fill="#30221D"/>
     <circle cx="174" cy="109" r="3" fill="#FFFFFF"/>
   </g>
+  <g id="mouth"><ellipse cx="150" cy="145" rx="9" ry="3" fill="#573323"/></g>
 </svg>

@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:indic_learn/account/account.dart';
 import 'package:indic_learn/account/account_screens.dart';
 import 'package:indic_learn/account/firebase_account.dart';
+import 'package:indic_learn/l10n/app_localizations.dart';
 import 'package:indic_learn/ui/game_theme.dart';
 
 void main() {
@@ -83,6 +84,8 @@ void main() {
       addTearDown(accounts.close);
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           home: SignInPage(accounts: accounts),
         ),
@@ -130,7 +133,13 @@ void main() {
   ) async {
     final accounts = _Accounts();
     addTearDown(accounts.close);
-    await tester.pumpWidget(MaterialApp(home: SignInPage(accounts: accounts)));
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: SignInPage(accounts: accounts),
+      ),
+    );
     await tester.tap(find.text('Phone'));
     await tester.pumpAndSettle();
     await tester.enterText(
@@ -165,7 +174,13 @@ void main() {
     final accounts = _Accounts()
       ..failure = const AccountFailure('Sign-in was cancelled.');
     addTearDown(accounts.close);
-    await tester.pumpWidget(MaterialApp(home: SignInPage(accounts: accounts)));
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: SignInPage(accounts: accounts),
+      ),
+    );
     await tester.ensureVisible(find.text('Continue with Google'));
     await tester.tap(find.text('Continue with Google'));
     await tester.pumpAndSettle();
@@ -180,6 +195,8 @@ void main() {
     accounts.supportsPhone = false;
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: SignInPage(
           key: const ValueKey('unsupported'),
           accounts: accounts,
@@ -202,6 +219,8 @@ void main() {
       addTearDown(accounts.close);
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           home: SignInPage(accounts: accounts),
         ),
@@ -234,6 +253,8 @@ void main() {
     final profiles = _Profiles();
     addTearDown(accounts.close);
     Widget buildApp() => MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: AccountGate(
         accounts: accounts,
         profiles: profiles,
@@ -287,6 +308,8 @@ void main() {
     addTearDown(accounts.close);
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: AccountGate(
           accounts: accounts,
           profiles: profiles,
@@ -345,6 +368,8 @@ void main() {
     addTearDown(accounts.close);
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: AccountGate(
           accounts: accounts,
           profiles: profiles,

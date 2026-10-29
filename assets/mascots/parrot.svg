@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <g id="left_leg"><path d="M125 226v22h-14" fill="none" stroke="#E0A526" stroke-width="10" stroke-linecap="round"/></g>
+  <g id="right_leg"><path d="M175 226v22h14" fill="none" stroke="#E0A526" stroke-width="10" stroke-linecap="round"/></g>
+  <g id="left_hand"><path d="M82 130Q52 165 74 204Q94 184 98 150Z" fill="#2E9E6B" stroke="#1B5E45" stroke-width="4" stroke-linejoin="round"/></g>
+  <g id="right_hand"><path d="M218 130Q248 165 226 204Q206 184 202 150Z" fill="#2E9E6B" stroke="#1B5E45" stroke-width="4" stroke-linejoin="round"/></g>
+  <g id="body">
+    <path d="M135 222L150 268L165 222Z" fill="#4FB0E8" stroke="#1B5E45" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M110 88L90 58L122 72Z" fill="#F5C84C" stroke="#1B5E45" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M190 88L210 58L178 72Z" fill="#F5C84C" stroke="#1B5E45" stroke-width="4" stroke-linejoin="round"/>
+    <ellipse cx="150" cy="150" rx="78" ry="82" fill="#3CC47C" stroke="#1B5E45" stroke-width="5"/>
+    <ellipse cx="150" cy="190" rx="44" ry="38" fill="#BFF2C9"/>
+    <ellipse cx="108" cy="136" rx="11" ry="7" fill="#F58D91"/>
+    <ellipse cx="192" cy="136" rx="11" ry="7" fill="#F58D91"/>
+    <path d="M136 118Q150 106 164 118L150 136Z" fill="#F5A623" stroke="#B36B00" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  <g id="left_eyebrow"><path d="M108 88Q120 80 132 88" fill="none" stroke="#1B5E45" stroke-width="5" stroke-linecap="round"/></g>
+  <g id="right_eyebrow"><path d="M168 88Q180 80 192 88" fill="none" stroke="#1B5E45" stroke-width="5" stroke-linecap="round"/></g>
+  <g id="left_eye"><ellipse cx="120" cy="111" rx="10" ry="13" fill="#FFFFFF" stroke="#1B5E45" stroke-width="3"/><circle cx="122" cy="110" r="5" fill="#1B5E45"/><circle cx="124" cy="107" r="2" fill="#FFFFFF"/></g>
+  <g id="right_eye"><ellipse cx="180" cy="111" rx="10" ry="13" fill="#FFFFFF" stroke="#1B5E45" stroke-width="3"/><circle cx="178" cy="110" r="5" fill="#1B5E45"/><circle cx="180" cy="107" r="2" fill="#FFFFFF"/></g>
+  <g id="mouth"><ellipse cx="150" cy="145" rx="9" ry="2.5" fill="#B36B00"/></g>
+</svg>
