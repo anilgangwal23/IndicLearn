@@ -1,0 +1,10 @@
+{
+  "id": "game-review",
+  "title": "Game review (new games)",
+  "unlocked": true,
+  "levels": [
+    {"id": "game-review-memory-flip", "title": "Memory flip review", "assetPath": "assets/levels/game_review_memory_flip.json", "unlocked": true},
+    {"id": "game-review-fill-blank", "title": "Fill the blank review", "assetPath": "assets/levels/game_review_fill_blank.json", "unlocked": true},
+    {"id": "game-review-speed-round", "title": "Speed round review", "assetPath": "assets/levels/game_review_speed_round.json", "unlocked": true}
+  ]
+}

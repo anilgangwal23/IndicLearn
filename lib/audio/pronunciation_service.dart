@@ -75,8 +75,12 @@ class PronunciationService {
         break;
     }
     if (file.isNotEmpty) {
-      await audioPlayer.setAsset('assets/audio/game_sounds/$file');
-      await audioPlayer.play();
+      try {
+        await audioPlayer.setAsset('assets/audio/game_sounds/$file');
+        await audioPlayer.play();
+      } on PlayerInterruptedException {
+        // A newer sound replaced this one while it was loading.
+      }
     }
   }
 
@@ -91,8 +95,12 @@ class PronunciationService {
       if (file.isNotEmpty) {
         // Play the audio file using your preferred audio player
         _setSpeaking(true);
-        await audioPlayer.setAsset('assets/audio/$file');
-        await audioPlayer.play();
+        try {
+          await audioPlayer.setAsset('assets/audio/$file');
+          await audioPlayer.play();
+        } on PlayerInterruptedException {
+          // A newer sound replaced this one while it was loading.
+        }
       } else {
         String native = mapping[id]['native'];
         await tts.speak(native);

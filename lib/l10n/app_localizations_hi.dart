@@ -17,23 +17,23 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get accountServicesUnavailable =>
-      'खाता सेवाएं उपलब्ध नहीं हैं। Firebase सेटअप या कनेक्शन आवश्यक हो सकता है।';
+      'खाता सेवा अभी नहीं चल रही। इंटरनेट जांचें या बाद में फिर कोशिश करें।';
 
   @override
-  String get retry => 'फिर से प्रयास करें';
+  String get retry => 'फिर से कोशिश करें';
 
   @override
-  String get continueWithoutSignIn => 'बिना साइन इन किए जारी रखें';
+  String get continueWithoutSignIn => 'बिना लॉग इन किए आगे बढ़ें';
 
   @override
-  String get signIn => 'साइन इन करें';
+  String get signIn => 'लॉग इन करें';
 
   @override
   String get accountUnableToReach =>
-      'आपके खाते तक पहुंच नहीं हो पा रही है। अपना कनेक्शन जांचें और फिर से प्रयास करें।';
+      'खाते तक नहीं पहुंच पा रहे। इंटरनेट जांचें और फिर से कोशिश करें।';
 
   @override
-  String get accountEmailInvalid => 'कृपया एक मान्य ईमेल पता दर्ज करें।';
+  String get accountEmailInvalid => 'कृपया सही ईमेल पता लिखें।';
 
   @override
   String get accountCreateTitle => 'अपना खाता बनाएं';
@@ -73,29 +73,29 @@ class AppLocalizationsHi extends AppLocalizations {
   String get mascotImageLoadFailed => 'मैस्कॉट की छवि लोड नहीं हो सकी';
 
   @override
-  String get accountVerificationCodeLabel => 'सत्यापन कोड';
+  String get accountVerificationCodeLabel => 'कोड';
 
   @override
   String get accountVerificationCodeInvalid => '6 अंकों का कोड दर्ज करें।';
 
   @override
-  String get accountChangeNumber => 'नंबर बदलें या दूसरा कोड मांगें';
+  String get accountChangeNumber => 'नंबर बदलें या नया कोड मंगाएं';
 
   @override
   String get accountSmsConsent =>
-      'कोड मांगकर, आप सत्यापन SMS प्राप्त करने के लिए सहमत होते हैं। कैरियर शुल्क लागू हो सकते हैं।';
+      'कोड मंगाकर, आप पुष्टि वाला SMS लेने के लिए राज़ी होते हैं। फ़ोन कंपनी के शुल्क लग सकते हैं।';
 
   @override
   String get accountSendCode => 'कोड भेजें';
 
   @override
-  String get accountVerifyAndSignIn => 'सत्यापित करें और साइन इन करें';
+  String get accountVerifyAndSignIn => 'पक्का करें और लॉग इन करें';
 
   @override
   String get accountCreateAccount => 'खाता बनाएं';
 
   @override
-  String get accountAlreadyHaveAccount => 'पहले से खाता है? साइन इन करें';
+  String get accountAlreadyHaveAccount => 'पहले से खाता है? लॉग इन करें';
 
   @override
   String get accountCreateEmailAccount => 'ईमेल खाता बनाएं';
@@ -108,53 +108,52 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get accountPasswordResetSent =>
-      'यदि कोई खाता मौजूद है, तो पासवर्ड रीसेट ईमेल भेज दिया गया है।';
+      'अगर ऐसा खाता है, तो पासवर्ड बदलने का ईमेल भेज दिया गया है।';
 
   @override
-  String get accountContinueGoogle => 'Google से जारी रखें';
+  String get accountContinueGoogle => 'Google से आगे बढ़ें';
 
   @override
-  String get accountSignInApple => 'Apple से साइन इन करें';
+  String get accountSignInApple => 'Apple से लॉग इन करें';
 
   @override
-  String get accountContinueGuest => 'अतिथि के रूप में जारी रखें';
+  String get accountContinueGuest => 'मेहमान के रूप में आगे बढ़ें';
 
   @override
   String get accountProfileTitle => 'आपकी प्रोफ़ाइल';
 
   @override
   String get accountProfileLoadError =>
-      'आपकी प्रोफ़ाइल लोड नहीं हो सकी। अपना कनेक्शन जांचें।';
+      'प्रोफ़ाइल नहीं खुल पाई। इंटरनेट जांचें।';
 
   @override
-  String get accountDisplayNameLabel => 'प्रदर्शित नाम';
+  String get accountDisplayNameLabel => 'दिखने वाला नाम';
 
   @override
-  String get accountNameLengthError =>
-      '1 से 80 अक्षरों के बीच का नाम उपयोग करें।';
+  String get accountNameLengthError => 'नाम 1 से 80 अक्षर का होना चाहिए।';
 
   @override
-  String get accountProfileSaved => 'प्रोफ़ाइल सहेजी गई';
+  String get accountProfileSaved => 'प्रोफ़ाइल सेव हो गई';
 
   @override
-  String get accountSaveProfile => 'प्रोफ़ाइल सहेजें';
+  String get accountSaveProfile => 'प्रोफ़ाइल सेव करें';
 
   @override
-  String get accountSignOut => 'साइन आउट करें';
+  String get accountSignOut => 'लॉग आउट करें';
 
   @override
   String get accountSessionUnavailable =>
-      'खाता सत्र उपलब्ध नहीं है। पुनः प्रयास के लिए ऐप रीस्टार्ट करें।';
+      'खाता अभी नहीं खुल पाया। ऐप दोबारा शुरू करें।';
 
   @override
   String get accountYourAccountTitle => 'आपका खाता';
 
   @override
   String get accountProfileNotLoaded =>
-      'आपकी प्रोफ़ाइल लोड नहीं हो सकी। अपना कनेक्शन जांचें।';
+      'प्रोफ़ाइल नहीं खुल पाई। इंटरनेट जांचें।';
 
   @override
-  String get accountSignOutFailed => 'साइन आउट विफल रहा। फिर से प्रयास करें।';
+  String get accountSignOutFailed => 'लॉग आउट नहीं हो पाया। फिर से कोशिश करें।';
 
   @override
   String get demoSpin => 'घुमाएं';
@@ -181,43 +180,42 @@ class AppLocalizationsHi extends AppLocalizations {
   String get mascotSpin => 'घुमाएं';
 
   @override
-  String get levelLoaderTitle => 'आपके परिदृश्य';
+  String get levelLoaderTitle => 'आपकी कहानियाँ';
 
   @override
-  String get levelLoaderLoadFailed => 'आपके परिदृश्य लोड नहीं हो सके।';
+  String get levelLoaderLoadFailed => 'आपकी कहानियाँ नहीं खुल सकीं।';
 
   @override
-  String get levelLoaderSaveFailed =>
-      'प्रगति सहेजी नहीं जा सकी। अपना कनेक्शन जांचें।';
+  String get levelLoaderSaveFailed => 'तरक्की सेव नहीं हो पाई। इंटरनेट जांचें।';
 
   @override
-  String get levelLoaderNoScenarios => 'कोई परिदृश्य उपलब्ध नहीं है';
+  String get levelLoaderNoScenarios => 'अभी कोई कहानी नहीं है';
 
   @override
-  String get levelLoaderSavingProgress => 'प्रगति सहेजी जा रही है…';
+  String get levelLoaderSavingProgress => 'आपकी तरक्की सेव हो रही है…';
 
   @override
   String get levelLoaderShowingCachedProgress =>
-      'स्थानीय रूप से सहेजी गई प्रगति दिखाई जा रही है';
+      'फ़ोन में सेव की गई तरक्की दिख रही है';
 
   @override
   String levelLoaderScenariosUnlocked(int unlocked, int total) {
-    return '$total में से $unlocked परिदृश्य अनलॉक हुए';
+    return '$total में से $unlocked कहानियाँ खुल चुकी हैं';
   }
 
   @override
   String levelLoaderLevelsComplete(int completed, int total) {
-    return '$total में से $completed पूरे';
+    return '$total में से $completed लेवल पूरे';
   }
 
   @override
   String levelLoaderScenarioLocked(String title) {
-    return '$title, लॉक है';
+    return '$title, बंद है';
   }
 
   @override
   String levelLoaderScenarioFinished(String title) {
-    return '$title, पूरा हुआ। अंतिम स्तर दोबारा खेलें';
+    return '$title, पूरी हुई। आखिरी लेवल फिर से खेलें';
   }
 
   @override
@@ -227,57 +225,57 @@ class AppLocalizationsHi extends AppLocalizations {
     int total,
     int nextLevel,
   ) {
-    return '$title, $total में से $completed पूरे। स्तर $nextLevel जारी रखें';
+    return '$title, $total में से $completed लेवल पूरे। लेवल $nextLevel जारी रखें';
   }
 
   @override
   String get yourProfile => 'आपकी प्रोफ़ाइल';
 
   @override
-  String get levelUnavailableTitle => 'स्तर उपलब्ध नहीं है';
+  String get levelUnavailableTitle => 'लेवल नहीं खुल सका';
 
   @override
-  String get levelLoading => 'स्तर लोड हो रहा है';
+  String get levelLoading => 'लेवल खुल रहा है';
 
   @override
   String levelStepProgress(int current, int total) {
-    return 'चरण $current/$total';
+    return 'कदम $current/$total';
   }
 
   @override
   String levelLoadError(String error) {
-    return 'स्तर लोड नहीं हो सका: $error';
+    return 'लेवल नहीं खुल सका: $error';
   }
 
   @override
-  String get failTitle => 'स्तर पूरा हुआ!';
+  String get failTitle => 'लेवल खत्म!';
 
   @override
-  String get failOutOfLives => 'जीवन समाप्त :(';
+  String get failOutOfLives => 'जीवन खत्म :(';
 
   @override
-  String get failTryAgain => 'फिर से प्रयास करें';
+  String get failTryAgain => 'फिर से कोशिश करें';
 
   @override
-  String get winTitle => 'स्तर पूरा हुआ!';
+  String get winTitle => 'लेवल पूरा हुआ!';
 
   @override
   String winScore(int score, int total) {
-    return 'आपने $total में से $score अंक प्राप्त किए';
+    return 'आपके $total में से $score अंक आए';
   }
 
   @override
-  String get winTryAgain => 'फिर से प्रयास करें';
+  String get winTryAgain => 'फिर से कोशिश करें';
 
   @override
   String get winContinue => 'जारी रखें...';
 
   @override
-  String get progressTitle => 'सीखने की प्रगति';
+  String get progressTitle => 'आपकी तरक्की';
 
   @override
   String get progressLoadFailed =>
-      'आपकी सीखने की प्रगति लोड नहीं हो सकी। अपना कनेक्शन जांचें और फिर से प्रयास करें।';
+      'आपकी तरक्की नहीं खुल पाई। इंटरनेट जांचें और फिर से कोशिश करें।';
 
   @override
   String get celebrationTrophy => '🏆';
@@ -292,7 +290,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get celebrationCelebrateAgain => 'फिर से जश्न मनाएं!';
 
   @override
-  String get ftsTitle => 'आवाज़ का पीछा करें';
+  String get ftsTitle => 'आवाज़ पहचानें';
 
   @override
   String get mtsTitle => 'वाक्य बनाएं';
@@ -308,7 +306,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String unableToLoadSentence(String error) {
-    return 'वाक्य लोड नहीं हो सका: $error';
+    return 'वाक्य नहीं खुल सका: $error';
   }
 
   @override
@@ -318,21 +316,139 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String pairingUnableToLoad(String error) {
-    return 'जोड़े लोड नहीं हो सके: $error';
+    return 'जोड़े नहीं खुल सके: $error';
   }
 
   @override
-  String get pairingNoPairs => 'कोई जोड़ा उपलब्ध नहीं है';
+  String get pairingNoPairs => 'अभी कोई जोड़ा नहीं है';
 
   @override
   String get pairingAllMatched => 'सभी जोड़े मिल गए!';
 
   @override
-  String get quizNoQuestions => 'कोई प्रश्न उपलब्ध नहीं है।';
+  String memoryFlipTitle(int matched, int total) {
+    return 'मेमोरी फ्लिप ($matched/$total मिले)';
+  }
+
+  @override
+  String memoryFlipUnableToLoad(String error) {
+    return 'कार्ड नहीं खुल सके: $error';
+  }
+
+  @override
+  String get memoryFlipNoCards => 'अभी कोई कार्ड नहीं है';
+
+  @override
+  String get memoryFlipAllMatched => 'सभी जोड़े मिल गए!';
+
+  @override
+  String get memoryFlipPreviewHint =>
+      'कार्ड ध्यान से देखें। थोड़ी देर में ये पलट जाएँगे।';
+
+  @override
+  String get introStart => 'शुरू करें';
+
+  @override
+  String get introQuizTitle => 'क्विज़';
+
+  @override
+  String get introQuizBody =>
+      'सवाल सुनें या पढ़ें, फिर सही जवाब पर टैप करें। गलती पर एक जीवन कम हो सकता है।';
+
+  @override
+  String get introMatchTitle => 'शब्द मिलाएँ';
+
+  @override
+  String get introMatchBody =>
+      'बाईं ओर के किसी शब्द पर टैप करें, फिर दाईं ओर से उसका जोड़ा चुनें। गलती पर एक जीवन कम हो सकता है।';
+
+  @override
+  String get introSentenceTitle => 'वाक्य बनाएँ';
+
+  @override
+  String get introSentenceBody =>
+      'शब्दों को सही क्रम में टैप करके वाक्य बनाएँ। गलती पर एक जीवन जा सकता है।';
+
+  @override
+  String get introSoundTitle => 'आवाज़ पहचानें';
+
+  @override
+  String get introSoundBody =>
+      'आवाज़ सुनें, फिर उससे मेल खाता जवाब टैप करें। गलती पर एक जीवन कम हो सकता है।';
+
+  @override
+  String get introMemoryTitle => 'मेमोरी फ्लिप';
+
+  @override
+  String get introMemoryBody =>
+      'पहले कार्ड ध्यान से देखें। फिर दो-दो कार्ड पलटकर हर शब्द और उसका मतलब खोजें। गलत जोड़ी पर एक जीवन कम हो सकता है।';
+
+  @override
+  String fillBlankTitle(int current, int total) {
+    return 'खाली जगह भरें ($current/$total)';
+  }
+
+  @override
+  String get fillBlankPrompt => 'वह शब्द चुनिए जो वाक्य को पूरा करे।';
+
+  @override
+  String get fillBlankWrong => 'यह सही नहीं है। दूसरा विकल्प चुनिए।';
+
+  @override
+  String get fillBlankNoQuestions => 'कोई प्रश्न उपलब्ध नहीं है';
+
+  @override
+  String fillBlankUnableToLoad(String error) {
+    return 'प्रश्न लोड नहीं हो सके: $error';
+  }
+
+  @override
+  String get introFillTitle => 'खाली जगह भरें';
+
+  @override
+  String get introFillBody =>
+      'वाक्य पढ़िए और वह शब्द चुनिए जो उसे पूरा करे। हर गलत चुनाव से एक जीवन जाएगा।';
+
+  @override
+  String get speedRoundTitle => 'स्पीड राउंड';
+
+  @override
+  String speedRoundTimeLeft(int seconds) {
+    return 'बचा समय: $seconds सेकंड';
+  }
+
+  @override
+  String speedRoundStatus(int score, int streak) {
+    return 'स्कोर: $score   लगातार सही: $streak';
+  }
+
+  @override
+  String get speedRoundPrompt => 'जितनी तेज़ी से हो सके सही अर्थ चुनिए।';
+
+  @override
+  String get speedRoundNoQuestions => 'कोई प्रश्न उपलब्ध नहीं है';
+
+  @override
+  String speedRoundUnableToLoad(String error) {
+    return 'प्रश्न लोड नहीं हो सके: $error';
+  }
+
+  @override
+  String get speedRoundOver => 'राउंड खत्म!';
+
+  @override
+  String get introSpeedTitle => 'स्पीड राउंड';
+
+  @override
+  String get introSpeedBody =>
+      'समय खत्म होने से पहले जितने प्रश्नों के उत्तर दे सकें दीजिए। हर सही उत्तर पर अंक मिलते हैं, और लगातार सही उत्तर पर अंक बढ़ते हैं। गलत उत्तर से एक जीवन जाता है और क्रम टूट जाता है।';
+
+  @override
+  String get quizNoQuestions => 'अभी कोई सवाल नहीं है।';
 
   @override
   String quizUnableToLoad(String error) {
-    return 'क्विज़ लोड नहीं हो सका: $error';
+    return 'क्विज़ नहीं खुल सका: $error';
   }
 
   @override
@@ -340,7 +456,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String quizScoreResult(int score, int total) {
-    return 'आपने $total में से $score अंक प्राप्त किए';
+    return 'आपके $total में से $score अंक आए';
   }
 
   @override
@@ -353,7 +469,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String quizQuestionProgress(int current, int total) {
-    return 'प्रश्न $current/$total';
+    return 'सवाल $current/$total';
   }
 
   @override
@@ -363,8 +479,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get quizQuestionCorrect => 'सही!';
 
   @override
-  String get quizQuestionNotQuite => 'सही नहीं। सही उत्तर हाइलाइट किया गया है।';
+  String get quizQuestionNotQuite => 'सही नहीं है। सही जवाब दिखाया गया है।';
 
   @override
   String get quizQuestionFinish => 'समाप्त करें';
+
+  @override
+  String get languageLabel => 'भाषा';
+
+  @override
+  String get languageDeviceDefault => 'डिवाइस की भाषा';
 }

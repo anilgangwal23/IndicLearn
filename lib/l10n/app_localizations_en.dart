@@ -328,6 +328,124 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pairingAllMatched => 'All pairs matched!';
 
   @override
+  String memoryFlipTitle(int matched, int total) {
+    return 'Memory Flip ($matched/$total matched)';
+  }
+
+  @override
+  String memoryFlipUnableToLoad(String error) {
+    return 'Unable to load cards: $error';
+  }
+
+  @override
+  String get memoryFlipNoCards => 'No cards available';
+
+  @override
+  String get memoryFlipAllMatched => 'All pairs found!';
+
+  @override
+  String get memoryFlipPreviewHint =>
+      'Memorize the cards. They will flip back soon.';
+
+  @override
+  String get introStart => 'Start';
+
+  @override
+  String get introQuizTitle => 'Quiz';
+
+  @override
+  String get introQuizBody =>
+      'Listen to or read the question, then tap the correct answer. Mistakes can cost a life.';
+
+  @override
+  String get introMatchTitle => 'Match Words';
+
+  @override
+  String get introMatchBody =>
+      'Tap a word on the left, then tap its match on the right. Mistakes can cost a life.';
+
+  @override
+  String get introSentenceTitle => 'Make the Sentence';
+
+  @override
+  String get introSentenceBody =>
+      'Tap the words in the correct order to build the sentence. Mistakes can cost a life.';
+
+  @override
+  String get introSoundTitle => 'Follow the Sound';
+
+  @override
+  String get introSoundBody =>
+      'Listen to the sound, then tap the answer that matches it. Mistakes can cost a life.';
+
+  @override
+  String get introMemoryTitle => 'Memory Flip';
+
+  @override
+  String get introMemoryBody =>
+      'Memorize the cards during the preview. Then flip two cards at a time to find each word and its translation. A mismatch can cost a life.';
+
+  @override
+  String fillBlankTitle(int current, int total) {
+    return 'Fill the blank ($current/$total)';
+  }
+
+  @override
+  String get fillBlankPrompt => 'Pick the word that completes the sentence.';
+
+  @override
+  String get fillBlankWrong => 'Not that one. Try another option.';
+
+  @override
+  String get fillBlankNoQuestions => 'No questions available';
+
+  @override
+  String fillBlankUnableToLoad(String error) {
+    return 'Unable to load questions: $error';
+  }
+
+  @override
+  String get introFillTitle => 'Fill the Blank';
+
+  @override
+  String get introFillBody =>
+      'Read the sentence and pick the word that completes it. Each wrong pick costs a life.';
+
+  @override
+  String get speedRoundTitle => 'Speed Round';
+
+  @override
+  String speedRoundTimeLeft(int seconds) {
+    return 'Time left: ${seconds}s';
+  }
+
+  @override
+  String speedRoundStatus(int score, int streak) {
+    return 'Score: $score   Streak: $streak';
+  }
+
+  @override
+  String get speedRoundPrompt => 'Pick the meaning as fast as you can.';
+
+  @override
+  String get speedRoundNoQuestions => 'No questions available';
+
+  @override
+  String speedRoundUnableToLoad(String error) {
+    return 'Unable to load questions: $error';
+  }
+
+  @override
+  String get speedRoundOver => 'Round over!';
+
+  @override
+  String get introSpeedTitle => 'Speed Round';
+
+  @override
+  String get introSpeedBody =>
+      'Answer as many questions as you can before time runs out. Correct answers earn points, and a streak multiplies them. A wrong answer costs a life and breaks the streak.';
+
+  @override
   String get quizNoQuestions => 'No questions available.';
 
   @override
@@ -368,4 +486,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quizQuestionFinish => 'Finish';
+
+  @override
+  String get languageLabel => 'Language';
+
+  @override
+  String get languageDeviceDefault => 'Device language';
 }

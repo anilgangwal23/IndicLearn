@@ -1,0 +1,3 @@
+{"steps":[
+  {"type":"memory_flip","handler":"MemoryFlipPage","data":"assets/memory_flip/hi_en_auto_rickshaw_m01.json"}
+]}

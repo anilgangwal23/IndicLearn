@@ -47,6 +47,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  shared_preferences: ^2.5.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,6 +80,9 @@ flutter:
     - assets/svg_assets/rickshaw_scenario/
     - assets/Quizes/
     - assets/match_the_pairs_json/
+    - assets/memory_flip/
+    - assets/fill_blank/
+    - assets/speed_round/
     - assets/make_the_sentence/
     - assets/levels/
     - assets/scenarios/

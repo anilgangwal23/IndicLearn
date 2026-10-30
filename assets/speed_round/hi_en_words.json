@@ -1,0 +1,14 @@
+{"questions":[
+  {"prompt":"water","answer":"पानी","distractors":["किताब","रोटी","चम्मच"]},
+  {"prompt":"book","answer":"किताब","distractors":["पानी","दरवाज़ा","सेब"]},
+  {"prompt":"bread","answer":"रोटी","distractors":["दूध","कुर्सी","बस"]},
+  {"prompt":"bus","answer":"बस","distractors":["कुर्सी","रोटी","पानी"]},
+  {"prompt":"door","answer":"दरवाज़ा","distractors":["किताब","दूध","सेब"]},
+  {"prompt":"apple","answer":"सेब","distractors":["बस","चम्मच","दरवाज़ा"]},
+  {"prompt":"chair","answer":"कुर्सी","distractors":["सेब","पानी","किताब"]},
+  {"prompt":"spoon","answer":"चम्मच","distractors":["दूध","बस","रोटी"]},
+  {"prompt":"milk","answer":"दूध","distractors":["चम्मच","किताब","कुर्सी"]},
+  {"prompt":"train","answer":"रेलगाड़ी","distractors":["बस","दरवाज़ा","रोटी"]},
+  {"prompt":"hospital","answer":"अस्पताल","distractors":["कुर्सी","सेब","दूध"]},
+  {"prompt":"market","answer":"बाज़ार","distractors":["दरवाज़ा","पानी","चम्मच"]}
+]}

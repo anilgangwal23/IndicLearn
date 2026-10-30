@@ -7,6 +7,10 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
 import 'app_localizations_hi.dart';
+import 'app_localizations_kn.dart';
+import 'app_localizations_mr.dart';
+import 'app_localizations_pa.dart';
+import 'app_localizations_te.dart';
 
 // ignore_for_file: type=lint
 
@@ -96,6 +100,10 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('hi'),
+    Locale('kn'),
+    Locale('mr'),
+    Locale('pa'),
+    Locale('te'),
   ];
 
   /// Brand name shown in the app bar; not translated
@@ -661,6 +669,198 @@ abstract class AppLocalizations {
   /// **'All pairs matched!'**
   String get pairingAllMatched;
 
+  /// No description provided for @memoryFlipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Flip ({matched}/{total} matched)'**
+  String memoryFlipTitle(int matched, int total);
+
+  /// No description provided for @memoryFlipUnableToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load cards: {error}'**
+  String memoryFlipUnableToLoad(String error);
+
+  /// No description provided for @memoryFlipNoCards.
+  ///
+  /// In en, this message translates to:
+  /// **'No cards available'**
+  String get memoryFlipNoCards;
+
+  /// No description provided for @memoryFlipAllMatched.
+  ///
+  /// In en, this message translates to:
+  /// **'All pairs found!'**
+  String get memoryFlipAllMatched;
+
+  /// No description provided for @memoryFlipPreviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Memorize the cards. They will flip back soon.'**
+  String get memoryFlipPreviewHint;
+
+  /// No description provided for @introStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get introStart;
+
+  /// No description provided for @introQuizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get introQuizTitle;
+
+  /// No description provided for @introQuizBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to or read the question, then tap the correct answer. Mistakes can cost a life.'**
+  String get introQuizBody;
+
+  /// No description provided for @introMatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Match Words'**
+  String get introMatchTitle;
+
+  /// No description provided for @introMatchBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a word on the left, then tap its match on the right. Mistakes can cost a life.'**
+  String get introMatchBody;
+
+  /// No description provided for @introSentenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Make the Sentence'**
+  String get introSentenceTitle;
+
+  /// No description provided for @introSentenceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the words in the correct order to build the sentence. Mistakes can cost a life.'**
+  String get introSentenceBody;
+
+  /// No description provided for @introSoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow the Sound'**
+  String get introSoundTitle;
+
+  /// No description provided for @introSoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to the sound, then tap the answer that matches it. Mistakes can cost a life.'**
+  String get introSoundBody;
+
+  /// No description provided for @introMemoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Flip'**
+  String get introMemoryTitle;
+
+  /// No description provided for @introMemoryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Memorize the cards during the preview. Then flip two cards at a time to find each word and its translation. A mismatch can cost a life.'**
+  String get introMemoryBody;
+
+  /// No description provided for @fillBlankTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the blank ({current}/{total})'**
+  String fillBlankTitle(int current, int total);
+
+  /// No description provided for @fillBlankPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the word that completes the sentence.'**
+  String get fillBlankPrompt;
+
+  /// No description provided for @fillBlankWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Not that one. Try another option.'**
+  String get fillBlankWrong;
+
+  /// No description provided for @fillBlankNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions available'**
+  String get fillBlankNoQuestions;
+
+  /// No description provided for @fillBlankUnableToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load questions: {error}'**
+  String fillBlankUnableToLoad(String error);
+
+  /// No description provided for @introFillTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill the Blank'**
+  String get introFillTitle;
+
+  /// No description provided for @introFillBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the sentence and pick the word that completes it. Each wrong pick costs a life.'**
+  String get introFillBody;
+
+  /// No description provided for @speedRoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Round'**
+  String get speedRoundTitle;
+
+  /// No description provided for @speedRoundTimeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Time left: {seconds}s'**
+  String speedRoundTimeLeft(int seconds);
+
+  /// No description provided for @speedRoundStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score}   Streak: {streak}'**
+  String speedRoundStatus(int score, int streak);
+
+  /// No description provided for @speedRoundPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the meaning as fast as you can.'**
+  String get speedRoundPrompt;
+
+  /// No description provided for @speedRoundNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions available'**
+  String get speedRoundNoQuestions;
+
+  /// No description provided for @speedRoundUnableToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load questions: {error}'**
+  String speedRoundUnableToLoad(String error);
+
+  /// No description provided for @speedRoundOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Round over!'**
+  String get speedRoundOver;
+
+  /// No description provided for @introSpeedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Round'**
+  String get introSpeedTitle;
+
+  /// No description provided for @introSpeedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer as many questions as you can before time runs out. Correct answers earn points, and a streak multiplies them. A wrong answer costs a life and breaks the streak.'**
+  String get introSpeedBody;
+
   /// No description provided for @quizNoQuestions.
   ///
   /// In en, this message translates to:
@@ -726,6 +926,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish'**
   String get quizQuestionFinish;
+
+  /// Tooltip for the language picker button
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageLabel;
+
+  /// Language picker option that follows the device language
+  ///
+  /// In en, this message translates to:
+  /// **'Device language'**
+  String get languageDeviceDefault;
 }
 
 class _AppLocalizationsDelegate
@@ -738,8 +950,14 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'hi'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'en',
+    'hi',
+    'kn',
+    'mr',
+    'pa',
+    'te',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -752,6 +970,14 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEn();
     case 'hi':
       return AppLocalizationsHi();
+    case 'kn':
+      return AppLocalizationsKn();
+    case 'mr':
+      return AppLocalizationsMr();
+    case 'pa':
+      return AppLocalizationsPa();
+    case 'te':
+      return AppLocalizationsTe();
   }
 
   throw FlutterError(

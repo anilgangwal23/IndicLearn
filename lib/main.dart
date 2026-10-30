@@ -4,6 +4,7 @@ import 'account/account.dart';
 import 'account/account_screens.dart';
 import 'account/firebase_bootstrap.dart';
 import 'l10n/app_localizations.dart';
+import 'l10n/locale_controller.dart';
 import 'level_loader/level_loader.dart';
 import 'progress/learning_progress.dart';
 import 'progress/progress_scope.dart';
@@ -26,50 +27,54 @@ class LanguageGameApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-      theme: buildGameTheme(),
-      localizationsDelegates: [
-        AppLocalizations.delegate, // Add this line
-        ...AppLocalizations.localizationsDelegates,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('hi'),
-      home: accounts == null
-          ? const LevelLoader()
-          : AccountGate(
-              accounts: accounts!,
-              profiles: profiles!,
-              homeBuilder: (identity, openProfile) => ProgressScope(
-                key: ValueKey(identity.id),
-                userId: identity.id,
-                repository: progress!,
-                builder: (context, snapshot, completeLevel) => LevelLoader(
-                  completedLevelIds: {
-                    for (final entry in snapshot.scenarios.entries)
-                      entry.key: entry.value.completedLevelIds,
-                  },
-                  onLevelCompleted: completeLevel,
-                  progressHasPendingWrites: snapshot.hasPendingWrites,
-                  progressIsFromCache: snapshot.isFromCache,
-                  onOpenProfile: openProfile,
+    return ValueListenableBuilder<Locale?>(
+      valueListenable: LocaleController.locale,
+      builder: (context, locale, _) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+        theme: buildGameTheme(),
+        localizationsDelegates: [
+          AppLocalizations.delegate, // Add this line
+          ...AppLocalizations.localizationsDelegates,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: locale,
+        home: accounts == null
+            ? const LevelLoader()
+            : AccountGate(
+                accounts: accounts!,
+                profiles: profiles!,
+                homeBuilder: (identity, openProfile) => ProgressScope(
+                  key: ValueKey(identity.id),
+                  userId: identity.id,
+                  repository: progress!,
+                  builder: (context, snapshot, completeLevel) => LevelLoader(
+                    completedLevelIds: {
+                      for (final entry in snapshot.scenarios.entries)
+                        entry.key: entry.value.completedLevelIds,
+                    },
+                    onLevelCompleted: completeLevel,
+                    progressHasPendingWrites: snapshot.hasPendingWrites,
+                    progressIsFromCache: snapshot.isFromCache,
+                    onOpenProfile: openProfile,
+                  ),
+                ),
+                guestBuilder: (signIn) => Builder(
+                  builder: (context) => LevelLoader(
+                    key: const ValueKey('guest'),
+                    onOpenProfile: signIn,
+                    accountActionLabel: AppLocalizations.of(context)!.signIn,
+                  ),
                 ),
               ),
-              guestBuilder: (signIn) => Builder(
-                builder: (context) => LevelLoader(
-                  key: const ValueKey('guest'),
-                  onOpenProfile: signIn,
-                  accountActionLabel: AppLocalizations.of(context)!.signIn,
-                ),
-              ),
-            ),
+      ),
     );
   }
 }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocaleController.load();
   runApp(const _AccountStartup());
 }
 
@@ -100,7 +105,7 @@ class _AccountStartupState extends State<_AccountStartup> {
         theme: buildGameTheme(),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('hi'),
+        locale: LocaleController.locale.value,
         home: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
@@ -128,11 +133,12 @@ class _AccountStartupState extends State<_AccountStartup> {
                             const SizedBox(height: 12),
                             Builder(
                               builder: (context) => TextButton(
-                                onPressed: () => Navigator.of(context).push<void>(
-                                  MaterialPageRoute(
-                                    builder: (_) => const LevelLoader(),
-                                  ),
-                                ),
+                                onPressed: () => Navigator.of(context)
+                                    .push<void>(
+                                      MaterialPageRoute(
+                                        builder: (_) => const LevelLoader(),
+                                      ),
+                                    ),
                                 child: Text(l10n.continueWithoutSignIn),
                               ),
                             ),

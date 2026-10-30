@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../levels/level.dart';
+import '../ui/language_menu_button.dart';
 import '../ui/mascot_catalog.dart';
 import '../ui/svg_mascot.dart';
 import 'scenario_catalog.dart';
@@ -351,6 +352,7 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
       appBar: AppBar(
         title: Text(l10n.levelLoaderTitle),
         actions: [
+          const LanguageMenuButton(),
           if (widget.configuration.onOpenProfile != null)
             IconButton(
               tooltip:
@@ -368,7 +370,9 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Text(
                 l10n.levelLoaderScenariosUnlocked(
-                  widget.scenarios.where((scenario) => scenario.unlocked).length,
+                  widget.scenarios
+                      .where((scenario) => scenario.unlocked)
+                      .length,
                   widget.scenarios.length,
                 ),
                 style: Theme.of(context).textTheme.titleMedium,
@@ -457,7 +461,8 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
                                           child:
                                               widget.configuration.mascot ??
                                               SvgMascot(
-                                                asset: widget
+                                                asset:
+                                                    widget
                                                         .configuration
                                                         .mascotAsset ??
                                                     defaultMascotAsset,

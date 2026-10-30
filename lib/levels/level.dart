@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:indic_learn/audio/pronunciation_service.dart';
 import 'package:indic_learn/levels/fail_screen.dart';
+import 'package:indic_learn/onboarding/game_intro.dart';
 
 import 'level_model.dart';
 import 'level_factory.dart';
@@ -42,6 +43,16 @@ class _LevelPageState extends State<LevelPage> {
   int _total = 0;
   int _attempt = 0;
   bool _completionReported = false;
+  Set<String>? _seenIntros;
+
+  @override
+  void initState() {
+    super.initState();
+    GameIntroStore.loadSeen().then((seen) {
+      if (mounted) setState(() => _seenIntros = seen);
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -133,6 +144,37 @@ class _LevelPageState extends State<LevelPage> {
     }
   }
 
+  Future<void> _acknowledgeIntro(String handler) async {
+    setState(() => _seenIntros = {...?_seenIntros, handler});
+    await GameIntroStore.markSeen(handler);
+  }
+
+  Widget _buildGame(LevelStep step, AppLocalizations l10n) {
+    final seen = _seenIntros;
+    if (seen == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    final intro = gameIntroFor(step.handler, l10n);
+    if (intro != null && !seen.contains(step.handler)) {
+      return GameIntroView(
+        intro: intro,
+        onStart: () => _acknowledgeIntro(step.handler),
+      );
+    }
+    final key = ValueKey('$_attempt-$_currentStep');
+    // Get the appropriate game handler based on the step's handler field
+    return getHandler(
+      step.handler,
+      key,
+      step.assetPath,
+      _completeStep,
+      embeddedInLevel: true,
+      onLoseLife: _loseLife,
+      mascotAsset: _mascotAsset,
+      config: step.config,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -159,17 +201,7 @@ class _LevelPageState extends State<LevelPage> {
     }
 
     final step = _steps[_currentStep];
-    final key = ValueKey('$_attempt-$_currentStep');
-    // Get the appropriate game handler based on the step's handler field
-    final game = getHandler(
-      step.handler,
-      key,
-      step.assetPath,
-      _completeStep,
-      embeddedInLevel: true,
-      onLoseLife: _loseLife,
-      mascotAsset: _mascotAsset,
-    );
+    final game = _buildGame(step, l10n);
 
     // final game = gameHandler(
     //   key: key,

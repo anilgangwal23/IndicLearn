@@ -10,6 +10,7 @@ import 'package:indic_learn/animations/confetti.dart';
 import 'package:indic_learn/main.dart';
 import 'package:indic_learn/level_loader/level_loader.dart';
 import 'package:indic_learn/level_loader/scenario_catalog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:indic_learn/levels/level.dart';
 import 'package:indic_learn/levels/level_factory.dart';
 import 'package:indic_learn/levels/level_model.dart';
@@ -25,6 +26,7 @@ import 'package:indic_learn/games/quiz_ui/quiz.dart' show GamePage;
 import 'package:indic_learn/games/quiz_ui/widgets/choice_button.dart';
 import 'package:indic_learn/games/quiz_ui/widgets/question_view.dart';
 import 'package:indic_learn/l10n/app_localizations.dart';
+import 'package:indic_learn/l10n/locale_controller.dart';
 import 'package:indic_learn/games/make_the_sentence/mts_model.dart';
 import 'package:indic_learn/session/session.dart';
 void main() {
@@ -193,6 +195,15 @@ void main() {
 
   setUp(() async {
     rootBundle.clear();
+    SharedPreferences.setMockInitialValues({
+      'seen_game_intros': [
+        'GamePage',
+        'WordMatchPage',
+        'MTSPage',
+        'FollowTheSound',
+        'MemoryFlipPage',
+      ],
+    });
     svg.cache.clear();
     final source = await rootBundle.loadString('assets/mascots/sprout.svg');
     for (final layer in SvgMascotParser.parse(source)) {
@@ -240,11 +251,12 @@ void main() {
 
   test('Bundled catalog preserves everyday levels and adds the auto scenario', () async {
     final scenarios = await ScenarioCatalog.load(rootBundle);
-    expect(scenarios, hasLength(2));
+    expect(scenarios, hasLength(3));
     expect(scenarios.first.id, 'everyday-practice');
     expect(scenarios.first.levels, hasLength(10));
-    expect(scenarios.last.id, 'hi-en-auto-rickshaw');
-    expect(scenarios.last.levels, hasLength(12));
+    expect(scenarios[1].id, 'hi-en-auto-rickshaw');
+    expect(scenarios[1].levels, hasLength(12));
+    expect(scenarios.last.id, 'game-review');
     final levels = scenarios.expand((scenario) => scenario.levels).toList();
     expect(scenarios.every((scenario) => scenario.unlocked), isTrue);
     expect(
@@ -252,16 +264,19 @@ void main() {
       List.generate(10, (index) => 'everyday-${(index + 1).toString().padLeft(2, '0')}'),
     );
     expect(
-      scenarios.last.levels.map((level) => level.progressId),
+      scenarios[1].levels.map((level) => level.progressId),
       List.generate(12, (index) => 'auto-rickshaw-${(index + 1).toString().padLeft(2, '0')}'),
     );
-    expect(levels.map((level) => level.assetPath).toSet(), hasLength(22));
-    expect(levels.map((level) => level.title).toSet(), hasLength(22));
+    expect(levels.map((level) => level.assetPath).toSet(), hasLength(25));
+    expect(levels.map((level) => level.title).toSet(), hasLength(25));
     const handlers = {
       'quiz': 'GamePage',
       'match_the_pair': 'WordMatchPage',
       'make_the_sentence': 'MTSPage',
       'follow_the_sound': 'FollowTheSound',
+      'memory_flip': 'MemoryFlipPage',
+      'fill_blank': 'FillBlankPage',
+      'speed_round': 'SpeedRoundPage',
     };
     for (final level in levels) {
       final definition = jsonDecode(File(level.assetPath).readAsStringSync())
@@ -654,6 +669,8 @@ void main() {
       tester,
     ) async {
       final bundle = _QuizAssetBundle(fixture, path: 'assets/levels/level_1.json');
+      LocaleController.locale.value = const Locale('hi');
+      addTearDown(() => LocaleController.locale.value = null);
       await tester.pumpWidget(
         DefaultAssetBundle(bundle: bundle, child: const LanguageGameApp()),
       );
