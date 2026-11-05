@@ -4,13 +4,12 @@
     "type": "image_choice",
     "image": "assets/svg_assets/pineapple.svg",
     "prompt": {
-      "en": {
-        "native": "Which is Pineapple?"
-      },
-      "hi": {
-        "native": "अनानास कौन सा है?",
-        "romanized": "Ananas kaun sa hai?"
-      }
+      "en": {"native": "Which is Pineapple?"},
+      "hi": {"native": "अनानास कौन सा है?"},
+      "kn": {"native": "ಅನಾನಸ್ ಯಾವುದು?"},
+      "mr": {"native": "अननस कोणते आहे?"},
+      "pa": {"native": "ਅਨਾਨਾਸ ਕਿਹੜਾ ਹੈ?"},
+      "te": {"native": "పైనాపిల్ ఏది?"}
     },
     "choices": [
       {
@@ -18,7 +17,11 @@
         "image": "assets/svg_assets/apple_red.svg",
         "text": {
           "en": {"native": "Apple"},
-          "hi": {"native": "सेब", "romanized": "seb"}
+          "hi": {"native": "सेब"},
+          "kn": {"native": "ಸೇಬು"},
+          "mr": {"native": "सफरचंद"},
+          "pa": {"native": "ਸੇਬ"},
+          "te": {"native": "ఆపిల్"}
         },
         "correct": false
       },
@@ -27,7 +30,11 @@
         "image": "assets/svg_assets/pineapple.svg",
         "text": {
           "en": {"native": "Pineapple"},
-          "hi": {"native": "अनानास", "romanized": "ananas"}
+          "hi": {"native": "अनानास"},
+          "kn": {"native": "ಅನಾನಸ್"},
+          "mr": {"native": "अननस"},
+          "pa": {"native": "ਅਨਾਨਾਸ"},
+          "te": {"native": "పైనాపిల్"}
         },
         "correct": true
       },
@@ -36,7 +43,11 @@
         "image": "assets/svg_assets/mango_yellow.svg",
         "text": {
           "en": {"native": "Mango"},
-          "hi": {"native": "आम", "romanized": "aam"}
+          "hi": {"native": "आम"},
+          "kn": {"native": "ಮಾವು"},
+          "mr": {"native": "आंबा"},
+          "pa": {"native": "ਅੰਬ"},
+          "te": {"native": "మామిడి"}
         },
         "correct": false
       }

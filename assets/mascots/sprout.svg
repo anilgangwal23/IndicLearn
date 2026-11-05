@@ -15,5 +15,5 @@
   <g id="right_eye"><ellipse cx="180" cy="111" rx="9" ry="13" fill="#24534D"/><circle cx="183" cy="107" r="3" fill="white"/></g>
   <g id="left_eyebrow"><path d="M109 89q11-7 22 0" fill="none" stroke="#24534D" stroke-width="5" stroke-linecap="round"/></g>
   <g id="right_eyebrow"><path d="M169 89q11-7 22 0" fill="none" stroke="#24534D" stroke-width="5" stroke-linecap="round"/></g>
-  <g id="mouth"><ellipse cx="150" cy="145" rx="12" ry="4" fill="#24534D"/></g>
+  <g id="mouth"><ellipse cx="150" cy="145" rx="10" ry="2.5" fill="#24534D"/></g>
 </svg>

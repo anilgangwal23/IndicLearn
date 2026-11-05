@@ -44,6 +44,10 @@ dependencies:
   google_sign_in: ^7.2.0
   just_audio_windows: ^0.2.3
 
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  shared_preferences: ^2.5.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,6 +59,9 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   reflectable: ^5.2.3
+  custom_lint: ^0.8.1
+  hardcoded_string_lint:
+    path: tools/hardcoded_string_lint
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,13 +73,16 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/svg_assets/
     - assets/svg_assets/rickshaw_scenario/
     - assets/Quizes/
     - assets/match_the_pairs_json/
+    - assets/memory_flip/
+    - assets/fill_blank/
+    - assets/speed_round/
     - assets/make_the_sentence/
     - assets/levels/
     - assets/scenarios/
@@ -80,6 +90,12 @@ flutter:
     - assets/audio/hi/
     - assets/audio/
     - assets/audio/game_sounds/
+    - assets/audio/words/hi/
+    - assets/audio/words/en/
+    - assets/audio/words/kn/
+    - assets/audio/words/mr/
+    - assets/audio/words/pa/
+    - assets/audio/words/te/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,8 +1,8 @@
 {"word_pair_list":[
-  {"left_word":"बाज़ार जाना","right_definition":"go to the market"},
-  {"left_word":"रेलवे स्टेशन की ओर","right_definition":"to the railway station"},
-  {"left_word":"किराया कितना है?","right_definition":"how much is the fare?"},
-  {"left_word":"किराया","right_definition":"the fare"},
-  {"left_word":"बहुत महँगा","right_definition":"too expensive"},
-  {"left_word":"किराया थोड़ा कम कीजिए","right_definition":"lower the fare a little"}
+  {"left_word":{"en":"go to the market","hi":"बाज़ार जाना","kn":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು","mr":"बाजारात जाणे","pa":"ਬਾਜ਼ਾਰ ਜਾਣਾ","te":"మార్కెట్‌కు వెళ్ళడం"},"right_definition":{"en":"go to the market","hi":"बाज़ार जाना","kn":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು","mr":"बाजारात जाणे","pa":"ਬਾਜ਼ਾਰ ਜਾਣਾ","te":"మార్కెట్‌కు వెళ్ళడం"}},
+  {"left_word":{"en":"to the railway station","hi":"रेलवे स्टेशन की ओर","kn":"ರೈಲು ನಿಲ್ದಾಣದ ಕಡೆಗೆ","mr":"रेल्वे स्टेशनकडे","pa":"ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ","te":"రైల్వే స్టేషన్ వైపు"},"right_definition":{"en":"to the railway station","hi":"रेलवे स्टेशन की ओर","kn":"ರೈಲು ನಿಲ್ದಾಣದ ಕಡೆಗೆ","mr":"रेल्वे स्टेशनकडे","pa":"ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ","te":"రైల్వే స్టేషన్ వైపు"}},
+  {"left_word":{"en":"how much is the fare?","hi":"किराया कितना है?","kn":"ಪ್ರಯಾಣ ದರ ಎಷ್ಟು?","mr":"भाडे किती आहे?","pa":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੈ?","te":"ఛార్జీ ఎంత?"},"right_definition":{"en":"how much is the fare?","hi":"किराया कितना है?","kn":"ಪ್ರಯಾಣ ದರ ಎಷ್ಟು?","mr":"भाडे किती आहे?","pa":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੈ?","te":"ఛార్జీ ఎంత?"}},
+  {"left_word":{"en":"the fare","hi":"किराया","kn":"ಪ್ರಯಾಣ ದರ","mr":"भाडे","pa":"ਕਿਰਾਇਆ","te":"ఛార్జీ"},"right_definition":{"en":"the fare","hi":"किराया","kn":"ಪ್ರಯಾಣ ದರ","mr":"भाडे","pa":"ਕਿਰਾਇਆ","te":"ఛార్జీ"}},
+  {"left_word":{"en":"too expensive","hi":"बहुत महँगा","kn":"ತುಂಬಾ ದುಬಾರಿ","mr":"खूप महाग","pa":"ਬਹੁਤ ਮਹਿੰਗਾ","te":"చాలా ఖరీదు"},"right_definition":{"en":"too expensive","hi":"बहुत महँगा","kn":"ತುಂಬಾ ದುಬಾರಿ","mr":"खूप महाग","pa":"ਬਹੁਤ ਮਹਿੰਗਾ","te":"చాలా ఖరీదు"}},
+  {"left_word":{"en":"lower the fare a little","hi":"किराया थोड़ा कम कीजिए","kn":"ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ","mr":"भाडे थोडे कमी करा","pa":"ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ","te":"ఛార్జీ కొంచెం తగ్గించండి"},"right_definition":{"en":"lower the fare a little","hi":"किराया थोड़ा कम कीजिए","kn":"ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ","mr":"भाडे थोडे कमी करा","pa":"ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ","te":"ఛార్జీ కొంచెం తగ్గించండి"}}
 ]}

@@ -4,30 +4,24 @@
     "type": "image_choice",
     "image": "assets/svg_assets/apple_red.svg",
     "prompt": {
-      "en": {
-        "native": "Which is Apple?"
-      },
-      "hi": {
-        "native": "सेब कौन सा है?",
-        "romanized": "Seb kaun sa hai?"
-      }
+      "en": {"native": "Which is Apple?"},
+      "hi": {"native": "सेब कौन सा है?"},
+      "kn": {"native": "ಸೇಬು ಯಾವುದು?"},
+      "mr": {"native": "सफरचंद कोणते आहे?"},
+      "pa": {"native": "ਸੇਬ ਕਿਹੜਾ ਹੈ?"},
+      "te": {"native": "ఆపిల్ ఏది?"}
     },
     "choices": [
       {
         "id": "apple",
         "image": "assets/svg_assets/apple_red.svg",
         "text": {
-          "en": {
-            "native": "Apple"
-          },
-          "hi": {
-            "native": "सेब",
-            "romanized": "seb"
-          },
-          "kn": {
-            "native": "ಸೇಬು",
-            "romanized": "sebu"
-          }
+          "en": {"native": "Apple"},
+          "hi": {"native": "सेब"},
+          "kn": {"native": "ಸೇಬು"},
+          "mr": {"native": "सफरचंद"},
+          "pa": {"native": "ਸੇਬ"},
+          "te": {"native": "ఆపిల్"}
         },
         "correct": true
       },
@@ -35,17 +29,12 @@
         "id": "mango",
         "image": "assets/svg_assets/mango_yellow.svg",
         "text": {
-          "en": {
-            "native": "Mango"
-          },
-          "hi": {
-            "native": "आम",
-            "romanized": "aam"
-          },
-          "kn": {
-            "native": "ಮಾವು",
-            "romanized": "maavu"
-          }
+          "en": {"native": "Mango"},
+          "hi": {"native": "आम"},
+          "kn": {"native": "ಮಾವು"},
+          "mr": {"native": "आंबा"},
+          "pa": {"native": "ਅੰਬ"},
+          "te": {"native": "మామిడి"}
         },
         "correct": false
       },
@@ -53,17 +42,12 @@
         "id": "banana",
         "image": "assets/svg_assets/banana_yellow.svg",
         "text": {
-          "en": {
-            "native": "Banana"
-          },
-          "hi": {
-            "native": "केला",
-            "romanized": "kela"
-          },
-          "kn": {
-            "native": "ಬಾಳೆಹಣ್ಣು",
-            "romanized": "baalehannu"
-          }
+          "en": {"native": "Banana"},
+          "hi": {"native": "केला"},
+          "kn": {"native": "ಬಾಳೆಹಣ್ಣು"},
+          "mr": {"native": "केळं"},
+          "pa": {"native": "ਕੇਲਾ"},
+          "te": {"native": "అరటిపండు"}
         },
         "correct": false
       }

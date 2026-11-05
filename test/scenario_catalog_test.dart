@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:indic_learn/level_loader/level_loader.dart';
 import 'package:indic_learn/level_loader/scenario_catalog.dart';
+import 'package:indic_learn/l10n/app_localizations.dart';
 
 Map<String, dynamic> _scenario({String id = 'from-json'}) => {
   'id': id,
@@ -148,6 +149,8 @@ void main() {
         DefaultAssetBundle(
           bundle: bundle,
           child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: LevelLoader(
               mascot: const SizedBox.square(dimension: 96),
               completedLevelIds: const {
@@ -191,6 +194,8 @@ void main() {
       DefaultAssetBundle(
         bundle: bundle,
         child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: LevelLoader(mascot: SizedBox.square(dimension: 96)),
         ),
       ),
@@ -227,6 +232,8 @@ void main() {
     Widget app(String path) => DefaultAssetBundle(
       bundle: bundle,
       child: MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: LevelLoader(
           catalogAsset: path,
           mascot: const SizedBox.square(dimension: 96),

@@ -3,8 +3,12 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
+import '../language/language_pair_menu_button.dart';
 import '../levels/level.dart';
-import '../widgets/svg_mascot.dart';
+import '../ui/language_menu_button.dart';
+import '../ui/mascot_catalog.dart';
+import '../ui/svg_mascot.dart';
 import 'scenario_catalog.dart';
 import '../session/session.dart';
 export 'scenario_catalog.dart' show LevelDefinition, ScenarioDefinition;
@@ -13,10 +17,10 @@ class LevelLoader extends StatefulWidget {
   const LevelLoader({
     super.key,
     this.onOpenProfile,
-    this.accountActionLabel = 'Your profile',
+    this.accountActionLabel,
     this.scenarios,
     this.catalogAsset = ScenarioCatalog.defaultAsset,
-    this.mascotAsset = 'assets/mascots/sprout.svg',
+    this.mascotAsset,
     this.mascot,
     this.levelBuilder,
     this.completedLevelIds,
@@ -27,7 +31,7 @@ class LevelLoader extends StatefulWidget {
 
   final List<ScenarioDefinition>? scenarios;
   final String catalogAsset;
-  final String mascotAsset;
+  final String? mascotAsset;
   final Widget? mascot;
   final Widget Function(LevelDefinition level, VoidCallback onCompleted)?
   levelBuilder;
@@ -40,7 +44,7 @@ class LevelLoader extends StatefulWidget {
   final bool progressHasPendingWrites;
   final bool progressIsFromCache;
   final VoidCallback? onOpenProfile;
-  final String accountActionLabel;
+  final String? accountActionLabel;
 
   @override
   State<LevelLoader> createState() => _LevelLoaderState();
@@ -94,20 +98,21 @@ class _LevelLoaderState extends State<LevelLoader> {
           );
         }
         if (snapshot.hasError) {
+          final l10n = AppLocalizations.of(context)!;
           return Scaffold(
-            appBar: AppBar(title: const Text('Your scenarios')),
+            appBar: AppBar(title: Text(l10n.levelLoaderTitle)),
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(24),
-                    child: Text('Your scenarios could not be loaded.'),
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(l10n.levelLoaderLoadFailed),
                   ),
                   FilledButton.icon(
                     onPressed: () => setState(_loadCatalog),
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Retry'),
+                    label: Text(l10n.retry),
                   ),
                 ],
               ),
@@ -262,11 +267,12 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
       await persist(scenarioId: scenarioId, levelId: levelId);
     } catch (_) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Progress was not saved. Check your connection.'),
+          content: Text(l10n.levelLoaderSaveFailed),
           action: SnackBarAction(
-            label: 'Retry',
+            label: l10n.retry,
             onPressed: () {
               unawaited(_persistCompletion(persist, scenarioId, levelId));
             },
@@ -277,15 +283,23 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
   }
 
   Widget _buildScenarioHop(int index, ColorScheme colors) {
+    final l10n = AppLocalizations.of(context)!;
     final scenario = widget.scenarios[index];
+    final title = scenario.titleFor(
+      Localizations.localeOf(context).languageCode,
+    );
     final completed = _completedLevels(scenario);
     final finished = completed == scenario.levels.length;
     final label = !scenario.unlocked
-        ? '${scenario.title}, locked'
+        ? l10n.levelLoaderScenarioLocked(title)
         : finished
-        ? '${scenario.title}, complete. Replay final level'
-        : '${scenario.title}, $completed of ${scenario.levels.length} complete. '
-              'Continue level ${completed + 1}';
+        ? l10n.levelLoaderScenarioFinished(title)
+        : l10n.levelLoaderScenarioInProgress(
+            title,
+            completed,
+            scenario.levels.length,
+            completed + 1,
+          );
     return Semantics(
       label: label,
       button: true,
@@ -337,13 +351,17 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your scenarios'),
+        title: Text(l10n.levelLoaderTitle),
         actions: [
+          const LanguagePairMenuButton(),
+          const LanguageMenuButton(),
           if (widget.configuration.onOpenProfile != null)
             IconButton(
-              tooltip: widget.configuration.accountActionLabel,
+              tooltip:
+                  widget.configuration.accountActionLabel ?? l10n.yourProfile,
               onPressed: widget.configuration.onOpenProfile,
               icon: const Icon(Icons.account_circle_outlined),
             ),
@@ -356,8 +374,12 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Text(
-                '${widget.scenarios.where((scenario) => scenario.unlocked).length}'
-                ' / ${widget.scenarios.length} scenarios unlocked',
+                l10n.levelLoaderScenariosUnlocked(
+                  widget.scenarios
+                      .where((scenario) => scenario.unlocked)
+                      .length,
+                  widget.scenarios.length,
+                ),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
@@ -367,14 +389,14 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
                   widget.configuration.progressHasPendingWrites
-                      ? 'Saving progress…'
-                      : 'Showing locally cached progress',
+                      ? l10n.levelLoaderSavingProgress
+                      : l10n.levelLoaderShowingCachedProgress,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
             Expanded(
               child: widget.scenarios.isEmpty
-                  ? const Center(child: Text('No scenarios available'))
+                  ? Center(child: Text(l10n.levelLoaderNoScenarios))
                   : SingleChildScrollView(
                       child: Center(
                         child: ConstrainedBox(
@@ -415,14 +437,23 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
                                             _buildScenarioHop(index, colors),
                                             const SizedBox(height: 8),
                                             Text(
-                                              widget.scenarios[index].title,
+                                              widget.scenarios[index].titleFor(
+                                                Localizations.localeOf(context)
+                                                    .languageCode,
+                                              ),
                                               textAlign: TextAlign.center,
                                             ),
                                             const SizedBox(height: 4),
                                             Text(
-                                              '${_completedLevels(widget.scenarios[index])}'
-                                              ' / ${widget.scenarios[index].levels.length}'
-                                              ' complete',
+                                              l10n.levelLoaderLevelsComplete(
+                                                _completedLevels(
+                                                  widget.scenarios[index],
+                                                ),
+                                                widget
+                                                    .scenarios[index]
+                                                    .levels
+                                                    .length,
+                                              ),
                                               textAlign: TextAlign.center,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -438,9 +469,11 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
                                           child:
                                               widget.configuration.mascot ??
                                               SvgMascot(
-                                                asset: widget
-                                                    .configuration
-                                                    .mascotAsset,
+                                                asset:
+                                                    widget
+                                                        .configuration
+                                                        .mascotAsset ??
+                                                    defaultMascotAsset,
                                                 width: 96,
                                                 height: 96,
                                                 autoIdle: !_opening,

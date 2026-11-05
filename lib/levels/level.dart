@@ -3,25 +3,28 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:indic_learn/audio/pronunciation_service.dart';
 import 'package:indic_learn/levels/fail_screen.dart';
+import 'package:indic_learn/onboarding/game_intro.dart';
 
 import 'level_model.dart';
 import 'level_factory.dart';
 import 'winscreen.dart';
-import '../widgets/svg_mascot.dart';
+import '../l10n/app_localizations.dart';
+import '../ui/mascot_catalog.dart';
+import '../ui/svg_mascot.dart';
 import '../session/session.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LevelPage extends StatefulWidget {
   final String assetPath;
-  final String mascotAsset;
+  final String? mascotAsset;
   final VoidCallback? onCompleted;
   final SessionStats sessionStats;
 
   const LevelPage({
     super.key,
     required this.assetPath,
-    this.mascotAsset = 'assets/mascots/sprout.svg',
+    this.mascotAsset,
     this.onCompleted,
     required this.sessionStats,
   });
@@ -31,6 +34,7 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
+  late final String _mascotAsset = widget.mascotAsset ?? pickSpeakingMascot();
   List<LevelStep> _steps = [];
   bool _loadStarted = false;
   String? _loadError;
@@ -39,6 +43,16 @@ class _LevelPageState extends State<LevelPage> {
   int _total = 0;
   int _attempt = 0;
   bool _completionReported = false;
+  Set<String>? _seenIntros;
+
+  @override
+  void initState() {
+    super.initState();
+    GameIntroStore.loadSeen().then((seen) {
+      if (mounted) setState(() => _seenIntros = seen);
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -48,13 +62,16 @@ class _LevelPageState extends State<LevelPage> {
     }
   }
 
+  // Games that show their own mascot in the main game area, so the header mascot is hidden.
+  static const _handlersWithOwnMascot = {'FollowTheSound', 'MTSPage'};
+
   Widget? _handleWinOrLose(int stepCount) {
     if (_currentStep == _steps.length) {
       PronunciationService.instance.playGameAudio(gameAudioTypes.levelComplete);
       return WinScreen(
         score: _score,
         total: _total,
-        mascotAsset: widget.mascotAsset,
+        mascotAsset: _mascotAsset,
         onPlayAgain: () {
           setState(() {
             _currentStep = 0;
@@ -74,7 +91,7 @@ class _LevelPageState extends State<LevelPage> {
       return FailScreen(
         score: _score,
         total: _total,
-        mascotAsset: widget.mascotAsset,
+        mascotAsset: _mascotAsset,
         onPlayAgain: () {
           setState(() {
             widget.sessionStats.lives = 5;
@@ -110,7 +127,8 @@ class _LevelPageState extends State<LevelPage> {
       setState(() => _steps = steps);
     } catch (error) {
       if (!mounted) return;
-      setState(() => _loadError = 'Unable to load level: $error');
+      final l10n = AppLocalizations.of(context)!;
+      setState(() => _loadError = l10n.levelLoadError('$error'));
     }
   }
 
@@ -126,11 +144,43 @@ class _LevelPageState extends State<LevelPage> {
     }
   }
 
+  Future<void> _acknowledgeIntro(String handler) async {
+    setState(() => _seenIntros = {...?_seenIntros, handler});
+    await GameIntroStore.markSeen(handler);
+  }
+
+  Widget _buildGame(LevelStep step, AppLocalizations l10n) {
+    final seen = _seenIntros;
+    if (seen == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    final intro = gameIntroFor(step.handler, l10n);
+    if (intro != null && !seen.contains(step.handler)) {
+      return GameIntroView(
+        intro: intro,
+        onStart: () => _acknowledgeIntro(step.handler),
+      );
+    }
+    final key = ValueKey('$_attempt-$_currentStep');
+    // Get the appropriate game handler based on the step's handler field
+    return getHandler(
+      step.handler,
+      key,
+      step.assetPath,
+      _completeStep,
+      embeddedInLevel: true,
+      onLoseLife: _loseLife,
+      mascotAsset: _mascotAsset,
+      config: step.config,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (_loadError != null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Level unavailable')),
+        appBar: AppBar(title: Text(l10n.levelUnavailableTitle)),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -141,7 +191,7 @@ class _LevelPageState extends State<LevelPage> {
     }
     if (_steps.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Loading level')),
+        appBar: AppBar(title: Text(l10n.levelLoading)),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
@@ -151,16 +201,7 @@ class _LevelPageState extends State<LevelPage> {
     }
 
     final step = _steps[_currentStep];
-    final key = ValueKey('$_attempt-$_currentStep');
-    // Get the appropriate game handler based on the step's handler field
-    final game = getHandler(
-      step.handler,
-      key,
-      step.assetPath,
-      _completeStep,
-      embeddedInLevel: true,
-      onLoseLife: _loseLife,
-    );
+    final game = _buildGame(step, l10n);
 
     // final game = gameHandler(
     //   key: key,
@@ -179,22 +220,54 @@ class _LevelPageState extends State<LevelPage> {
                 children: [
                   if (Navigator.of(context).canPop()) const BackButton(),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Text('Step ${_currentStep + 1}/${_steps.length}'),
-                        const SizedBox(height: 8),
-                        LinearProgressIndicator(
-                          value: _currentStep / _steps.length,
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 260),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              l10n.levelStepProgress(
+                                _currentStep + 1,
+                                _steps.length,
+                              ),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(999),
+                              child: TweenAnimationBuilder<double>(
+                                tween: Tween(
+                                  end: _currentStep / _steps.length,
+                                ),
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeOutCubic,
+                                builder: (context, value, _) =>
+                                    LinearProgressIndicator(
+                                  value: value,
+                                  minHeight: 12,
+                                  backgroundColor: Colors.grey.shade300,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                  SvgMascot(
-                    asset: widget.mascotAsset,
-                    width: 88,
-                    height: 88,
-                    autoIdle: true,
-                  ),
+                  if (!_handlersWithOwnMascot.contains(step.handler))
+                    SvgMascot(
+                      asset: _mascotAsset,
+                      width: 88,
+                      height: 88,
+                      autoIdle: true,
+                      speaking: PronunciationService.instance.speaking,
+                    ),
                   SizedBox(
                     width: 40,
                     height: 40,

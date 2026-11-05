@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:indic_learn/l10n/app_localizations.dart';
 import 'package:indic_learn/level_loader/level_loader.dart';
 import 'package:indic_learn/progress/learning_progress.dart';
 import 'package:indic_learn/progress/progress_scope.dart';
@@ -26,6 +27,8 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ProgressScope(
           userId: 'test-user',
           repository: repository,

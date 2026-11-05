@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 
-import '../widgets/svg_mascot.dart';
+import '../ui/svg_mascot.dart';
 
 @Preview()
 Widget PreviewForLopping() {

@@ -315,4 +315,17 @@ class FirestoreProfileRepository implements ProfileRepository {
       userId,
     ).update({'displayName': name, 'updatedAt': FieldValue.serverTimestamp()});
   }
+
+  @override
+  Future<void> updateLanguagePair(
+    String userId, {
+    required String sourceLanguage,
+    required String targetLanguage,
+  }) async {
+    await _document(userId).update({
+      'sourceLanguage': sourceLanguage,
+      'targetLanguage': targetLanguage,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+  }
 }

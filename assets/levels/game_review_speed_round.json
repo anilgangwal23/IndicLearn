@@ -1,0 +1,3 @@
+{"steps":[
+  {"type":"speed_round","handler":"SpeedRoundPage","data":"assets/speed_round/hi_en_words.json"}
+]}

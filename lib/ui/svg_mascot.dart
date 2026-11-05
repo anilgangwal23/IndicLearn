@@ -1,20 +1,16 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../animations/mascot_motions.dart';
+import '../l10n/app_localizations.dart';
 import 'svg_mascot_parser.dart';
 
-enum MascotAnimation {
-  spin,
-  jump,
-  raiseHands,
-  blink,
-  yawn,
-  raiseEyebrows,
-}
+export '../animations/mascot_motions.dart';
 
 class SvgMascot extends StatefulWidget {
   const SvgMascot({
@@ -24,6 +20,7 @@ class SvgMascot extends StatefulWidget {
     this.height = 240,
     this.autoBlink = false,
     this.autoIdle = false,
+    this.speaking,
     this.onAssetError,
   });
 
@@ -31,10 +28,13 @@ class SvgMascot extends StatefulWidget {
   final double width;
   final double height;
 
-  /// When true, plays a blink every few seconds.
+  /// When true, plays a basic blink every few seconds.
   /// Manual blinking remains available through [SvgMascotState.play].
   final bool autoBlink;
   final bool autoIdle;
+
+  /// While this is true, the mascot loops a speaking pose (mouth and bob).
+  final ValueListenable<bool>? speaking;
 
   final ValueChanged<Object>? onAssetError;
 
@@ -43,8 +43,9 @@ class SvgMascot extends StatefulWidget {
 }
 
 class SvgMascotState extends State<SvgMascot>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _controller;
+  late final AnimationController _speakController;
   late Future<List<SvgMascotLayer>> _layersFuture;
 
   MascotAnimation? _activeAnimation;
@@ -58,6 +59,16 @@ class SvgMascotState extends State<SvgMascot>
       vsync: this,
       duration: const Duration(milliseconds: 650),
     );
+    _speakController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    widget.speaking?.addListener(_onSpeakingChanged);
+    if (widget.speaking?.value ?? false) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _onSpeakingChanged();
+      });
+    }
     _layersFuture = _loadLayers();
     _scheduleIdle();
   }
@@ -68,11 +79,29 @@ class SvgMascotState extends State<SvgMascot>
     if (oldWidget.asset != widget.asset) {
       _layersFuture = _loadLayers();
     }
+    if (oldWidget.speaking != widget.speaking) {
+      oldWidget.speaking?.removeListener(_onSpeakingChanged);
+      widget.speaking?.addListener(_onSpeakingChanged);
+      _onSpeakingChanged();
+    }
     if (oldWidget.autoIdle != widget.autoIdle ||
         oldWidget.autoBlink != widget.autoBlink) {
       _scheduleIdle();
     }
   }
+
+  void _onSpeakingChanged() {
+    final speaking = widget.speaking?.value ?? false;
+    if (speaking && TickerMode.valuesOf(context).enabled &&
+        !MediaQuery.disableAnimationsOf(context)) {
+      _speakController.repeat();
+    } else {
+      _speakController
+        ..stop()
+        ..reset();
+    }
+  }
+
 
   void _scheduleIdle() {
     _idleTimer?.cancel();
@@ -124,7 +153,9 @@ class SvgMascotState extends State<SvgMascot>
   @override
   void dispose() {
     _idleTimer?.cancel();
+    widget.speaking?.removeListener(_onSpeakingChanged);
     _controller.dispose();
+    _speakController.dispose();
     super.dispose();
   }
 
@@ -139,7 +170,7 @@ class SvgMascotState extends State<SvgMascot>
           if (snapshot.hasError) {
             return Center(
               child: Tooltip(
-                message: '${snapshot.error}',
+              message: AppLocalizations.of(context)!.mascotImageLoadFailed,
                 child: const Icon(Icons.broken_image_outlined),
               ),
             );
@@ -155,74 +186,23 @@ class SvgMascotState extends State<SvgMascot>
           }
 
           return AnimatedBuilder(
-            animation: _controller,
+            animation: Listenable.merge([_controller, _speakController]),
             builder: (context, _) {
-              final t = Curves.easeInOut.transform(_controller.value);
-              final rawT = _controller.value;
-              final animation = _activeAnimation;
-
-              var jumpY = 0.0;
-              var spinAngle = 0.0;
-              var leftArmAngle = 0.0;
-              var rightArmAngle = 0.0;
-              var leftEyeScale = 1.0;
-              var rightEyeScale = 1.0;
-              var eyebrowY = 0.0;
-              var mouthOpen = 0.0;
-
-              switch (animation) {
-                case MascotAnimation.spin:
-                  spinAngle = 2 * math.pi * t;
-                  break;
-                case MascotAnimation.jump:
-                  jumpY = -55 * math.sin(math.pi * t);
-                  break;
-                case MascotAnimation.raiseHands:
-                  leftArmAngle = 1.55 * t;
-                  rightArmAngle = -1.55 * t;
-                  break;
-                case MascotAnimation.blink:
-                  // Close quickly, then reopen during one short animation.
-                  final close = (rawT < 0.45)
-                      ? Curves.easeIn.transform(rawT / 0.45)
-                      : Curves.easeOut.transform((1 - rawT) / 0.55);
-                  final scale = 1 - 0.94 * close;
-                  leftEyeScale = scale;
-                  rightEyeScale = scale;
-                  break;
-                case MascotAnimation.raiseEyebrows:
-                  eyebrowY = -14 * t;
-                  break;
-                case MascotAnimation.yawn:
-                  mouthOpen = math.sin(math.pi * t);
-                  leftEyeScale = 1 - 0.7 * mouthOpen;
-                  rightEyeScale = leftEyeScale;
-                  leftArmAngle = 0.4 * mouthOpen;
-                  rightArmAngle = -0.4 * mouthOpen;
-                  break;
-                case null:
-                  break;
-              }
+              final pose = _speakController.isAnimating
+                  ? speakingPose(_speakController.value)
+                  : mascotPoseFor(_activeAnimation, _controller.value);
 
               final layers = snapshot.data!;
               return ClipRect(
                 child: Transform.translate(
-                  offset: Offset(0, jumpY),
+                  offset: Offset(0, pose.jumpY),
                   child: Transform.rotate(
-                    angle: spinAngle,
+                    angle: pose.spinAngle,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
                         for (final layer in layers)
-                          _buildLayer(
-                            layer,
-                            leftArmAngle: leftArmAngle,
-                            rightArmAngle: rightArmAngle,
-                            leftEyeScale: leftEyeScale,
-                            rightEyeScale: rightEyeScale,
-                            eyebrowY: eyebrowY,
-                            mouthOpen: mouthOpen,
-                          ),
+                          _buildLayer(layer, pose),
                       ],
                     ),
                   ),
@@ -235,15 +215,7 @@ class SvgMascotState extends State<SvgMascot>
     );
   }
 
-  Widget _buildLayer(
-    SvgMascotLayer layer, {
-    required double leftArmAngle,
-    required double rightArmAngle,
-    required double leftEyeScale,
-    required double rightEyeScale,
-    required double eyebrowY,
-    required double mouthOpen,
-  }) {
+  Widget _buildLayer(SvgMascotLayer layer, MascotPose pose) {
     Widget child = SvgPicture.string(
       layer.svg,
       fit: BoxFit.fill,
@@ -260,36 +232,36 @@ class SvgMascotState extends State<SvgMascot>
     switch (layer.id) {
       case 'mouth':
         child = Transform.scale(
-          scaleX: 1 - 0.25 * mouthOpen,
-          scaleY: 1 + 4 * mouthOpen,
+          scaleX: 1 - 0.25 * pose.mouthOpen,
+          scaleY: 1 + 4 * pose.mouthOpen,
           alignment: pivot(150, 145),
           child: child,
         );
         break;
       case 'left_hand':
         child = Transform.rotate(
-          angle: leftArmAngle,
+          angle: pose.leftArmAngle,
           alignment: pivot(77, 166),
           child: child,
         );
         break;
       case 'right_hand':
         child = Transform.rotate(
-          angle: rightArmAngle,
+          angle: pose.rightArmAngle,
           alignment: pivot(223, 166),
           child: child,
         );
         break;
       case 'left_eye':
         child = Transform.scale(
-          scaleY: leftEyeScale,
+          scaleY: pose.leftEyeScale,
           alignment: pivot(120, 111),
           child: child,
         );
         break;
       case 'right_eye':
         child = Transform.scale(
-          scaleY: rightEyeScale,
+          scaleY: pose.rightEyeScale,
           alignment: pivot(180, 111),
           child: child,
         );
@@ -297,7 +269,7 @@ class SvgMascotState extends State<SvgMascot>
       case 'left_eyebrow':
       case 'right_eyebrow':
         child = Transform.translate(
-          offset: Offset(0, eyebrowY),
+          offset: Offset(0, pose.eyebrowY),
           child: child,
         );
         break;

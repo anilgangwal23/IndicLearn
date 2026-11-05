@@ -42,7 +42,8 @@ For an otherwise unspecified language pair, propose English to Hindi based on
 the existing repository, but confirm before authoring the final translations.
 Do not start a second interview if these details were already provided.
 
-Inspect applicable repository instructions and nearby existing content. Consult
+Inspect applicable repository instructions (start with [AGENTS.md](../../../AGENTS.md))
+and nearby existing content. Consult
 [IndicLearn formats](./references/indic-learn-formats.md) and verify the current
 loaders before generating assets; source code wins if this reference has drifted.
 
@@ -225,7 +226,9 @@ scenario data does not require scenario-specific test files or runtime changes.
   with known visual vocabulary, never as a standalone vocabulary exercise.
 
 Report checks performed and any validation gaps without creating new test cases
-merely to validate scenario content. If a separately authorized Dart/Flutter
+merely to validate scenario content. Run `dart run custom_lint` for scenario-related
+Dart changes. `flutter test` passes (see [AGENTS.md](../../../AGENTS.md)); a new
+failure is a regression to investigate. If a separately authorized Dart/Flutter
 runtime change is needed, follow the host's required analysis, test, and reload
 procedure for that change. Do not hot-reload merely for editing this skill.
 

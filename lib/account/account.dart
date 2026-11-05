@@ -108,4 +108,9 @@ abstract class ProfileRepository {
   Stream<UserProfile?> watch(String userId);
   Future<void> ensureProfile(AccountIdentity identity);
   Future<void> updateDisplayName(String userId, String displayName);
+  Future<void> updateLanguagePair(
+    String userId, {
+    required String sourceLanguage,
+    required String targetLanguage,
+  });
 }

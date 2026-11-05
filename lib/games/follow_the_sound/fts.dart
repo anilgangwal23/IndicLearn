@@ -7,13 +7,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../make_the_sentence/mts_model.dart';
 import '../make_the_sentence/mts_loader.dart';
+import '../../language/language_pair.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
+import '../../ui/svg_mascot.dart';
+import '../../ui/mascot_catalog.dart';
 import '../../audio/pronunciation_service.dart';
+import '../../l10n/app_localizations.dart';
 
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
   return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const fts(
       initialJsonData:
@@ -27,6 +33,7 @@ class fts extends StatefulWidget {
   final void Function(int score, int total)? onComplete;
   final bool embeddedInLevel;
   final VoidCallback? onLoseLife;
+  final String? mascotAsset;
 
   const fts({
     super.key,
@@ -34,6 +41,7 @@ class fts extends StatefulWidget {
     this.onComplete,
     this.embeddedInLevel = false,
     this.onLoseLife,
+    this.mascotAsset,
   });
 
   @override
@@ -41,6 +49,8 @@ class fts extends StatefulWidget {
 }
 
 class _ftsGameState extends State<fts> {
+  late final String _mascotAsset = widget.mascotAsset ?? pickSpeakingMascot();
+
   late final MTSModel _model;
   bool _isModelLoaded = false;
   String? _loadError;
@@ -64,32 +74,34 @@ class _ftsGameState extends State<fts> {
       });
     } catch (error) {
       if (!mounted) return;
-      setState(() => _loadError = 'Unable to load sentence: $error');
+      final l10n = AppLocalizations.of(context)!;
+      setState(() => _loadError = l10n.unableToLoadSentence('$error'));
     }
   }
 
   Widget _buildGame() {
+    final l10n = AppLocalizations.of(context)!;
     if (_loadError != null) {
       return GameScaffold(
         embeddedInLevel: widget.embeddedInLevel,
-        title: 'Follow the sound',
+        title: l10n.ftsTitle,
         child: Text(_loadError!, textAlign: TextAlign.center),
       );
     }
     return GameScaffold(
       embeddedInLevel: widget.embeddedInLevel,
-      title: 'Follow the sound',
+      title: l10n.ftsTitle,
       footer: isSolved
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GameFeedback(
+                GameFeedback(
                   correct: true,
-                  message: 'Sentence complete!',
+                  message: l10n.sentenceComplete,
                 ),
                 const SizedBox(height: 12),
                 GameButton(
-                  label: 'Continue',
+                  label: l10n.continueLabel,
                   icon: Icons.arrow_forward,
                   onPressed: () => widget.onComplete?.call(1, 1),
                 ),
@@ -106,11 +118,21 @@ class _ftsGameState extends State<fts> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(width: 24),
+                      SvgMascot(
+                        asset: _mascotAsset,
+                        width: 100,
+                        height: 100,
+                        speaking: PronunciationService.instance.speaking,
+                      ),
                       IconButton(
-                        tooltip: 'Play sound',
+                        tooltip: l10n.ftsPlaySound,
                         onPressed: () {
                           // TODO: Play the sound.
-                          PronunciationService.instance.playPronunciation(_model.translation);
+                          PronunciationService.instance.playPronunciation(
+                            _model.translation,
+                            text: _model.translation,
+                            language: LanguagePairController.pair.value.target,
+                          );
                         },
                         iconSize: 100,
                         icon: SvgPicture.asset(

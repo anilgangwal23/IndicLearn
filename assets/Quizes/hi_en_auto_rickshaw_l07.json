@@ -2,11 +2,11 @@
   {
     "id":"rickshaw_payment","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"नकद भुगतान करना"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"नकद भुगतान करना"},"en":{"native":"pay in cash"},"kn":{"native":"ನಗದಾಗಿ ಪಾವತಿಸುವುದು"},"mr":{"native":"रोख पैसे देणे"},"pa":{"native":"ਨਕਦ ਅਦਾ ਕਰਨਾ"},"te":{"native":"నగదుగా చెల్లించడం"}},
     "choices":[
-      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"}},"correct":false},
-      {"id":"pay in cash","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"pay in cash"}},"correct":true},
-      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":false}
+      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"},"hi":{"native":"यहाँ रोकिए"},"kn":{"native":"ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ"},"mr":{"native":"इथे थांबवा"},"pa":{"native":"ਇੱਥੇ ਰੋਕੋ"},"te":{"native":"ఇక్కడ ఆపండి"}},"correct":false},
+      {"id":"pay in cash","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"pay in cash"},"hi":{"native":"नकद भुगतान करना"},"kn":{"native":"ನಗದಾಗಿ ಪಾವತಿಸುವುದು"},"mr":{"native":"रोख पैसे देणे"},"pa":{"native":"ਨਕਦ ਅਦਾ ਕਰਨਾ"},"te":{"native":"నగదుగా చెల్లించడం"}},"correct":true},
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"},"hi":{"native":"बाज़ार जाना"},"kn":{"native":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು"},"mr":{"native":"बाजारात जाणे"},"pa":{"native":"ਬਾਜ਼ਾਰ ਜਾਣਾ"},"te":{"native":"మార్కెట్‌కు వెళ్ళడం"}},"correct":false}
     ]
   }
 ]

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
+
 import 'dart:async';
+
 import 'mts_model.dart';
 import 'mts_loader.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
+import '../../l10n/app_localizations.dart';
 
 import '../../animations/common_animations.dart';
-import '../../widgets/svg_mascot.dart';
+import '../../ui/svg_mascot.dart';
+
 @Preview(name: 'Quiz', size: Size(390, 844))
 Widget previewQuiz() {
   return MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const mts(
       initialJsonData:
@@ -61,32 +67,31 @@ class _mtsGameState extends State<mts> {
       });
     } catch (error) {
       if (!mounted) return;
-      setState(() => _loadError = 'Unable to load sentence: $error');
+      final l10n = AppLocalizations.of(context)!;
+      setState(() => _loadError = l10n.unableToLoadSentence('$error'));
     }
   }
 
   Widget _buildGame() {
+    final l10n = AppLocalizations.of(context)!;
     if (_loadError != null) {
       return GameScaffold(
         embeddedInLevel: widget.embeddedInLevel,
-        title: 'Make the Sentence',
+        title: l10n.mtsTitle,
         child: Text(_loadError!, textAlign: TextAlign.center),
       );
     }
     return GameScaffold(
       embeddedInLevel: widget.embeddedInLevel,
-      title: 'Make the Sentence',
+      title: l10n.mtsTitle,
       footer: isSolved
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GameFeedback(
-                  correct: true,
-                  message: 'Sentence complete!',
-                ),
+                GameFeedback(correct: true, message: l10n.sentenceComplete),
                 const SizedBox(height: 12),
                 GameButton(
-                  label: 'Continue',
+                  label: l10n.continueLabel,
                   icon: Icons.arrow_forward,
                   onPressed: () => widget.onComplete?.call(1, 1),
                 ),
@@ -97,53 +102,55 @@ class _mtsGameState extends State<mts> {
           ? AbsorbPointer(
               absorbing: isSolved,
               child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CommonAnimation(
-                  'assets/mascots/fox.svg',
-                  isSolved?MascotAnimation.spin:MascotAnimation.blink,
-                ),
-                QuestionPrompt(text: _model.source),
-                const SizedBox(height: 24),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  CommonAnimation(
+                    'assets/mascots/fox.svg',
+                    isSolved ? MascotAnimation.spin : MascotAnimation.blink,
+                  ),
+                  QuestionPrompt(text: _model.source),
+                  const SizedBox(height: 24),
 
-                GameAnswerArea(
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                  GameAnswerArea(
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        // Selected word tiles go here.
+                        for (final wordId in selectedWordIDs)
+                          GameAnswerTile(
+                            state: AnswerVisualState.selected,
+                            onPressed: null,
+                            child: Text(_model.words[wordId]),
+                          ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 10,
+                    runSpacing: 12,
                     children: [
-                      // Selected word tiles go here.
-                      for (final wordId in selectedWordIDs)
+                      // Available word tiles go here.
+                      for (int i = 0; i < _model.words.length; i++)
                         GameAnswerTile(
-                          state: AnswerVisualState.selected,
-                          onPressed: null,
-                          child: Text(_model.words[wordId]),
+                          state: selectedWordIDs.contains(i)
+                              ? AnswerVisualState.disabled
+                              : wrongWordID == i
+                              ? AnswerVisualState.incorrect
+                              : AnswerVisualState.idle,
+                          onPressed: selectedWordIDs.contains(i)
+                              ? null
+                              : () => pickWord(i),
+                          child: Text(_model.words[i]),
                         ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 24),
-
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 10,
-                  runSpacing: 12,
-                  children: [
-                    // Available word tiles go here.
-                    for (int i = 0; i < _model.words.length; i++)
-                      GameAnswerTile(
-                        state: selectedWordIDs.contains(i)
-                            ? AnswerVisualState.disabled
-                            : wrongWordID == i ? AnswerVisualState.incorrect : AnswerVisualState.idle,
-                        onPressed: selectedWordIDs.contains(i)
-                            ? null
-                            : () => pickWord(i),
-                        child: Text(_model.words[i]),
-                      ),
-                  ],
-                ),
-              ],
-            ),
-          )
+                ],
+              ),
+            )
           : const Center(child: CircularProgressIndicator()),
     );
   }
@@ -153,18 +160,13 @@ class _mtsGameState extends State<mts> {
     setState(() {
       wrongWordID = wordId;
     });
-    _wrongPickTimer = Timer(
-      const Duration(milliseconds: 500),
-        () {
-          if (!mounted) return;
-          setState(
-            (){
-                wrongWordID = null;
-                widget.onLoseLife?.call();
-              }
-            );
-        }
-    );
+    _wrongPickTimer = Timer(const Duration(milliseconds: 500), () {
+      if (!mounted) return;
+      setState(() {
+        wrongWordID = null;
+        widget.onLoseLife?.call();
+      });
+    });
   }
 
   void pickWord(int wordId) {
@@ -174,9 +176,9 @@ class _mtsGameState extends State<mts> {
     }
     setState(() {
       selectedWordIDs.add(wordId);
-      if(selectedWordIDs.length == _model.index.length){
+      if (selectedWordIDs.length == _model.index.length) {
         win();
-      } 
+      }
     });
   }
 

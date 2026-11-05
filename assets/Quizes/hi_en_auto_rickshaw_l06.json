@@ -2,21 +2,21 @@
   {
     "id":"rickshaw_slow","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"धीरे चलाइए"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"धीरे चलाइए"},"en":{"native":"drive slowly"},"kn":{"native":"ನಿಧಾನವಾಗಿ ಓಡಿಸಿ"},"mr":{"native":"हळू चालवा"},"pa":{"native":"ਹੌਲੀ ਚਲਾਓ"},"te":{"native":"నెమ్మదిగా నడపండి"}},
     "choices":[
-      {"id":"drive slowly","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"drive slowly"}},"correct":true},
-      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"}},"correct":false},
-      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":false}
+      {"id":"drive slowly","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"drive slowly"},"hi":{"native":"धीरे चलाइए"},"kn":{"native":"ನಿಧಾನವಾಗಿ ಓಡಿಸಿ"},"mr":{"native":"हळू चालवा"},"pa":{"native":"ਹੌਲੀ ਚਲਾਓ"},"te":{"native":"నెమ్మదిగా నడపండి"}},"correct":true},
+      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"},"hi":{"native":"यहाँ रोकिए"},"kn":{"native":"ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ"},"mr":{"native":"इथे थांबवा"},"pa":{"native":"ਇੱਥੇ ਰੋਕੋ"},"te":{"native":"ఇక్కడ ఆపండి"}},"correct":false},
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"},"hi":{"native":"बाएँ मुड़िए"},"kn":{"native":"ಎಡಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"डावीकडे वळा"},"pa":{"native":"ਖੱਬੇ ਮੁੜੋ"},"te":{"native":"ఎడమకు తిరగండి"}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_stop","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/stop_here.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यहाँ रोकिए"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यहाँ रोकिए"},"en":{"native":"stop here"},"kn":{"native":"ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ"},"mr":{"native":"इथे थांबवा"},"pa":{"native":"ਇੱਥੇ ਰੋਕੋ"},"te":{"native":"ఇక్కడ ఆపండి"}},
     "choices":[
-      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":false},
-      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"}},"correct":true},
-      {"id":"drive slowly","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"drive slowly"}},"correct":false}
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"},"hi":{"native":"दाएँ मुड़िए"},"kn":{"native":"ಬಲಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"उजवीकडे वळा"},"pa":{"native":"ਸੱਜੇ ਮੁੜੋ"},"te":{"native":"కుడికి తిరగండి"}},"correct":false},
+      {"id":"stop here","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"stop here"},"hi":{"native":"यहाँ रोकिए"},"kn":{"native":"ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ"},"mr":{"native":"इथे थांबवा"},"pa":{"native":"ਇੱਥੇ ਰੋਕੋ"},"te":{"native":"ఇక్కడ ఆపండి"}},"correct":true},
+      {"id":"drive slowly","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"drive slowly"},"hi":{"native":"धीरे चलाइए"},"kn":{"native":"ನಿಧಾನವಾಗಿ ಓಡಿಸಿ"},"mr":{"native":"हळू चालवा"},"pa":{"native":"ਹੌਲੀ ਚਲਾਓ"},"te":{"native":"నెమ్మదిగా నడపండి"}},"correct":false}
     ]
   }
 ]

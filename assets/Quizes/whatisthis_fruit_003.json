@@ -4,13 +4,12 @@
     "type": "image_choice",
     "image": "assets/svg_assets/mango_yellow.svg",
     "prompt": {
-      "en": {
-        "native": "Which is Mango?"
-      },
-      "hi": {
-        "native": "आम कौन सा है?",
-        "romanized": "Aam kaun sa hai?"
-      }
+      "en": {"native": "Which is Mango?"},
+      "hi": {"native": "आम कौन सा है?"},
+      "kn": {"native": "ಮಾವು ಯಾವುದು?"},
+      "mr": {"native": "आंबा कोणता आहे?"},
+      "pa": {"native": "ਅੰਬ ਕਿਹੜਾ ਹੈ?"},
+      "te": {"native": "మామిడి ఏది?"}
     },
     "choices": [
       {
@@ -18,7 +17,11 @@
         "image": "assets/svg_assets/banana_yellow.svg",
         "text": {
           "en": {"native": "Banana"},
-          "hi": {"native": "केला", "romanized": "kela"}
+          "hi": {"native": "केला"},
+          "kn": {"native": "ಬಾಳೆಹಣ್ಣು"},
+          "mr": {"native": "केळं"},
+          "pa": {"native": "ਕੇਲਾ"},
+          "te": {"native": "అరటిపండు"}
         },
         "correct": false
       },
@@ -27,7 +30,11 @@
         "image": "assets/svg_assets/apple_red.svg",
         "text": {
           "en": {"native": "Apple"},
-          "hi": {"native": "सेब", "romanized": "seb"}
+          "hi": {"native": "सेब"},
+          "kn": {"native": "ಸೇಬು"},
+          "mr": {"native": "सफरचंद"},
+          "pa": {"native": "ਸੇਬ"},
+          "te": {"native": "ఆపిల్"}
         },
         "correct": false
       },
@@ -36,7 +43,11 @@
         "image": "assets/svg_assets/mango_yellow.svg",
         "text": {
           "en": {"native": "Mango"},
-          "hi": {"native": "आम", "romanized": "aam"}
+          "hi": {"native": "आम"},
+          "kn": {"native": "ಮಾವು"},
+          "mr": {"native": "आंबा"},
+          "pa": {"native": "ਅੰਬ"},
+          "te": {"native": "మామిడి"}
         },
         "correct": true
       }

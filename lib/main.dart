@@ -1,8 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'account/account.dart';
 import 'account/account_screens.dart';
 import 'account/firebase_bootstrap.dart';
+import 'audio/pronunciation_service.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n/locale_controller.dart';
+import 'language/language_pair.dart';
 import 'level_loader/level_loader.dart';
 import 'progress/learning_progress.dart';
 import 'progress/progress_scope.dart';
@@ -25,42 +31,69 @@ class LanguageGameApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Language Game',
-      theme: buildGameTheme(),
-      home: accounts == null
-          ? const LevelLoader()
-          : AccountGate(
-              accounts: accounts!,
-              profiles: profiles!,
-              homeBuilder: (identity, openProfile) => ProgressScope(
-                key: ValueKey(identity.id),
-                userId: identity.id,
-                repository: progress!,
-                builder: (context, snapshot, completeLevel) => LevelLoader(
-                  completedLevelIds: {
-                    for (final entry in snapshot.scenarios.entries)
-                      entry.key: entry.value.completedLevelIds,
-                  },
-                  onLevelCompleted: completeLevel,
-                  progressHasPendingWrites: snapshot.hasPendingWrites,
-                  progressIsFromCache: snapshot.isFromCache,
-                  onOpenProfile: openProfile,
+    return ValueListenableBuilder<Locale?>(
+      valueListenable: LocaleController.locale,
+      builder: (context, locale, _) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+        theme: buildGameTheme(),
+        localizationsDelegates: [
+          AppLocalizations.delegate, // Add this line
+          ...AppLocalizations.localizationsDelegates,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: locale,
+        home: accounts == null
+            ? const LevelLoader()
+            : AccountGate(
+                accounts: accounts!,
+                profiles: profiles!,
+                homeBuilder: (identity, openProfile) => ProgressScope(
+                  key: ValueKey(identity.id),
+                  userId: identity.id,
+                  repository: progress!,
+                  builder: (context, snapshot, completeLevel) =>
+                      ValueListenableBuilder<LanguagePair>(
+                        valueListenable: LanguagePairController.pair,
+                        builder: (context, pair, _) => LevelLoader(
+                          key: ValueKey('progress-${pair.key}'),
+                          completedLevelIds: completedLevelsForPair(pair, {
+                            for (final entry in snapshot.scenarios.entries)
+                              entry.key: entry.value.completedLevelIds,
+                          }),
+                          onLevelCompleted:
+                              ({required scenarioId, required levelId}) =>
+                                  completeLevel(
+                                    scenarioId: scopedProgressId(
+                                      pair,
+                                      scenarioId,
+                                    ),
+                                    levelId: levelId,
+                                  ),
+                          progressHasPendingWrites: snapshot.hasPendingWrites,
+                          progressIsFromCache: snapshot.isFromCache,
+                          onOpenProfile: openProfile,
+                        ),
+                      ),
+                ),
+                guestBuilder: (signIn) => Builder(
+                  builder: (context) => LevelLoader(
+                    key: const ValueKey('guest'),
+                    onOpenProfile: signIn,
+                    accountActionLabel: AppLocalizations.of(context)!.signIn,
+                  ),
                 ),
               ),
-              guestBuilder: (signIn) => LevelLoader(
-                key: const ValueKey('guest'),
-                onOpenProfile: signIn,
-                accountActionLabel: 'Sign in',
-              ),
-            ),
+      ),
     );
   }
 }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocaleController.load();
+  await LanguagePairController.load();
+  unawaited(PronunciationService.instance.warmUp());
   runApp(const _AccountStartup());
 }
 
@@ -89,43 +122,52 @@ class _AccountStartupState extends State<_AccountStartup> {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: buildGameTheme(),
-        home: Scaffold(
-          appBar: AppBar(title: const Text('IndicLearn')),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: snapshot.hasError
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Account services unavailable. Firebase setup or a connection may be required.',
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        FilledButton.icon(
-                          onPressed: () => setState(() {
-                            _startup = initializeAccounts();
-                          }),
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Retry'),
-                        ),
-                        const SizedBox(height: 12),
-                        Builder(
-                          builder: (context) => TextButton(
-                            onPressed: () => Navigator.of(context).push<void>(
-                              MaterialPageRoute(
-                                builder: (_) => const LevelLoader(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: LocaleController.locale.value,
+        home: Builder(
+          builder: (context) {
+            final l10n = AppLocalizations.of(context)!;
+            return Scaffold(
+              appBar: AppBar(title: Text(l10n.appName)),
+              body: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: snapshot.hasError
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              l10n.accountServicesUnavailable,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            FilledButton.icon(
+                              onPressed: () => setState(() {
+                                _startup = initializeAccounts();
+                              }),
+                              icon: const Icon(Icons.refresh),
+                              label: Text(l10n.retry),
+                            ),
+                            const SizedBox(height: 12),
+                            Builder(
+                              builder: (context) => TextButton(
+                                onPressed: () => Navigator.of(context)
+                                    .push<void>(
+                                      MaterialPageRoute(
+                                        builder: (_) => const LevelLoader(),
+                                      ),
+                                    ),
+                                child: Text(l10n.continueWithoutSignIn),
                               ),
                             ),
-                            child: const Text('Continue without signing in'),
-                          ),
-                        ),
-                      ],
-                    )
-                  : const CircularProgressIndicator(),
-            ),
-          ),
+                          ],
+                        )
+                      : const CircularProgressIndicator(),
+                ),
+              ),
+            );
+          },
         ),
       );
     },

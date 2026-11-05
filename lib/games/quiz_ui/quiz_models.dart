@@ -1,3 +1,5 @@
+import '../../language/language_pair.dart';
+
 class GameQuestion {
   final String id;
   final String type;
@@ -18,6 +20,17 @@ class GameQuestion {
     this.targetLanguage = 'hi',
     this.introduce = false,
   });
+
+  GameQuestion withPair(LanguagePair pair) => GameQuestion(
+    id: id,
+    type: type,
+    image: image,
+    prompt: prompt,
+    choices: choices,
+    promptLanguage: pair.source,
+    targetLanguage: pair.target,
+    introduce: introduce,
+  );
 
   factory GameQuestion.fromJson(Map<String, dynamic> json) {
     final promptJson = json['prompt'] as Map<String, dynamic>;
@@ -41,20 +54,11 @@ class GameQuestion {
 
 class LanguageText {
   final String native;
-  final String? romanized;
 
-  LanguageText({required this.native, this.romanized});
+  LanguageText({required this.native});
 
   factory LanguageText.fromJson(Map<String, dynamic> json) {
-    return LanguageText(native: json['native'], romanized: json['romanized']);
-  }
-
-  String display({required String variant}) {
-    if (variant == 'romanized' && romanized != null) {
-      return romanized!;
-    }
-
-    return native;
+    return LanguageText(native: json['native']);
   }
 }
 

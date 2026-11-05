@@ -6,28 +6,40 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:indic_learn/account/account.dart';
 import 'package:indic_learn/account/account_screens.dart';
 import 'package:indic_learn/account/firebase_account.dart';
+import 'package:indic_learn/l10n/app_localizations.dart';
 import 'package:indic_learn/ui/game_theme.dart';
 
 void main() {
-  test('Missing Apple-platform Google client ID fails before native sign-in', () {
-    for (final clientId in <String?>[null, '', '   ']) {
+  test(
+    'Missing Apple-platform Google client ID fails before native sign-in',
+    () {
+      for (final clientId in <String?>[null, '', '   ']) {
+        expect(
+          () =>
+              GoogleSignInConfiguration(clientId: clientId)
+                  .validate(requiresClientId: true),
+          throwsA(
+            isA<AccountFailure>().having(
+              (error) => error.message,
+              'message',
+              contains('Google sign-in is not configured'),
+            ),
+          ),
+        );
+      }
       expect(
-        () => GoogleSignInConfiguration(clientId: clientId).validate(requiresClientId: true),
-        throwsA(isA<AccountFailure>().having(
-          (error) => error.message, 'message', contains('Google sign-in is not configured'),
-        )),
+        () => const GoogleSignInConfiguration(
+          clientId: 'native-client.apps.googleusercontent.com',
+        ).validate(requiresClientId: true),
+        returnsNormally,
       );
-    }
-    expect(
-      () => const GoogleSignInConfiguration(clientId: 'native-client.apps.googleusercontent.com')
-          .validate(requiresClientId: true),
-      returnsNormally,
-    );
-    expect(
-      () => const GoogleSignInConfiguration().validate(requiresClientId: false),
-      returnsNormally,
-    );
-  });
+      expect(
+        () =>
+            const GoogleSignInConfiguration().validate(requiresClientId: false),
+        returnsNormally,
+      );
+    },
+  );
 
   test('Profile JSON preserves identity, preferences and UTC timestamps', () {
     final profile = UserProfile(
@@ -83,6 +95,8 @@ void main() {
       addTearDown(accounts.close);
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           home: SignInPage(accounts: accounts),
         ),
@@ -130,7 +144,13 @@ void main() {
   ) async {
     final accounts = _Accounts();
     addTearDown(accounts.close);
-    await tester.pumpWidget(MaterialApp(home: SignInPage(accounts: accounts)));
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: SignInPage(accounts: accounts),
+      ),
+    );
     await tester.tap(find.text('Phone'));
     await tester.pumpAndSettle();
     await tester.enterText(
@@ -165,7 +185,13 @@ void main() {
     final accounts = _Accounts()
       ..failure = const AccountFailure('Sign-in was cancelled.');
     addTearDown(accounts.close);
-    await tester.pumpWidget(MaterialApp(home: SignInPage(accounts: accounts)));
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: SignInPage(accounts: accounts),
+      ),
+    );
     await tester.ensureVisible(find.text('Continue with Google'));
     await tester.tap(find.text('Continue with Google'));
     await tester.pumpAndSettle();
@@ -180,6 +206,8 @@ void main() {
     accounts.supportsPhone = false;
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: SignInPage(
           key: const ValueKey('unsupported'),
           accounts: accounts,
@@ -202,6 +230,8 @@ void main() {
       addTearDown(accounts.close);
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: buildGameTheme(),
           home: SignInPage(accounts: accounts),
         ),
@@ -227,57 +257,61 @@ void main() {
     },
   );
 
-  testWidgets('Guest session skips accounts and profiles and can return to sign-in', (
-    tester,
-  ) async {
-    final accounts = _Accounts();
-    final profiles = _Profiles();
-    addTearDown(accounts.close);
-    Widget buildApp() => MaterialApp(
-      home: AccountGate(
-        accounts: accounts,
-        profiles: profiles,
-        homeBuilder: (identity, openProfile) => Text('Account ${identity.id}'),
-        guestBuilder: (signIn) => Scaffold(
-          body: Column(
-            children: [
-              const Text('Guest lessons'),
-              TextButton(onPressed: signIn, child: const Text('Sign in')),
-            ],
+  testWidgets(
+    'Guest session skips accounts and profiles and can return to sign-in',
+    (tester) async {
+      final accounts = _Accounts();
+      final profiles = _Profiles();
+      addTearDown(accounts.close);
+      Widget buildApp() => MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: AccountGate(
+          accounts: accounts,
+          profiles: profiles,
+          homeBuilder: (identity, openProfile) =>
+              Text('Account ${identity.id}'),
+          guestBuilder: (signIn) => Scaffold(
+            body: Column(
+              children: [
+                const Text('Guest lessons'),
+                TextButton(onPressed: signIn, child: const Text('Sign in')),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-    await tester.pumpWidget(buildApp());
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Continue as guest'));
-    await tester.tap(find.text('Continue as guest'));
-    await tester.pumpAndSettle();
-    expect(find.text('Guest lessons'), findsOneWidget);
-    expect(accounts.currentUser, isNull);
-    expect(accounts.lastEmail, isNull);
-    expect(accounts.googleAttempts, 0);
-    expect(accounts.signOuts, 0);
-    expect(profiles.ensured, isEmpty);
+      );
+      await tester.pumpWidget(buildApp());
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Continue as guest'));
+      await tester.tap(find.text('Continue as guest'));
+      await tester.pumpAndSettle();
+      expect(find.text('Guest lessons'), findsOneWidget);
+      expect(accounts.currentUser, isNull);
+      expect(accounts.lastEmail, isNull);
+      expect(accounts.googleAttempts, 0);
+      expect(accounts.signOuts, 0);
+      expect(profiles.ensured, isEmpty);
 
-    await tester.tap(find.text('Sign in'));
-    await tester.pumpAndSettle();
-    expect(find.byType(SignInPage), findsOneWidget);
-    expect(profiles.ensured, isEmpty);
-    await tester.ensureVisible(find.text('Continue as guest'));
-    await tester.tap(find.text('Continue as guest'));
-    await tester.pumpAndSettle();
-    await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(buildApp());
-    await tester.pumpAndSettle();
-    expect(find.byType(SignInPage), findsOneWidget);
-    expect(find.text('Guest lessons'), findsNothing);
-    accounts.setUser(const AccountIdentity(id: 'signed-in-user'));
-    await tester.pumpAndSettle();
-    expect(find.text('Account signed-in-user'), findsOneWidget);
-    expect(profiles.ensured, ['signed-in-user']);
-    await tester.pumpWidget(const SizedBox());
-  });
+      await tester.tap(find.text('Sign in'));
+      await tester.pumpAndSettle();
+      expect(find.byType(SignInPage), findsOneWidget);
+      expect(profiles.ensured, isEmpty);
+      await tester.ensureVisible(find.text('Continue as guest'));
+      await tester.tap(find.text('Continue as guest'));
+      await tester.pumpAndSettle();
+      await tester.pumpWidget(const SizedBox());
+      await tester.pumpWidget(buildApp());
+      await tester.pumpAndSettle();
+      expect(find.byType(SignInPage), findsOneWidget);
+      expect(find.text('Guest lessons'), findsNothing);
+      accounts.setUser(const AccountIdentity(id: 'signed-in-user'));
+      await tester.pumpAndSettle();
+      expect(find.text('Account signed-in-user'), findsOneWidget);
+      expect(profiles.ensured, ['signed-in-user']);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
 
   testWidgets('Session gate creates profile once, edits it and signs out', (
     tester,
@@ -287,6 +321,8 @@ void main() {
     addTearDown(accounts.close);
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: AccountGate(
           accounts: accounts,
           profiles: profiles,
@@ -345,6 +381,8 @@ void main() {
     addTearDown(accounts.close);
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: AccountGate(
           accounts: accounts,
           profiles: profiles,
@@ -451,6 +489,7 @@ class _Accounts implements AccountService {
 
 class _Profiles implements ProfileRepository {
   final ensured = <String>[];
+  final savedPairs = <String>[];
   bool failEnsure = false;
   String? savedName;
   String? savedId;
@@ -475,5 +514,14 @@ class _Profiles implements ProfileRepository {
   Future<void> updateDisplayName(String userId, String displayName) async {
     savedId = userId;
     savedName = displayName;
+  }
+
+  @override
+  Future<void> updateLanguagePair(
+    String userId, {
+    required String sourceLanguage,
+    required String targetLanguage,
+  }) async {
+    savedPairs.add('$userId:$sourceLanguage-$targetLanguage');
   }
 }

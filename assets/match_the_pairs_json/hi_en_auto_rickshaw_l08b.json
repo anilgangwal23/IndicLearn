@@ -1,8 +1,8 @@
 {"word_pair_list":[
-  {"left_word":"बाएँ मुड़िए","right_definition":"turn left"},
-  {"left_word":"दाएँ मुड़िए","right_definition":"turn right"},
-  {"left_word":"अगले मोड़ पर","right_definition":"at the next junction"},
-  {"left_word":"धीरे चलाइए","right_definition":"drive slowly"},
-  {"left_word":"यहाँ रोकिए","right_definition":"stop here"},
-  {"left_word":"नकद भुगतान करना","right_definition":"pay in cash"}
+  {"left_word":{"en":"turn left","hi":"बाएँ मुड़िए","kn":"ಎಡಕ್ಕೆ ತಿರುಗಿ","mr":"डावीकडे वळा","pa":"ਖੱਬੇ ਮੁੜੋ","te":"ఎడమకు తిరగండి"},"right_definition":{"en":"turn left","hi":"बाएँ मुड़िए","kn":"ಎಡಕ್ಕೆ ತಿರುಗಿ","mr":"डावीकडे वळा","pa":"ਖੱਬੇ ਮੁੜੋ","te":"ఎడమకు తిరగండి"}},
+  {"left_word":{"en":"turn right","hi":"दाएँ मुड़िए","kn":"ಬಲಕ್ಕೆ ತಿರುಗಿ","mr":"उजवीकडे वळा","pa":"ਸੱਜੇ ਮੁੜੋ","te":"కుడికి తిరగండి"},"right_definition":{"en":"turn right","hi":"दाएँ मुड़िए","kn":"ಬಲಕ್ಕೆ ತಿರುಗಿ","mr":"उजवीकडे वळा","pa":"ਸੱਜੇ ਮੁੜੋ","te":"కుడికి తిరగండి"}},
+  {"left_word":{"en":"at the next junction","hi":"अगले मोड़ पर","kn":"ಮುಂದಿನ ತಿರುವಿನಲ್ಲಿ","mr":"पुढच्या वळणावर","pa":"ਅਗਲੇ ਮੋੜ 'ਤੇ","te":"తదుపరి మలుపు వద్ద"},"right_definition":{"en":"at the next junction","hi":"अगले मोड़ पर","kn":"ಮುಂದಿನ ತಿರುವಿನಲ್ಲಿ","mr":"पुढच्या वळणावर","pa":"ਅਗਲੇ ਮੋੜ 'ਤੇ","te":"తదుపరి మలుపు వద్ద"}},
+  {"left_word":{"en":"drive slowly","hi":"धीरे चलाइए","kn":"ನಿಧಾನವಾಗಿ ಓಡಿಸಿ","mr":"हळू चालवा","pa":"ਹੌਲੀ ਚਲਾਓ","te":"నెమ్మదిగా నడపండి"},"right_definition":{"en":"drive slowly","hi":"धीरे चलाइए","kn":"ನಿಧಾನವಾಗಿ ಓಡಿಸಿ","mr":"हळू चालवा","pa":"ਹੌਲੀ ਚਲਾਓ","te":"నెమ్మదిగా నడపండి"}},
+  {"left_word":{"en":"stop here","hi":"यहाँ रोकिए","kn":"ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ","mr":"इथे थांबवा","pa":"ਇੱਥੇ ਰੋਕੋ","te":"ఇక్కడ ఆపండి"},"right_definition":{"en":"stop here","hi":"यहाँ रोकिए","kn":"ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ","mr":"इथे थांबवा","pa":"ਇੱਥੇ ਰੋਕੋ","te":"ఇక్కడ ఆపండి"}},
+  {"left_word":{"en":"pay in cash","hi":"नकद भुगतान करना","kn":"ನಗದಾಗಿ ಪಾವತಿಸಿ","mr":"रोख पैसे द्या","pa":"ਨਕਦ ਭੁਗਤਾਨ ਕਰੋ","te":"నగదుగా చెల్లించండి"},"right_definition":{"en":"pay in cash","hi":"नकद भुगतान करना","kn":"ನಗದಾಗಿ ಪಾವತಿಸಿ","mr":"रोख पैसे द्या","pa":"ਨਕਦ ਭੁਗਤਾਨ ਕਰੋ","te":"నగదుగా చెల్లించండి"}}
 ]}

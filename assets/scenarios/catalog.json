@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "scenarios": [
     "assets/scenarios/everyday_practice.json",
-    "assets/scenarios/hi_en_auto_rickshaw.json"
+    "assets/scenarios/hi_en_auto_rickshaw.json",
+    "assets/scenarios/game_review.json"
   ]
 }

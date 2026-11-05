@@ -6,11 +6,11 @@
     "image": "assets/svg_assets/station.svg",
     "prompt_language": "hi",
     "target_language": "en",
-    "prompt": {"hi": {"native": "रेलवे स्टेशन"}},
+    "prompt": {"hi": {"native": "रेलवे स्टेशन"}, "en": {"native": "railway station"}, "kn": {"native": "ರೈಲು ನಿಲ್ದಾಣ"}, "mr": {"native": "रेल्वे स्टेशन"}, "pa": {"native": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ"}, "te": {"native": "రైల్వే స్టేషన్"}},
     "choices": [
-      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}}, "correct": false},
-      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}}, "correct": true},
-      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}}, "correct": false}
+      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}, "hi": {"native": "बाज़ार"}, "kn": {"native": "ಮಾರುಕಟ್ಟೆ"}, "mr": {"native": "बाजार"}, "pa": {"native": "ਬਾਜ਼ਾਰ"}, "te": {"native": "మార్కెట్"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}, "hi": {"native": "रेलवे स्टेशन"}, "kn": {"native": "ರೈಲು ನಿಲ್ದಾಣ"}, "mr": {"native": "रेल्वे स्टेशन"}, "pa": {"native": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ"}, "te": {"native": "రైల్వే స్టేషన్"}}, "correct": true},
+      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}, "hi": {"native": "ऑटो रिक्शा"}, "kn": {"native": "ಆಟೋ ರಿಕ್ಷಾ"}, "mr": {"native": "रिक्षा"}, "pa": {"native": "ਆਟੋ ਰਿਕਸ਼ਾ"}, "te": {"native": "ఆటో రిక్షా"}}, "correct": false}
     ]
   },
   {
@@ -20,11 +20,11 @@
     "image": "assets/svg_assets/market-supermarket.svg",
     "prompt_language": "hi",
     "target_language": "en",
-    "prompt": {"hi": {"native": "बाज़ार"}},
+    "prompt": {"hi": {"native": "बाज़ार"}, "en": {"native": "market"}, "kn": {"native": "ಮಾರುಕಟ್ಟೆ"}, "mr": {"native": "बाजार"}, "pa": {"native": "ਬਾਜ਼ਾਰ"}, "te": {"native": "మార్కెట్"}},
     "choices": [
-      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}}, "correct": true},
-      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}}, "correct": false},
-      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}}, "correct": false}
+      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}, "hi": {"native": "बाज़ार"}, "kn": {"native": "ಮಾರುಕಟ್ಟೆ"}, "mr": {"native": "बाजार"}, "pa": {"native": "ਬਾਜ਼ਾਰ"}, "te": {"native": "మార్కెట్"}}, "correct": true},
+      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}, "hi": {"native": "नकद"}, "kn": {"native": "ನಗದು"}, "mr": {"native": "रोख"}, "pa": {"native": "ਨਕਦ"}, "te": {"native": "నగదు"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}, "hi": {"native": "रेलवे स्टेशन"}, "kn": {"native": "ರೈಲು ನಿಲ್ದಾಣ"}, "mr": {"native": "रेल्वे स्टेशन"}, "pa": {"native": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ"}, "te": {"native": "రైల్వే స్టేషన్"}}, "correct": false}
     ]
   },
   {
@@ -34,11 +34,11 @@
     "image": "assets/svg_assets/money.svg",
     "prompt_language": "hi",
     "target_language": "en",
-    "prompt": {"hi": {"native": "नकद"}},
+    "prompt": {"hi": {"native": "नकद"}, "en": {"native": "cash"}, "kn": {"native": "ನಗದು"}, "mr": {"native": "रोख"}, "pa": {"native": "ਨਕਦ"}, "te": {"native": "నగదు"}},
     "choices": [
-      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}}, "correct": false},
-      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}}, "correct": false},
-      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}}, "correct": true}
+      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}, "hi": {"native": "ऑटो रिक्शा"}, "kn": {"native": "ಆಟೋ ರಿಕ್ಷಾ"}, "mr": {"native": "रिक्षा"}, "pa": {"native": "ਆਟੋ ਰਿਕਸ਼ਾ"}, "te": {"native": "ఆటో రిక్షా"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_market", "image": "assets/svg_assets/market-supermarket.svg", "text": {"en": {"native": "market"}, "hi": {"native": "बाज़ार"}, "kn": {"native": "ಮಾರುಕಟ್ಟೆ"}, "mr": {"native": "बाजार"}, "pa": {"native": "ਬਾਜ਼ਾਰ"}, "te": {"native": "మార్కెట్"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}, "hi": {"native": "नकद"}, "kn": {"native": "ನಗದು"}, "mr": {"native": "रोख"}, "pa": {"native": "ਨਕਦ"}, "te": {"native": "నగదు"}}, "correct": true}
     ]
   },
   {
@@ -48,11 +48,11 @@
     "image": "assets/svg_assets/auto-rickshaw.svg",
     "prompt_language": "hi",
     "target_language": "en",
-    "prompt": {"hi": {"native": "ऑटो रिक्शा"}},
+    "prompt": {"hi": {"native": "ऑटो रिक्शा"}, "en": {"native": "auto rickshaw"}, "kn": {"native": "ಆಟೋ ರಿಕ್ಷಾ"}, "mr": {"native": "रिक्षा"}, "pa": {"native": "ਆਟੋ ਰਿਕਸ਼ਾ"}, "te": {"native": "ఆటో రిక్షా"}},
     "choices": [
-      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}}, "correct": true},
-      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}}, "correct": false},
-      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}}, "correct": false}
+      {"id": "hi_en_auto_rickshaw_auto", "image": "assets/svg_assets/auto-rickshaw.svg", "text": {"en": {"native": "auto rickshaw"}, "hi": {"native": "ऑटो रिक्शा"}, "kn": {"native": "ಆಟೋ ರಿಕ್ಷಾ"}, "mr": {"native": "रिक्षा"}, "pa": {"native": "ਆਟੋ ਰਿਕਸ਼ਾ"}, "te": {"native": "ఆటో రిక్షా"}}, "correct": true},
+      {"id": "hi_en_auto_rickshaw_station", "image": "assets/svg_assets/station.svg", "text": {"en": {"native": "railway station"}, "hi": {"native": "रेलवे स्टेशन"}, "kn": {"native": "ರೈಲು ನಿಲ್ದಾಣ"}, "mr": {"native": "रेल्वे स्टेशन"}, "pa": {"native": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ"}, "te": {"native": "రైల్వే స్టేషన్"}}, "correct": false},
+      {"id": "hi_en_auto_rickshaw_cash", "image": "assets/svg_assets/money.svg", "text": {"en": {"native": "cash"}, "hi": {"native": "नकद"}, "kn": {"native": "ನಗದು"}, "mr": {"native": "रोख"}, "pa": {"native": "ਨਕਦ"}, "te": {"native": "నగదు"}}, "correct": false}
     ]
   }
 ]
