@@ -1,5 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"बहुत महँगा","right_definition":"too expensive"},
-  {"left_word":"किराया थोड़ा कम कीजिए","right_definition":"lower the fare a little"},
-  {"left_word":"किराया","right_definition":"the fare"}
+  {"left_word":{"en":"too expensive","hi":"बहुत महँगा","kn":"ತುಂಬಾ ದುಬಾರಿ","mr":"खूप महाग","pa":"ਬਹੁਤ ਮਹਿੰਗਾ","te":"చాలా ఖరీదు"},"right_definition":{"en":"too expensive","hi":"बहुत महँगा","kn":"ತುಂಬಾ ದುಬಾರಿ","mr":"खूप महाग","pa":"ਬਹੁਤ ਮਹਿੰਗਾ","te":"చాలా ఖరీదు"}},
+  {"left_word":{"en":"lower the fare a little","hi":"किराया थोड़ा कम कीजिए","kn":"ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ","mr":"भाडे थोडे कमी करा","pa":"ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ","te":"ఛార్జీ కొంచెం తగ్గించండి"},"right_definition":{"en":"lower the fare a little","hi":"किराया थोड़ा कम कीजिए","kn":"ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ","mr":"भाडे थोडे कमी करा","pa":"ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ","te":"ఛార్జీ కొంచెం తగ్గించండి"}},
+  {"left_word":{"en":"the fare","hi":"किराया","kn":"ಪ್ರಯಾಣ ದರ","mr":"भाडे","pa":"ਕਿਰਾਇਆ","te":"ఛార్జీ"},"right_definition":{"en":"the fare","hi":"किराया","kn":"ಪ್ರಯಾಣ ದರ","mr":"भाडे","pa":"ਕਿਰਾਇਆ","te":"ఛార్జీ"}}
 ]}

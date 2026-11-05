@@ -2,28 +2,40 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+import '../language/language_pair.dart';
+
 class LevelDefinition {
   const LevelDefinition({
     this.id,
     required this.title,
     required this.assetPath,
     this.unlocked = false,
+    this.titles = const {},
   });
 
   final String? id;
+
+  /// English title, used when no localised title is available.
   final String title;
+  final Map<String, String> titles;
   final String assetPath;
   final bool unlocked;
 
   String get progressId => id ?? assetPath;
 
-  factory LevelDefinition.fromJson(Map<String, dynamic> json) =>
-      LevelDefinition(
-        id: _requiredString(json, 'id'),
-        title: _requiredString(json, 'title'),
-        assetPath: _requiredString(json, 'assetPath'),
-        unlocked: _unlocked(json, false),
-      );
+  String titleFor(String languageCode) =>
+      resolveLanguage(titles, languageCode) ?? title;
+
+  factory LevelDefinition.fromJson(Map<String, dynamic> json) {
+    final titles = _localizedTitles(json);
+    return LevelDefinition(
+      id: _requiredString(json, 'id'),
+      title: titles['en'] ?? titles.values.first,
+      titles: titles,
+      assetPath: _requiredString(json, 'assetPath'),
+      unlocked: _unlocked(json, false),
+    );
+  }
 }
 
 class ScenarioDefinition {
@@ -33,22 +45,31 @@ class ScenarioDefinition {
     required this.levels,
     this.unlocked = true,
     this.completedLevels = 0,
+    this.titles = const {},
   });
 
   final String id;
+
+  /// English title, used when no localised title is available.
   final String title;
+  final Map<String, String> titles;
   final List<LevelDefinition> levels;
   final bool unlocked;
   final int completedLevels;
+
+  String titleFor(String languageCode) =>
+      resolveLanguage(titles, languageCode) ?? title;
 
   factory ScenarioDefinition.fromJson(Map<String, dynamic> json) {
     final levels = json['levels'];
     if (levels is! List) {
       throw const FormatException('Scenario levels must be a list.');
     }
+    final titles = _localizedTitles(json);
     final scenario = ScenarioDefinition(
       id: _requiredString(json, 'id'),
-      title: _requiredString(json, 'title'),
+      title: titles['en'] ?? titles.values.first,
+      titles: titles,
       unlocked: _unlocked(json, true),
       levels: List.unmodifiable([
         for (final level in levels)
@@ -134,6 +155,32 @@ class ScenarioCatalog {
     }
     return ScenarioDefinition.fromJson(json);
   }
+}
+
+/// Accepts a plain string (English) or a map of language code to title.
+Map<String, String> _localizedTitles(Map<String, dynamic> json) {
+  final value = json['title'];
+  if (value is String) {
+    _requiredString(json, 'title');
+    return {'en': value};
+  }
+  if (value is! Map<String, dynamic> || value.isEmpty) {
+    throw const FormatException('title must be a string or a language map.');
+  }
+  final titles = <String, String>{};
+  for (final entry in value.entries) {
+    final text = entry.value;
+    if (text is! String || text.trim().isEmpty || text != text.trim()) {
+      throw FormatException(
+        'title.${entry.key} must be a nonempty, trimmed string.',
+      );
+    }
+    titles[entry.key] = text;
+  }
+  if (!titles.containsKey('en')) {
+    throw const FormatException('title must include an en entry.');
+  }
+  return titles;
 }
 
 String _requiredString(Map<String, dynamic> json, String key) {

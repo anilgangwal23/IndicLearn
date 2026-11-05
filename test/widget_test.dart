@@ -934,7 +934,6 @@ void main() {
                 answered: false,
                 promptLanguage: question.promptLanguage,
                 targetLanguage: question.targetLanguage,
-                displayVariant: 'native',
                 introducing: true,
                 onChoiceSelected: (_) => fail('Introductions have no choices'),
                 onContinue: () => fail('Introductions do not submit answers'),

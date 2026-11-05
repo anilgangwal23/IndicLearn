@@ -1,8 +1,8 @@
 {
   "word_pair_list": [
-    {"left_word": "रेलवे स्टेशन", "right_definition": "railway station"},
-    {"left_word": "बाज़ार", "right_definition": "market"},
-    {"left_word": "नकद", "right_definition": "cash"},
-    {"left_word": "ऑटो रिक्शा", "right_definition": "auto rickshaw"}
+    {"left_word": {"en": "railway station", "hi": "रेलवे स्टेशन", "kn": "ರೈಲು ನಿಲ್ದಾಣ", "mr": "रेल्वे स्टेशन", "pa": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ", "te": "రైల్వే స్టేషన్"}, "right_definition": {"en": "railway station", "hi": "रेलवे स्टेशन", "kn": "ರೈಲು ನಿಲ್ದಾಣ", "mr": "रेल्वे स्टेशन", "pa": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ", "te": "రైల్వే స్టేషన్"}},
+    {"left_word": {"en": "market", "hi": "बाज़ार", "kn": "ಮಾರುಕಟ್ಟೆ", "mr": "बाजार", "pa": "ਬਾਜ਼ਾਰ", "te": "మార్కెట్"}, "right_definition": {"en": "market", "hi": "बाज़ार", "kn": "ಮಾರುಕಟ್ಟೆ", "mr": "बाजार", "pa": "ਬਾਜ਼ਾਰ", "te": "మార్కెట్"}},
+    {"left_word": {"en": "cash", "hi": "नकद", "kn": "ನಗದು", "mr": "रोख", "pa": "ਨਕਦ", "te": "నగదు"}, "right_definition": {"en": "cash", "hi": "नकद", "kn": "ನಗದು", "mr": "रोख", "pa": "ਨਕਦ", "te": "నగదు"}},
+    {"left_word": {"en": "auto rickshaw", "hi": "ऑटो रिक्शा", "kn": "ಆಟೋ ರಿಕ್ಷಾ", "mr": "ऑटो रिक्षा", "pa": "ਆਟੋ ਰਿਕਸ਼ਾ", "te": "ఆటో రిక్షా"}, "right_definition": {"en": "auto rickshaw", "hi": "ऑटो रिक्शा", "kn": "ಆಟೋ ರಿಕ್ಷಾ", "mr": "ऑटो रिक्षा", "pa": "ਆਟੋ ਰਿਕਸ਼ਾ", "te": "ఆటో రిక్షా"}}
   ]
 }

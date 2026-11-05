@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
+import '../language/language_pair_menu_button.dart';
 import '../levels/level.dart';
 import '../ui/language_menu_button.dart';
 import '../ui/mascot_catalog.dart';
@@ -284,14 +285,17 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
   Widget _buildScenarioHop(int index, ColorScheme colors) {
     final l10n = AppLocalizations.of(context)!;
     final scenario = widget.scenarios[index];
+    final title = scenario.titleFor(
+      Localizations.localeOf(context).languageCode,
+    );
     final completed = _completedLevels(scenario);
     final finished = completed == scenario.levels.length;
     final label = !scenario.unlocked
-        ? l10n.levelLoaderScenarioLocked(scenario.title)
+        ? l10n.levelLoaderScenarioLocked(title)
         : finished
-        ? l10n.levelLoaderScenarioFinished(scenario.title)
+        ? l10n.levelLoaderScenarioFinished(title)
         : l10n.levelLoaderScenarioInProgress(
-            scenario.title,
+            title,
             completed,
             scenario.levels.length,
             completed + 1,
@@ -352,6 +356,7 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
       appBar: AppBar(
         title: Text(l10n.levelLoaderTitle),
         actions: [
+          const LanguagePairMenuButton(),
           const LanguageMenuButton(),
           if (widget.configuration.onOpenProfile != null)
             IconButton(
@@ -432,7 +437,10 @@ class _ScenarioPickerState extends State<_ScenarioPicker>
                                             _buildScenarioHop(index, colors),
                                             const SizedBox(height: 8),
                                             Text(
-                                              widget.scenarios[index].title,
+                                              widget.scenarios[index].titleFor(
+                                                Localizations.localeOf(context)
+                                                    .languageCode,
+                                              ),
                                               textAlign: TextAlign.center,
                                             ),
                                             const SizedBox(height: 4),

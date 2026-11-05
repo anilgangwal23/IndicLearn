@@ -1,4 +1,4 @@
 {"word_pair_list":[
-  {"left_word":"बाज़ार जाना","right_definition":"go to the market"},
-  {"left_word":"रेलवे स्टेशन की ओर","right_definition":"to the railway station"}
+  {"left_word":{"en":"go to the market","hi":"बाज़ार जाना","kn":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು","mr":"बाजारात जाणे","pa":"ਬਾਜ਼ਾਰ ਜਾਣਾ","te":"మార్కెట్‌కు వెళ్ళడం"},"right_definition":{"en":"go to the market","hi":"बाज़ार जाना","kn":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು","mr":"बाजारात जाणे","pa":"ਬਾਜ਼ਾਰ ਜਾਣਾ","te":"మార్కెట్‌కు వెళ్ళడం"}},
+  {"left_word":{"en":"to the railway station","hi":"रेलवे स्टेशन की ओर","kn":"ರೈಲು ನಿಲ್ದಾಣದ ಕಡೆಗೆ","mr":"रेल्वे स्टेशनकडे","pa":"ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ","te":"రైల్వే స్టేషన్ వైపు"},"right_definition":{"en":"to the railway station","hi":"रेलवे स्टेशन की ओर","kn":"ರೈಲು ನಿಲ್ದಾಣದ ಕಡೆಗೆ","mr":"रेल्वे स्टेशनकडे","pa":"ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ","te":"రైల్వే స్టేషన్ వైపు"}}
 ]}

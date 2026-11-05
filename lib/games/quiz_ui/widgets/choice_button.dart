@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../quiz_models.dart';
+import '../../../language/language_pair.dart';
 import '../../../ui/game_widgets.dart';
 import '../../../animations/correct_answer.dart';
 import '../../../ui/game_theme.dart';
@@ -9,7 +10,6 @@ import '../../../ui/game_theme.dart';
 class ChoiceButton extends StatelessWidget {
   final GameChoice choice;
   final String language;
-  final String variant;
   final bool selected;
   final bool answered;
   final VoidCallback onPressed;
@@ -18,7 +18,6 @@ class ChoiceButton extends StatelessWidget {
     super.key,
     required this.choice,
     required this.language,
-    required this.variant,
     required this.selected,
     required this.answered,
     required this.onPressed,
@@ -26,7 +25,7 @@ class ChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final languageText = choice.text[language]!;
+    final languageText = resolveLanguage(choice.text, language)!;
     final state = answered && choice.correct
         ? AnswerVisualState.correct
         : answered && selected
@@ -35,7 +34,7 @@ class ChoiceButton extends StatelessWidget {
         ? AnswerVisualState.selected
         : AnswerVisualState.idle;
 
-    final tile =  SizedBox(
+    final tile = SizedBox(
       width: double.infinity,
       child: GameAnswerTile(
         state: state,
@@ -58,12 +57,6 @@ class ChoiceButton extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  if (languageText.romanized != null)
-                    Text(
-                      languageText.romanized!,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
                 ],
               ),
             ),
@@ -72,33 +65,33 @@ class ChoiceButton extends StatelessWidget {
       ),
     );
     final theme = Theme.of(context);
-    final burstColor = 
-      theme.extension<GameFeedbackColors>()?.success ?? 
-      theme.colorScheme.primary;
+    final burstColor =
+        theme.extension<GameFeedbackColors>()?.success ??
+        theme.colorScheme.primary;
     return Stack(
       children: [
         tile,
-        if(answered &&
-        selected &&
-        choice.correct &&
-        !MediaQuery.of(context).disableAnimations)
-        Positioned.fill(
-          child: IgnorePointer(
-            child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin : 0, end : 1), 
-              duration: Duration(milliseconds: 500), 
-              builder: (context, value, child) {
-                return CustomPaint(
-                  painter: CorrectAnswerBurstPainter(
-                    color: burstColor,
-                    progress: AlwaysStoppedAnimation<double>(value),
-                  ),
-                );
-              },
-            )
-          )
-        )
-      ]
+        if (answered &&
+            selected &&
+            choice.correct &&
+            !MediaQuery.of(context).disableAnimations)
+          Positioned.fill(
+            child: IgnorePointer(
+              child: TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0, end: 1),
+                duration: Duration(milliseconds: 500),
+                builder: (context, value, child) {
+                  return CustomPaint(
+                    painter: CorrectAnswerBurstPainter(
+                      color: burstColor,
+                      progress: AlwaysStoppedAnimation<double>(value),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

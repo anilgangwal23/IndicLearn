@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../quiz.dart' show GamePage;
 import '../quiz_models.dart';
 import 'choice_button.dart';
+import '../../../language/language_pair.dart';
 import '../../../ui/game_theme.dart';
 import '../../../ui/game_widgets.dart';
 import '../../../l10n/app_localizations.dart';
@@ -27,7 +28,6 @@ class QuestionView extends StatelessWidget {
   final bool answered;
   final String promptLanguage;
   final String targetLanguage;
-  final String displayVariant;
   final ValueChanged<GameChoice> onChoiceSelected;
   final VoidCallback onContinue;
   final bool introducing;
@@ -43,7 +43,6 @@ class QuestionView extends StatelessWidget {
     required this.answered,
     required this.promptLanguage,
     required this.targetLanguage,
-    required this.displayVariant,
     required this.onChoiceSelected,
     required this.onContinue,
     this.introducing = false,
@@ -57,7 +56,9 @@ class QuestionView extends StatelessWidget {
     if (introducing) {
       final choice = question.choices.firstWhere((choice) => choice.correct);
       final meaning =
-          choice.text[promptLanguage] ?? question.prompt[promptLanguage];
+          resolveLanguage(choice.text, promptLanguage) ??
+          resolveLanguage(question.prompt, promptLanguage);
+      final answerText = resolveLanguage(choice.text, targetLanguage)!;
       return Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
@@ -78,9 +79,7 @@ class QuestionView extends StatelessWidget {
                       ),
                       child: Semantics(
                         image: true,
-                        label:
-                            meaning?.native ??
-                            choice.text[targetLanguage]!.native,
+                        label: meaning?.native ?? answerText.native,
                         child: AspectRatio(
                           aspectRatio: 5 / 3,
                           child: SvgPicture.asset(
@@ -93,7 +92,7 @@ class QuestionView extends StatelessWidget {
                   ),
                 const SizedBox(height: 20),
                 Text(
-                  choice.text[targetLanguage]!.display(variant: displayVariant),
+                  answerText.native,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
@@ -136,7 +135,10 @@ class QuestionView extends StatelessWidget {
           LinearProgressIndicator(value: progress),
           const SizedBox(height: 24),
           QuestionPrompt(
-            text: question.prompt[promptLanguage]!.display(variant: 'native'),
+            text: resolveLanguage(
+              question.prompt,
+              promptLanguage,
+            )!.native,
           ),
           const SizedBox(height: 20),
           Expanded(
@@ -150,7 +152,6 @@ class QuestionView extends StatelessWidget {
                 return ChoiceButton(
                   choice: choice,
                   language: targetLanguage,
-                  variant: displayVariant,
                   selected: selectedChoiceId == choice.id,
                   answered: answered,
                   onPressed: () => onChoiceSelected(choice),
@@ -176,7 +177,9 @@ class QuestionView extends StatelessWidget {
               width: double.infinity,
               child: GameButton(
                 onPressed: onContinue,
-                label: isLastQuestion ? l10n.quizQuestionFinish : l10n.continueLabel,
+                label: isLastQuestion
+                    ? l10n.quizQuestionFinish
+                    : l10n.continueLabel,
                 icon: isLastQuestion ? Icons.check : Icons.arrow_forward,
               ),
             ),

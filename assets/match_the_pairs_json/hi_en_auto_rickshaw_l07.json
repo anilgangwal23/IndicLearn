@@ -1,5 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"नकद भुगतान करना","right_definition":"pay in cash"},
-  {"left_word":"नकद","right_definition":"cash"},
-  {"left_word":"किराया","right_definition":"the fare"}
+  {"left_word":{"en":"pay in cash","hi":"नकद भुगतान करना","kn":"ನಗದಾಗಿ ಪಾವತಿಸಿ","mr":"रोख पैसे द्या","pa":"ਨਕਦ ਭੁਗਤਾਨ ਕਰੋ","te":"నగదుగా చెల్లించండి"},"right_definition":{"en":"pay in cash","hi":"नकद भुगतान करना","kn":"ನಗದಾಗಿ ಪಾವತಿಸಿ","mr":"रोख पैसे द्या","pa":"ਨਕਦ ਭੁਗਤਾਨ ਕਰੋ","te":"నగదుగా చెల్లించండి"}},
+  {"left_word":{"en":"cash","hi":"नकद","kn":"ನಗದು","mr":"रोख","pa":"ਨਕਦ","te":"నగదు"},"right_definition":{"en":"cash","hi":"नकद","kn":"ನಗದು","mr":"रोख","pa":"ਨਕਦ","te":"నగదు"}},
+  {"left_word":{"en":"the fare","hi":"किराया","kn":"ಪ್ರಯಾಣ ದರ","mr":"भाडे","pa":"ਕਿਰਾਇਆ","te":"ఛార్జీ"},"right_definition":{"en":"the fare","hi":"किराया","kn":"ಪ್ರಯಾಣ ದರ","mr":"भाडे","pa":"ਕਿਰਾਇਆ","te":"ఛార్జీ"}}
 ]}

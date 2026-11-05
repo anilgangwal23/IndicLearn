@@ -1,8 +1,8 @@
 {
     "word_pair_list": [
-        {"left_word": "Mango", "right_definition": "Aam"},
-        {"left_word": "Pineapple", "right_definition": "Ananas"},
-        {"left_word": "Water", "right_definition": "Paani"},
-        {"left_word": "Milk", "right_definition": "Doodh"}
+        {"left_word": {"en": "Mango", "hi": "आम", "kn": "ಮಾವಿನಹಣ್ಣು", "mr": "आंबा", "pa": "ਅੰਬ", "te": "మామిడిపండు"}, "right_definition": {"en": "Mango", "hi": "आम", "kn": "ಮಾವಿನಹಣ್ಣು", "mr": "आंबा", "pa": "ਅੰਬ", "te": "మామిడిపండు"}},
+        {"left_word": {"en": "Pineapple", "hi": "अनानास", "kn": "ಅನಾನಸ್", "mr": "अननस", "pa": "ਅਨਾਨਾਸ", "te": "పైనాపిల్"}, "right_definition": {"en": "Pineapple", "hi": "अनानास", "kn": "ಅನಾನಸ್", "mr": "अननस", "pa": "ਅਨਾਨਾਸ", "te": "పైనాపిల్"}},
+        {"left_word": {"en": "Water", "hi": "पानी", "kn": "ನೀರು", "mr": "पाणी", "pa": "ਪਾਣੀ", "te": "నీరు"}, "right_definition": {"en": "Water", "hi": "पानी", "kn": "ನೀರು", "mr": "पाणी", "pa": "ਪਾਣੀ", "te": "నీరు"}},
+        {"left_word": {"en": "Milk", "hi": "दूध", "kn": "ಹಾಲು", "mr": "दूध", "pa": "ਦੁੱਧ", "te": "పాలు"}, "right_definition": {"en": "Milk", "hi": "दूध", "kn": "ಹಾಲು", "mr": "दूध", "pa": "ਦੁੱਧ", "te": "పాలు"}}
     ]
 }

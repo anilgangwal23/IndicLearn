@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'account/account.dart';
 import 'account/account_screens.dart';
 import 'account/firebase_bootstrap.dart';
+import 'audio/pronunciation_service.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/locale_controller.dart';
+import 'language/language_pair.dart';
 import 'level_loader/level_loader.dart';
 import 'progress/learning_progress.dart';
 import 'progress/progress_scope.dart';
@@ -48,16 +52,29 @@ class LanguageGameApp extends StatelessWidget {
                   key: ValueKey(identity.id),
                   userId: identity.id,
                   repository: progress!,
-                  builder: (context, snapshot, completeLevel) => LevelLoader(
-                    completedLevelIds: {
-                      for (final entry in snapshot.scenarios.entries)
-                        entry.key: entry.value.completedLevelIds,
-                    },
-                    onLevelCompleted: completeLevel,
-                    progressHasPendingWrites: snapshot.hasPendingWrites,
-                    progressIsFromCache: snapshot.isFromCache,
-                    onOpenProfile: openProfile,
-                  ),
+                  builder: (context, snapshot, completeLevel) =>
+                      ValueListenableBuilder<LanguagePair>(
+                        valueListenable: LanguagePairController.pair,
+                        builder: (context, pair, _) => LevelLoader(
+                          key: ValueKey('progress-${pair.key}'),
+                          completedLevelIds: completedLevelsForPair(pair, {
+                            for (final entry in snapshot.scenarios.entries)
+                              entry.key: entry.value.completedLevelIds,
+                          }),
+                          onLevelCompleted:
+                              ({required scenarioId, required levelId}) =>
+                                  completeLevel(
+                                    scenarioId: scopedProgressId(
+                                      pair,
+                                      scenarioId,
+                                    ),
+                                    levelId: levelId,
+                                  ),
+                          progressHasPendingWrites: snapshot.hasPendingWrites,
+                          progressIsFromCache: snapshot.isFromCache,
+                          onOpenProfile: openProfile,
+                        ),
+                      ),
                 ),
                 guestBuilder: (signIn) => Builder(
                   builder: (context) => LevelLoader(
@@ -75,6 +92,8 @@ class LanguageGameApp extends StatelessWidget {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocaleController.load();
+  await LanguagePairController.load();
+  unawaited(PronunciationService.instance.warmUp());
   runApp(const _AccountStartup());
 }
 

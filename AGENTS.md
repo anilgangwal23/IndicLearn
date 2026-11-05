@@ -14,6 +14,9 @@ is the primary dev target; Android, iOS, and macOS folders also exist.
 - `content/`: authoring sources, such as `content/scenario_groups/*/plan.md`.
 - `tools/hardcoded_string_lint/`: custom lint package for UI string literals.
 - `docs/`: product docs. `docs/architecture/` covers theme, level selection, accounts.
+- `devtools/`: offline pronunciation clip generator (Indic Parler-TTS, Python). Not app code.
+  Setup: `devtools\setup.bat` (creates `devtools\.venv`, CUDA torch, requirements).
+  Put `HF_TOKEN` in `devtools\.env` (git-ignored). Never print or commit it.
 
 ## Commands
 
@@ -45,6 +48,14 @@ related to your change. Report any new failures.
 - **Level and scenario data:** see [docs/architecture/level-selection.md](docs/architecture/level-selection.md).
 - **Assets:** new asset directories must be added to `pubspec.yaml`. Mascot layer
   contract: [lib/ui/README.md](lib/ui/README.md).
+- **Pronunciation clips:** `assets/audio/mapping.json` maps a key (quiz choice `id`,
+  follow-the-sound `translation`) to a `file` under `assets/audio/`. Non-empty `file`
+  plays the clip; empty falls back to runtime `flutter_tts`. Clips live in
+  `assets/audio/words/<lang>/`. Generate them with `devtools\build_clips.py`
+  (`--dry-run` first). Re-run after adding or changing spoken strings in
+  `assets/Quizes/` or `assets/follow_the_sound/`. Register each new `words/<lang>/`
+  folder in `pubspec.yaml`, or Flutter will warn `asset_directory_does_not_exist`.
+  Single clip: `devtools\generate_clip.py`.
 - **Accounts:** Firebase setup in [docs/accounts.md](docs/accounts.md).
 
 ## Skills

@@ -6,6 +6,7 @@ import 'quiz_loader.dart';
 import 'quiz_models.dart';
 import 'widgets/question_view.dart';
 import '../../audio/pronunciation_service.dart';
+import '../../language/language_pair.dart';
 import '../../ui/game_theme.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -20,7 +21,8 @@ Widget previewGamePage() {
     supportedLocales: AppLocalizations.supportedLocales,
     theme: buildGameTheme(),
     home: const GamePage(
-      assetPath: "packages/indic_learn/assets/Quizes/hi_en_auto_rickshaw_a02.json",
+      assetPath:
+          "packages/indic_learn/assets/Quizes/hi_en_auto_rickshaw_a02.json",
     ),
   );
 }
@@ -54,9 +56,6 @@ class _GamePageState extends State<GamePage>
   String? selectedChoiceId;
   bool _introducing = false;
   int _introductionIndex = 0;
-
-  // Change this to "native" when the learner is ready.
-  final String displayVariant = 'romanized';
 
   late final AnimationController _confettiController;
 
@@ -94,6 +93,7 @@ class _GamePageState extends State<GamePage>
       final loadedQuestions = await GameLoader.loadQuestions(
         widget.assetPath,
         bundle: bundle,
+        pair: LanguagePairController.pair.value,
       );
       if (!mounted) return;
 
@@ -112,18 +112,27 @@ class _GamePageState extends State<GamePage>
     }
   }
 
+  void _playChoicePronunciation(GameChoice choice, String targetLanguage) {
+    PronunciationService.instance.playPronunciation(
+      choice.id,
+      text: choice.text[targetLanguage]?.native,
+      language: targetLanguage,
+    );
+  }
+
   void selectChoice(GameChoice choice) {
     if (answered) {
       return;
     }
-    PronunciationService.instance.playPronunciation(choice.id);
+    final question = questions[currentQuestion];
+    _playChoicePronunciation(choice, question.targetLanguage);
     setState(() {
       answered = true;
       selectedChoiceId = choice.id;
 
       if (choice.correct) {
         score++;
-      }else{
+      } else {
         widget.onLoseLife?.call();
       }
     });
@@ -167,7 +176,9 @@ class _GamePageState extends State<GamePage>
                   answered = false;
                   selectedChoiceId = null;
                   _introductionIndex = 0;
-                  _introducing = questions.any((question) => question.introduce);
+                  _introducing = questions.any(
+                    (question) => question.introduce,
+                  );
                 });
               },
               child: Text(l10n.quizPlayAgain),
@@ -196,18 +207,26 @@ class _GamePageState extends State<GamePage>
     }
 
     final l10n = AppLocalizations.of(context)!;
-    final introductions = questions.where((question) => question.introduce).toList();
+    final introductions = questions
+        .where((question) => question.introduce)
+        .toList();
     final question = _introducing
-      ? introductions[_introductionIndex]
-      : questions[currentQuestion];
+        ? introductions[_introductionIndex]
+        : questions[currentQuestion];
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: !widget.embeddedInLevel,
         title: Text(
           _introducing
-              ? l10n.quizLearnProgress(_introductionIndex + 1, introductions.length)
-              : l10n.quizQuestionProgress(currentQuestion + 1, questions.length),
+              ? l10n.quizLearnProgress(
+                  _introductionIndex + 1,
+                  introductions.length,
+                )
+              : l10n.quizQuestionProgress(
+                  currentQuestion + 1,
+                  questions.length,
+                ),
         ),
       ),
       body: Stack(
@@ -215,7 +234,7 @@ class _GamePageState extends State<GamePage>
           SafeArea(
             child: QuestionView(
               question: question,
-                progress: _introducing
+              progress: _introducing
                   ? (_introductionIndex + 1) / introductions.length
                   : (currentQuestion + 1) / questions.length,
               isLastQuestion: currentQuestion == questions.length - 1,
@@ -223,7 +242,6 @@ class _GamePageState extends State<GamePage>
               answered: answered,
               promptLanguage: question.promptLanguage,
               targetLanguage: question.targetLanguage,
-              displayVariant: displayVariant,
               introducing: _introducing,
               onIntroductionComplete: () {
                 setState(() {
@@ -235,8 +253,9 @@ class _GamePageState extends State<GamePage>
                 });
               },
               onPlayPronunciation: () {
-                PronunciationService.instance.playPronunciation(
-                  question.choices.firstWhere((choice) => choice.correct).id,
+                _playChoicePronunciation(
+                  question.choices.firstWhere((choice) => choice.correct),
+                  question.targetLanguage,
                 );
               },
               onChoiceSelected: selectChoice,

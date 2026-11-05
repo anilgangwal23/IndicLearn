@@ -90,6 +90,12 @@ flutter:
     - assets/audio/hi/
     - assets/audio/
     - assets/audio/game_sounds/
+    - assets/audio/words/hi/
+    - assets/audio/words/en/
+    - assets/audio/words/kn/
+    - assets/audio/words/mr/
+    - assets/audio/words/pa/
+    - assets/audio/words/te/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

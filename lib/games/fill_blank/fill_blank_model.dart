@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 
+import '../../language/language_pair.dart';
+
 class FillBlankQuestion {
   static const blank = '___';
 
@@ -16,13 +18,17 @@ class FillBlankQuestion {
     required this.distractors,
   });
 
-  factory FillBlankQuestion.fromJson(Map<String, dynamic> json) {
-    final answer = json['answer'] as String;
+  factory FillBlankQuestion.fromJson(
+    Map<String, dynamic> json, {
+    required String source,
+    required String target,
+  }) {
+    final answer = localizedJson<String>(json['answer'], target);
     return FillBlankQuestion(
-      sentence: json['sentence'] as String,
+      sentence: localizedJson<String>(json['sentence'], source),
       answer: answer,
       distractors: (json['distractors'] as List<dynamic>)
-          .cast<String>()
+          .map((word) => localizedJson<String>(word, target))
           .where((word) => word != answer)
           .toList(),
     );
@@ -34,11 +40,19 @@ class FillBlankLoader {
     String assetPath, {
     AssetBundle? bundle,
     Random? random,
+    LanguagePair? pair,
   }) async {
+    final languages = pair ?? LanguagePairController.pair.value;
     final jsonString = await (bundle ?? rootBundle).loadString(assetPath);
     final decoded = jsonDecode(jsonString) as Map<String, dynamic>;
     final questions = (decoded['questions'] as List<dynamic>)
-        .map((q) => FillBlankQuestion.fromJson(q as Map<String, dynamic>))
+        .map(
+          (q) => FillBlankQuestion.fromJson(
+            q as Map<String, dynamic>,
+            source: languages.source,
+            target: languages.target,
+          ),
+        )
         .toList();
     return questions..shuffle(random ?? Random());
   }
@@ -56,8 +70,11 @@ class FillBlankOptions {
     Random? random,
   }) {
     final rng = random ?? Random();
-    final count = (optionCount ?? minCount + rng.nextInt(maxCount - minCount + 1))
-        .clamp(minCount, maxCount);
+    final count =
+        (optionCount ?? minCount + rng.nextInt(maxCount - minCount + 1)).clamp(
+          minCount,
+          maxCount,
+        );
     final wrong = List<String>.of(question.distractors)..shuffle(rng);
     return [question.answer, ...wrong.take(count - 1)]..shuffle(rng);
   }

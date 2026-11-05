@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
+import '../language/language_pair.dart';
 import 'account.dart';
 
-String _errorMessage(Object error, AppLocalizations l10n) => error is AccountFailure
-    ? error.message
-    : l10n.accountUnableToReach;
+String _errorMessage(Object error, AppLocalizations l10n) =>
+    error is AccountFailure ? error.message : l10n.accountUnableToReach;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, required this.accounts, this.onContinueAsGuest});
@@ -55,7 +57,9 @@ class _SignInPageState extends State<SignInPage> {
       await operation();
     } catch (error) {
       if (mounted) {
-        setState(() => _error = _errorMessage(error, AppLocalizations.of(context)!));
+        setState(
+          () => _error = _errorMessage(error, AppLocalizations.of(context)!),
+        );
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -101,7 +105,7 @@ class _SignInPageState extends State<SignInPage> {
                       Text(
                         _register && !_phoneMode
                             ? l10n.accountCreateTitle
-                                                        : l10n.signIn,
+                            : l10n.signIn,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 24),
@@ -140,7 +144,9 @@ class _SignInPageState extends State<SignInPage> {
                           autofillHints: const [AutofillHints.email],
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(labelText: l10n.accountEmailLabel),
+                          decoration: InputDecoration(
+                            labelText: l10n.accountEmailLabel,
+                          ),
                           validator: _validateEmail,
                         ),
                         const SizedBox(height: 16),
@@ -161,7 +167,7 @@ class _SignInPageState extends State<SignInPage> {
                             suffixIcon: IconButton(
                               tooltip: _hidePassword
                                   ? l10n.accountShowPassword
-                                                                    : l10n.accountHidePassword,
+                                  : l10n.accountHidePassword,
                               onPressed: () => setState(
                                 () => _hidePassword = !_hidePassword,
                               ),
@@ -206,8 +212,8 @@ class _SignInPageState extends State<SignInPage> {
                             enabled: !_busy,
                             keyboardType: TextInputType.number,
                             autofillHints: const [AutofillHints.oneTimeCode],
-                            decoration:                             InputDecoration(
-                                                          labelText: l10n.accountVerificationCodeLabel,
+                            decoration: InputDecoration(
+                              labelText: l10n.accountVerificationCodeLabel,
                             ),
                             validator: (value) =>
                                 RegExp(r'^\d{6}$').hasMatch(value?.trim() ?? '')
@@ -223,15 +229,11 @@ class _SignInPageState extends State<SignInPage> {
                                     _code.clear();
                                     _error = null;
                                   }),
-                            child:                             Text(
-                                                          l10n.accountChangeNumber,
-                            ),
+                            child: Text(l10n.accountChangeNumber),
                           ),
                         ],
                         const SizedBox(height: 8),
-                        Text(
-                                                  l10n.accountSmsConsent,
-                        ),
+                        Text(l10n.accountSmsConsent),
                       ],
                       if (_error != null) ...[
                         const SizedBox(height: 16),
@@ -264,8 +266,10 @@ class _SignInPageState extends State<SignInPage> {
                           _phoneMode
                               ? (_challenge == null
                                     ? l10n.accountSendCode
-                                                                        : l10n.accountVerifyAndSignIn)
-                                                                  : (_register ? l10n.accountCreateAccount : l10n.signIn),
+                                    : l10n.accountVerifyAndSignIn)
+                              : (_register
+                                    ? l10n.accountCreateAccount
+                                    : l10n.signIn),
                         ),
                       ),
                       if (!_phoneMode) ...[
@@ -281,7 +285,7 @@ class _SignInPageState extends State<SignInPage> {
                           child: Text(
                             _register
                                 ? l10n.accountAlreadyHaveAccount
-                                                                : l10n.accountCreateEmailAccount,
+                                : l10n.accountCreateEmailAccount,
                           ),
                         ),
                         TextButton(
@@ -301,7 +305,8 @@ class _SignInPageState extends State<SignInPage> {
                                     );
                                     if (mounted) {
                                       setState(
-                                        () => _notice = l10n.accountPasswordResetSent,
+                                        () => _notice =
+                                            l10n.accountPasswordResetSent,
                                       );
                                     }
                                   });
@@ -396,7 +401,11 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       await operation();
     } catch (error) {
-      if (mounted) setState(() => _error = _errorMessage(error, AppLocalizations.of(context)!));
+      if (mounted) {
+        setState(
+          () => _error = _errorMessage(error, AppLocalizations.of(context)!),
+        );
+      }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -404,7 +413,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(AppLocalizations.of(context)!.accountProfileTitle)),
+    appBar: AppBar(
+      title: Text(AppLocalizations.of(context)!.accountProfileTitle),
+    ),
     body: StreamBuilder<UserProfile?>(
       stream: _profile,
       builder: (context, snapshot) {
@@ -423,9 +434,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (snapshot.hasError)
-                    Text(
-                                          l10n.accountProfileLoadError,
-                    )
+                    Text(l10n.accountProfileLoadError)
                   else if (profile == null)
                     const LinearProgressIndicator(),
                   TextField(
@@ -433,8 +442,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     enabled: !_busy && profile != null,
                     maxLength: 80,
                     textCapitalization: TextCapitalization.words,
-                    decoration:                     InputDecoration(
-                                          labelText: l10n.accountDisplayNameLabel,
+                    decoration: InputDecoration(
+                      labelText: l10n.accountDisplayNameLabel,
                     ),
                   ),
                   if (widget.identity.email != null)
@@ -463,9 +472,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         : () => _perform(() async {
                             final name = _name.text.trim();
                             if (name.isEmpty || name.length > 80) {
-                              throw AccountFailure(
-                                                              l10n.accountNameLengthError,
-                              );
+                              throw AccountFailure(l10n.accountNameLengthError);
                             }
                             await widget.profiles.updateDisplayName(
                               widget.identity.id,
@@ -473,7 +480,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             );
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(l10n.accountProfileSaved)),
+                                SnackBar(
+                                  content: Text(l10n.accountProfileSaved),
+                                ),
                               );
                             }
                           }),
@@ -592,7 +601,47 @@ class _ProfileBootstrap extends StatefulWidget {
 }
 
 class _ProfileBootstrapState extends State<_ProfileBootstrap> {
-  late Future<void> _ready = widget.profiles.ensureProfile(widget.identity);
+  late Future<void> _ready = _prepareProfile();
+
+  @override
+  void initState() {
+    super.initState();
+    LanguagePairController.pair.addListener(_pushLanguagePair);
+  }
+
+  @override
+  void dispose() {
+    LanguagePairController.pair.removeListener(_pushLanguagePair);
+    super.dispose();
+  }
+
+  /// The stored profile is the source of truth for a signed-in learner's pair.
+  Future<void> _prepareProfile() async {
+    await widget.profiles.ensureProfile(widget.identity);
+    final profile = await widget.profiles
+        .watch(widget.identity.id)
+        .firstWhere((profile) => profile != null);
+    final remote = LanguagePair.parse(
+      '${profile!.sourceLanguage}-${profile.targetLanguage}',
+    );
+    if (remote != null && remote != LanguagePairController.pair.value) {
+      await LanguagePairController.select(remote);
+    }
+  }
+
+  void _pushLanguagePair() {
+    final pair = LanguagePairController.pair.value;
+    unawaited(
+      widget.profiles
+          .updateLanguagePair(
+            widget.identity.id,
+            sourceLanguage: pair.source,
+            targetLanguage: pair.target,
+          )
+          // The local choice still applies; the next change retries the sync.
+          .catchError((Object _) {}),
+    );
+  }
 
   @override
   Widget build(BuildContext context) => FutureBuilder<void>(
@@ -608,13 +657,11 @@ class _ProfileBootstrapState extends State<_ProfileBootstrap> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(24),
-                  child: Text(
-                                    l10n.accountProfileNotLoaded,
-                  ),
+                  child: Text(l10n.accountProfileNotLoaded),
                 ),
                 FilledButton.icon(
                   onPressed: () => setState(() {
-                    _ready = widget.profiles.ensureProfile(widget.identity);
+                    _ready = _prepareProfile();
                   }),
                   icon: const Icon(Icons.refresh),
                   label: Text(l10n.retry),
@@ -626,9 +673,7 @@ class _ProfileBootstrapState extends State<_ProfileBootstrap> {
                     } catch (_) {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                                                      content: Text(l10n.accountSignOutFailed),
-                          ),
+                          SnackBar(content: Text(l10n.accountSignOutFailed)),
                         );
                       }
                     }

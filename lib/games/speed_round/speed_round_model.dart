@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 
+import '../../language/language_pair.dart';
+
 class SpeedRoundQuestion {
   final String prompt;
   final String answer;
@@ -14,13 +16,17 @@ class SpeedRoundQuestion {
     required this.distractors,
   });
 
-  factory SpeedRoundQuestion.fromJson(Map<String, dynamic> json) {
-    final answer = json['answer'] as String;
+  factory SpeedRoundQuestion.fromJson(
+    Map<String, dynamic> json, {
+    required String source,
+    required String target,
+  }) {
+    final answer = localizedJson<String>(json['answer'], target);
     return SpeedRoundQuestion(
-      prompt: json['prompt'] as String,
+      prompt: localizedJson<String>(json['prompt'], source),
       answer: answer,
       distractors: (json['distractors'] as List<dynamic>)
-          .cast<String>()
+          .map((word) => localizedJson<String>(word, target))
           .where((word) => word != answer)
           .toList(),
     );
@@ -28,8 +34,7 @@ class SpeedRoundQuestion {
 
   List<String> options(Random random) {
     final wrong = List<String>.of(distractors)..shuffle(random);
-    return [answer, ...wrong.take(SpeedRound.optionCount - 1)]
-      ..shuffle(random);
+    return [answer, ...wrong.take(SpeedRound.optionCount - 1)]..shuffle(random);
   }
 }
 
@@ -49,11 +54,19 @@ class SpeedRoundLoader {
     String assetPath, {
     AssetBundle? bundle,
     Random? random,
+    LanguagePair? pair,
   }) async {
+    final languages = pair ?? LanguagePairController.pair.value;
     final jsonString = await (bundle ?? rootBundle).loadString(assetPath);
     final decoded = jsonDecode(jsonString) as Map<String, dynamic>;
     final questions = (decoded['questions'] as List<dynamic>)
-        .map((q) => SpeedRoundQuestion.fromJson(q as Map<String, dynamic>))
+        .map(
+          (q) => SpeedRoundQuestion.fromJson(
+            q as Map<String, dynamic>,
+            source: languages.source,
+            target: languages.target,
+          ),
+        )
         .toList();
     return questions..shuffle(random ?? Random());
   }

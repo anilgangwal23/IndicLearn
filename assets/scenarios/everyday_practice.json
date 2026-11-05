@@ -1,17 +1,17 @@
 {
   "id": "everyday-practice",
-  "title": "Everyday practice",
+  "title": {"en": "Everyday practice", "hi": "रोज़मर्रा का अभ्यास", "kn": "ದೈನಂದಿನ ಅಭ್ಯಾಸ", "mr": "दैनंदिन सराव", "pa": "ਰੋਜ਼ਾਨਾ ਅਭਿਆਸ", "te": "దైనందిన సాధన"},
   "unlocked": true,
   "levels": [
-    {"id": "everyday-01", "title": "First words", "assetPath": "assets/levels/level_1.json", "unlocked": true},
-    {"id": "everyday-02", "title": "Fruit basket", "assetPath": "assets/levels/level_2.json", "unlocked": true},
-    {"id": "everyday-03", "title": "At home", "assetPath": "assets/levels/level_3.json", "unlocked": true},
-    {"id": "everyday-04", "title": "Everyday words", "assetPath": "assets/levels/level_4.json", "unlocked": true},
-    {"id": "everyday-05", "title": "Build a sentence", "assetPath": "assets/levels/level_5.json", "unlocked": true},
-    {"id": "everyday-06", "title": "Listen closely", "assetPath": "assets/levels/level_6.json", "unlocked": true},
-    {"id": "everyday-07", "title": "Mango market", "assetPath": "assets/levels/level_7.json", "unlocked": true},
-    {"id": "everyday-08", "title": "Water break", "assetPath": "assets/levels/level_8.json", "unlocked": true},
-    {"id": "everyday-09", "title": "Pineapple practice", "assetPath": "assets/levels/level_9.json", "unlocked": true},
-    {"id": "everyday-10", "title": "Mixed challenge", "assetPath": "assets/levels/level_10.json", "unlocked": true}
+    {"id": "everyday-01", "title": {"en": "First words", "hi": "पहले शब्द", "kn": "ಮೊದಲ ಪದಗಳು", "mr": "पहिले शब्द", "pa": "ਪਹਿਲੇ ਸ਼ਬਦ", "te": "మొదటి పదాలు"}, "assetPath": "assets/levels/level_1.json", "unlocked": true},
+    {"id": "everyday-02", "title": {"en": "Fruit basket", "hi": "फलों की टोकरी", "kn": "ಹಣ್ಣಿನ ಬುಟ್ಟಿ", "mr": "फळांची टोपली", "pa": "ਫਲਾਂ ਦੀ ਟੋਕਰੀ", "te": "పండ్ల బుట్ట"}, "assetPath": "assets/levels/level_2.json", "unlocked": true},
+    {"id": "everyday-03", "title": {"en": "At home", "hi": "घर पर", "kn": "ಮನೆಯಲ್ಲಿ", "mr": "घरी", "pa": "ਘਰ ਵਿੱਚ", "te": "ఇంట్లో"}, "assetPath": "assets/levels/level_3.json", "unlocked": true},
+    {"id": "everyday-04", "title": {"en": "Everyday words", "hi": "रोज़ के शब्द", "kn": "ದೈನಂದಿನ ಪದಗಳು", "mr": "रोजचे शब्द", "pa": "ਰੋਜ਼ਾਨਾ ਦੇ ਸ਼ਬਦ", "te": "రోజువారీ పదాలు"}, "assetPath": "assets/levels/level_4.json", "unlocked": true},
+    {"id": "everyday-05", "title": {"en": "Build a sentence", "hi": "वाक्य बनाएँ", "kn": "ವಾಕ್ಯ ರಚಿಸಿ", "mr": "वाक्य तयार करा", "pa": "ਵਾਕ ਬਣਾਓ", "te": "వాక్యం నిర్మించండి"}, "assetPath": "assets/levels/level_5.json", "unlocked": true},
+    {"id": "everyday-06", "title": {"en": "Listen closely", "hi": "ध्यान से सुनें", "kn": "ಗಮನವಿಟ್ಟು ಕೇಳಿ", "mr": "नीट ऐका", "pa": "ਧਿਆਨ ਨਾਲ ਸੁਣੋ", "te": "జాగ్రత్తగా వినండి"}, "assetPath": "assets/levels/level_6.json", "unlocked": true},
+    {"id": "everyday-07", "title": {"en": "Mango market", "hi": "आम का बाज़ार", "kn": "ಮಾವಿನ ಮಾರುಕಟ್ಟೆ", "mr": "आंब्यांची बाजारपेठ", "pa": "ਅੰਬਾਂ ਦੀ ਮੰਡੀ", "te": "మామిడి మార్కెట్"}, "assetPath": "assets/levels/level_7.json", "unlocked": true},
+    {"id": "everyday-08", "title": {"en": "Water break", "hi": "पानी का विराम", "kn": "ನೀರಿನ ವಿರಾಮ", "mr": "पाण्याचा विराम", "pa": "ਪਾਣੀ ਦਾ ਬ੍ਰੇਕ", "te": "నీళ్ల విరామం"}, "assetPath": "assets/levels/level_8.json", "unlocked": true},
+    {"id": "everyday-09", "title": {"en": "Pineapple practice", "hi": "अनानास का अभ्यास", "kn": "ಅನಾನಸ್ ಅಭ್ಯಾಸ", "mr": "अननसाचा सराव", "pa": "ਅਨਾਨਾਸ ਦਾ ਅਭਿਆਸ", "te": "పైనాపిల్ సాధన"}, "assetPath": "assets/levels/level_9.json", "unlocked": true},
+    {"id": "everyday-10", "title": {"en": "Mixed challenge", "hi": "मिश्रित चुनौती", "kn": "ಮಿಶ್ರ ಸವಾಲು", "mr": "मिश्र आव्हान", "pa": "ਮਿਲਵੀਂ ਚੁਣੌਤੀ", "te": "మిశ్రమ సవాలు"}, "assetPath": "assets/levels/level_10.json", "unlocked": true}
   ]
 }

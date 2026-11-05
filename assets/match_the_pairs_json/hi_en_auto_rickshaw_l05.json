@@ -1,5 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"बाएँ मुड़िए","right_definition":"turn left"},
-  {"left_word":"दाएँ मुड़िए","right_definition":"turn right"},
-  {"left_word":"अगले मोड़ पर","right_definition":"at the next junction"}
+  {"left_word":{"en":"turn left","hi":"बाएँ मुड़िए","kn":"ಎಡಕ್ಕೆ ತಿರುಗಿ","mr":"डावीकडे वळा","pa":"ਖੱਬੇ ਮੁੜੋ","te":"ఎడమకు తిరగండి"},"right_definition":{"en":"turn left","hi":"बाएँ मुड़िए","kn":"ಎಡಕ್ಕೆ ತಿರುಗಿ","mr":"डावीकडे वळा","pa":"ਖੱਬੇ ਮੁੜੋ","te":"ఎడమకు తిరగండి"}},
+  {"left_word":{"en":"turn right","hi":"दाएँ मुड़िए","kn":"ಬಲಕ್ಕೆ ತಿರುಗಿ","mr":"उजवीकडे वळा","pa":"ਸੱਜੇ ਮੁੜੋ","te":"కుడికి తిరగండి"},"right_definition":{"en":"turn right","hi":"दाएँ मुड़िए","kn":"ಬಲಕ್ಕೆ ತಿರುಗಿ","mr":"उजवीकडे वळा","pa":"ਸੱਜੇ ਮੁੜੋ","te":"కుడికి తిరగండి"}},
+  {"left_word":{"en":"at the next junction","hi":"अगले मोड़ पर","kn":"ಮುಂದಿನ ತಿರುವಿನಲ್ಲಿ","mr":"पुढच्या वळणावर","pa":"ਅਗਲੇ ਮੋੜ 'ਤੇ","te":"తదుపరి మలుపు వద్ద"},"right_definition":{"en":"at the next junction","hi":"अगले मोड़ पर","kn":"ಮುಂದಿನ ತಿರುವಿನಲ್ಲಿ","mr":"पुढच्या वळणावर","pa":"ਅਗਲੇ ਮੋੜ 'ਤੇ","te":"తదుపరి మలుపు వద్ద"}}
 ]}

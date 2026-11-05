@@ -1,10 +1,10 @@
 {
   "id": "game-review",
-  "title": "Game review (new games)",
+  "title": {"en": "Game review (new games)", "hi": "गेम समीक्षा (नए गेम)", "kn": "ಗೇಮ್ ಪುನರಾವಲೋಕನ (ಹೊಸ ಆಟಗಳು)", "mr": "गेम पुनरावलोकन (नवीन गेम)", "pa": "ਗੇਮ ਸਮੀਖਿਆ (ਨਵੀਆਂ ਗੇਮਾਂ)", "te": "గేమ్ సమీక్ష (కొత్త గేమ్‌లు)"},
   "unlocked": true,
   "levels": [
-    {"id": "game-review-memory-flip", "title": "Memory flip review", "assetPath": "assets/levels/game_review_memory_flip.json", "unlocked": true},
-    {"id": "game-review-fill-blank", "title": "Fill the blank review", "assetPath": "assets/levels/game_review_fill_blank.json", "unlocked": true},
-    {"id": "game-review-speed-round", "title": "Speed round review", "assetPath": "assets/levels/game_review_speed_round.json", "unlocked": true}
+    {"id": "game-review-memory-flip", "title": {"en": "Memory flip review", "hi": "मेमोरी फ्लिप समीक्षा", "kn": "ಮೆಮೊರಿ ಫ್ಲಿಪ್ ಪುನರಾವಲೋಕನ", "mr": "मेमरी फ्लिप पुनरावलोकन", "pa": "ਮੈਮਰੀ ਫਲਿੱਪ ਸਮੀਖਿਆ", "te": "మెమరీ ఫ్లిప్ సమీక్ష"}, "assetPath": "assets/levels/game_review_memory_flip.json", "unlocked": true},
+    {"id": "game-review-fill-blank", "title": {"en": "Fill the blank review", "hi": "खाली जगह भरो समीक्षा", "kn": "ಖಾಲಿ ಜಾಗ ತುಂಬಿ ಪುನರಾವಲೋಕನ", "mr": "रिकाम्या जागा भरा पुनरावलोकन", "pa": "ਖਾਲੀ ਥਾਂ ਭਰੋ ਸਮੀਖਿਆ", "te": "ఖాళీ పూరించు సమీక్ష"}, "assetPath": "assets/levels/game_review_fill_blank.json", "unlocked": true},
+    {"id": "game-review-speed-round", "title": {"en": "Speed round review", "hi": "स्पीड राउंड समीक्षा", "kn": "ಸ್ಪೀಡ್ ರೌಂಡ್ ಪುನರಾವಲೋಕನ", "mr": "स्पीड राउंड पुनरावलोकन", "pa": "ਸਪੀਡ ਰਾਊਂਡ ਸਮੀਖਿਆ", "te": "స్పీడ్ రౌండ్ సమీక్ష"}, "assetPath": "assets/levels/game_review_speed_round.json", "unlocked": true}
   ]
 }

@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../make_the_sentence/mts_model.dart';
 import '../make_the_sentence/mts_loader.dart';
+import '../../language/language_pair.dart';
 import '../../ui/game_theme.dart';
 import '../../ui/game_widgets.dart';
 import '../../ui/svg_mascot.dart';
@@ -127,7 +128,11 @@ class _ftsGameState extends State<fts> {
                         tooltip: l10n.ftsPlaySound,
                         onPressed: () {
                           // TODO: Play the sound.
-                          PronunciationService.instance.playPronunciation(_model.translation);
+                          PronunciationService.instance.playPronunciation(
+                            _model.translation,
+                            text: _model.translation,
+                            language: LanguagePairController.pair.value.target,
+                          );
                         },
                         iconSize: 100,
                         icon: SvgPicture.asset(

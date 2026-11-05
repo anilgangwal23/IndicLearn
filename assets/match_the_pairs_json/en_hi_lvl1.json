@@ -1,7 +1,7 @@
 {
     "word_pair_list": [
-        {"left_word": "Apple", "right_definition": "Seb"},
-        {"left_word": "Banana", "right_definition": "Kela"},
-        {"left_word": "Carrot", "right_definition": "Gajar"}
+        {"left_word": {"en": "Apple", "hi": "सेब", "kn": "ಸೇಬು", "mr": "सफरचंद", "pa": "ਸੇਬ", "te": "ఆపిల్"}, "right_definition": {"en": "Apple", "hi": "सेब", "kn": "ಸೇಬು", "mr": "सफरचंद", "pa": "ਸੇਬ", "te": "ఆపిల్"}},
+        {"left_word": {"en": "Banana", "hi": "केला", "kn": "ಬಾಳೆಹಣ್ಣು", "mr": "केळं", "pa": "ਕੇਲਾ", "te": "అరటిపండు"}, "right_definition": {"en": "Banana", "hi": "केला", "kn": "ಬಾಳೆಹಣ್ಣು", "mr": "केळं", "pa": "ਕੇਲਾ", "te": "అరటిపండు"}},
+        {"left_word": {"en": "Carrot", "hi": "गाजर", "kn": "ಕ್ಯಾರೆಟ್", "mr": "गाजर", "pa": "ਗਾਜਰ", "te": "క్యారెట్"}, "right_definition": {"en": "Carrot", "hi": "गाजर", "kn": "ಕ್ಯಾರೆಟ್", "mr": "गाजर", "pa": "ਗਾਜਰ", "te": "క్యారెట్"}}
     ]
 }

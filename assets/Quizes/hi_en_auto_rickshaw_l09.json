@@ -1,34 +1,34 @@
 [
   {
     "id":"rickshaw_sentence_s04","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यह बहुत महँगा है।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यह बहुत महँगा है।"},"en":{"native":"That is too expensive."},"kn":{"native":"ಇದು ತುಂಬಾ ದುಬಾರಿ."},"mr":{"native":"हे खूप महाग आहे."},"pa":{"native":"ਇਹ ਬਹੁਤ ਮਹਿੰਗਾ ਹੈ।"},"te":{"native":"ఇది చాలా ఖరీదు."}},
     "choices":[
-      {"id":"That is too expensive.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"That is too expensive."}},"correct":true},
-      {"id":"Please drive slowly.","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"Please drive slowly."}},"correct":false}
+      {"id":"That is too expensive.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"That is too expensive."},"hi":{"native":"यह बहुत महँगा है।"},"kn":{"native":"ಇದು ತುಂಬಾ ದುಬಾರಿ."},"mr":{"native":"हे खूप महाग आहे."},"pa":{"native":"ਇਹ ਬਹੁਤ ਮਹਿੰਗਾ ਹੈ।"},"te":{"native":"ఇది చాలా ఖరీదు."}},"correct":true},
+      {"id":"Please drive slowly.","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"Please drive slowly."},"hi":{"native":"कृपया धीरे चलाइए।"},"kn":{"native":"ದಯವಿಟ್ಟು ನಿಧಾನವಾಗಿ ಓಡಿಸಿ."},"mr":{"native":"कृपया हळू चालवा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਹੌਲੀ ਚਲਾਓ।"},"te":{"native":"దయచేసి నెమ్మదిగా నడపండి."}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_sentence_s06","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/turn_left.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यहाँ बाएँ मुड़िए।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"यहाँ बाएँ मुड़िए।"},"en":{"native":"Turn left here, please."},"kn":{"native":"ದಯವಿಟ್ಟು ಇಲ್ಲಿ ಎಡಕ್ಕೆ ತಿರುಗಿ."},"mr":{"native":"इथे डावीकडे वळा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਖੱਬੇ ਮੁੜੋ।"},"te":{"native":"దయచేసి ఇక్కడ ఎడమకు తిరగండి."}},
     "choices":[
-      {"id":"Please stop here.","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"Please stop here."}},"correct":false},
-      {"id":"Turn left here, please.","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"Turn left here, please."}},"correct":true}
+      {"id":"Please stop here.","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"Please stop here."},"hi":{"native":"कृपया यहीं रोकिए।"},"kn":{"native":"ದಯವಿಟ್ಟು ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ."},"mr":{"native":"कृपया इथेच थांबवा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਰੋਕੋ।"},"te":{"native":"దయచేసి ఇక్కడ ఆపండి."}},"correct":false},
+      {"id":"Turn left here, please.","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"Turn left here, please."},"hi":{"native":"यहाँ बाएँ मुड़िए।"},"kn":{"native":"ದಯವಿಟ್ಟು ಇಲ್ಲಿ ಎಡಕ್ಕೆ ತಿರುಗಿ."},"mr":{"native":"इथे डावीकडे वळा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਖੱਬੇ ਮੁੜੋ।"},"te":{"native":"దయచేసి ఇక్కడ ఎడమకు తిరగండి."}},"correct":true}
     ]
   },
   {
     "id":"rickshaw_sentence_s08","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"कृपया धीरे चलाइए।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"कृपया धीरे चलाइए।"},"en":{"native":"Please drive slowly."},"kn":{"native":"ದಯವಿಟ್ಟು ನಿಧಾನವಾಗಿ ಓಡಿಸಿ."},"mr":{"native":"कृपया हळू चालवा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਹੌਲੀ ਚਲਾਓ।"},"te":{"native":"దయచేసి నెమ్మదిగా నడపండి."}},
     "choices":[
-      {"id":"Please drive slowly.","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"Please drive slowly."}},"correct":true},
-      {"id":"Turn left here, please.","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"Turn left here, please."}},"correct":false}
+      {"id":"Please drive slowly.","image":"assets/svg_assets/rickshaw_scenario/drive_slowly.svg","text":{"en":{"native":"Please drive slowly."},"hi":{"native":"कृपया धीरे चलाइए।"},"kn":{"native":"ದಯವಿಟ್ಟು ನಿಧಾನವಾಗಿ ಓಡಿಸಿ."},"mr":{"native":"कृपया हळू चालवा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਹੌਲੀ ਚਲਾਓ।"},"te":{"native":"దయచేసి నెమ్మదిగా నడపండి."}},"correct":true},
+      {"id":"Turn left here, please.","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"Turn left here, please."},"hi":{"native":"यहाँ बाएँ मुड़िए।"},"kn":{"native":"ದಯವಿಟ್ಟು ಇಲ್ಲಿ ಎಡಕ್ಕೆ ತಿರುಗಿ."},"mr":{"native":"इथे डावीकडे वळा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਖੱਬੇ ਮੁੜੋ।"},"te":{"native":"దయచేసి ఇక్కడ ఎడమకు తిరగండి."}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_sentence_s09","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/stop_here.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"कृपया यहीं रोकिए।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"कृपया यहीं रोकिए।"},"en":{"native":"Please stop here."},"kn":{"native":"ದಯವಿಟ್ಟು ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ."},"mr":{"native":"कृपया इथेच थांबवा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਰੋਕੋ।"},"te":{"native":"దయచేసి ఇక్కడ ఆపండి."}},
     "choices":[
-      {"id":"That is too expensive.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"That is too expensive."}},"correct":false},
-      {"id":"Please stop here.","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"Please stop here."}},"correct":true}
+      {"id":"That is too expensive.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"That is too expensive."},"hi":{"native":"यह बहुत महँगा है।"},"kn":{"native":"ಇದು ತುಂಬಾ ದುಬಾರಿ."},"mr":{"native":"हे खूप महाग आहे."},"pa":{"native":"ਇਹ ਬਹੁਤ ਮਹਿੰਗਾ ਹੈ।"},"te":{"native":"ఇది చాలా ఖరీదు."}},"correct":false},
+      {"id":"Please stop here.","image":"assets/svg_assets/rickshaw_scenario/stop_here.svg","text":{"en":{"native":"Please stop here."},"hi":{"native":"कृपया यहीं रोकिए।"},"kn":{"native":"ದಯವಿಟ್ಟು ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ."},"mr":{"native":"कृपया इथेच थांबवा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਇੱਥೇ ਰೋಕೋ।"},"te":{"native":"దయచేసి ఇక్కడ ఆపండి."}},"correct":true}
     ]
   }
 ]

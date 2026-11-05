@@ -2,19 +2,19 @@
   {
     "id":"rickshaw_fare","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया"},"en":{"native":"the fare"},"kn":{"native":"ಪ್ರಯಾಣ ದರ"},"mr":{"native":"भाडे"},"pa":{"native":"ਕਿਰਾਇਆ"},"te":{"native":"ఛార్జీ"}},
     "choices":[
-      {"id":"the fare","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"the fare"}},"correct":true},
-      {"id":"cash","image":"assets/svg_assets/money.svg","text":{"en":{"native":"cash"}},"correct":false}
+      {"id":"the fare","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"the fare"},"hi":{"native":"किराया"},"kn":{"native":"ಪ್ರಯಾಣ ದರ"},"mr":{"native":"भाडे"},"pa":{"native":"ਕਿਰਾਇਆ"},"te":{"native":"ఛార్జీ"}},"correct":true},
+      {"id":"cash","image":"assets/svg_assets/money.svg","text":{"en":{"native":"cash"},"hi":{"native":"नकद"},"kn":{"native":"ನಗದು"},"mr":{"native":"रोख"},"pa":{"native":"ਨਕਦ"},"te":{"native":"నగదు"}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_fare_question","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया कितना है?"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया कितना है?"},"en":{"native":"how much is the fare?"},"kn":{"native":"ದರ ಎಷ್ಟು?"},"mr":{"native":"भाडे किती आहे?"},"pa":{"native":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੈ?"},"te":{"native":"ఛార్జీ ఎంత?"}},
     "choices":[
-      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":false},
-      {"id":"how much is the fare?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"how much is the fare?"}},"correct":true}
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"},"hi":{"native":"बाज़ार जाना"},"kn":{"native":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು"},"mr":{"native":"बाजारात जाणे"},"pa":{"native":"ਬਾਜ਼ਾਰ ਜਾਣਾ"},"te":{"native":"మార్కెట్‌కు వెళ్ళడం"}},"correct":false},
+      {"id":"how much is the fare?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"how much is the fare?"},"hi":{"native":"किराया कितना है?"},"kn":{"native":"ದರ ಎಷ್ಟು?"},"mr":{"native":"भाडे किती आहे?"},"pa":{"native":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੈ?"},"te":{"native":"ఛార్జీ ఎంత?"}},"correct":true}
     ]
   }
 ]

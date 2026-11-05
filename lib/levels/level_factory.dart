@@ -1,11 +1,14 @@
 import '../games/quiz_ui/quiz.dart';
+
 import 'package:flutter/material.dart';
+
 import '../games/match_the_pair/pairing.dart';
 import '../games/make_the_sentence/mts.dart';
 import '../games/follow_the_sound/fts.dart';
 import '../games/memory_flip/memory_flip.dart';
 import '../games/fill_blank/fill_blank.dart';
 import '../games/speed_round/speed_round.dart';
+
 dynamic getHandler(
   String handler,
   ValueKey key,

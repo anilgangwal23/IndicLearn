@@ -1,39 +1,990 @@
 {
-    "Mera": {"file": "", "native": "मेरा"},
-    "apple": {"file": "", "native": "सेब"},
-    "hi_en_auto_rickshaw_station": {"file": "", "native": "railway station", "language": "en-IN"},
-    "hi_en_auto_rickshaw_market": {"file": "", "native": "market", "language": "en-IN"},
-    "hi_en_auto_rickshaw_cash": {"file": "", "native": "cash", "language": "en-IN"},
-    "hi_en_auto_rickshaw_auto": {"file": "", "native": "auto rickshaw", "language": "en-IN"},
-    "railway station": {"file": "", "native": "railway station", "language": "en-IN"},
-    "market": {"file": "", "native": "market", "language": "en-IN"},
-    "cash": {"file": "", "native": "cash", "language": "en-IN"},
-    "auto rickshaw": {"file": "", "native": "auto rickshaw", "language": "en-IN"},
-    "go to the market": {"file": "", "native": "go to the market", "language": "en-IN"},
-    "to the railway station": {"file": "", "native": "to the railway station", "language": "en-IN"},
-    "how much is the fare?": {"file": "", "native": "how much is the fare?", "language": "en-IN"},
-    "lower the fare a little": {"file": "", "native": "lower the fare a little", "language": "en-IN"},
-    "at the next junction": {"file": "", "native": "at the next junction", "language": "en-IN"},
-    "need to go": {"file": "", "native": "need to go", "language": "en-IN"},
-    "take me to": {"file": "", "native": "take me to", "language": "en-IN"},
-    "how much": {"file": "", "native": "how much", "language": "en-IN"},
-    "the fare": {"file": "", "native": "the fare", "language": "en-IN"},
-    "too expensive": {"file": "", "native": "too expensive", "language": "en-IN"},
-    "a little": {"file": "", "native": "a little", "language": "en-IN"},
-    "turn left": {"file": "", "native": "turn left", "language": "en-IN"},
-    "turn right": {"file": "", "native": "turn right", "language": "en-IN"},
-    "next junction": {"file": "", "native": "next junction", "language": "en-IN"},
-    "drive slowly": {"file": "", "native": "drive slowly", "language": "en-IN"},
-    "stop here": {"file": "", "native": "stop here", "language": "en-IN"},
-    "pay in cash": {"file": "", "native": "pay in cash", "language": "en-IN"},
-    "Will you take me to the railway station?": {"file": "", "native": "Will you take me to the railway station?", "language": "en-IN"},
-    "I need to go to the market.": {"file": "", "native": "I need to go to the market.", "language": "en-IN"},
-    "How much will the fare be?": {"file": "", "native": "How much will the fare be?", "language": "en-IN"},
-    "That is too expensive.": {"file": "", "native": "That is too expensive.", "language": "en-IN"},
-    "Please lower the fare a little.": {"file": "", "native": "Please lower the fare a little.", "language": "en-IN"},
-    "Turn left here, please.": {"file": "", "native": "Turn left here, please.", "language": "en-IN"},
-    "Turn right at the next junction, please.": {"file": "", "native": "Turn right at the next junction, please.", "language": "en-IN"},
-    "Please drive slowly.": {"file": "", "native": "Please drive slowly.", "language": "en-IN"},
-    "Please stop here.": {"file": "", "native": "Please stop here.", "language": "en-IN"},
-    "Can I pay in cash?": {"file": "", "native": "Can I pay in cash?", "language": "en-IN"}
+    "Mera": {
+        "file": "words/hi/49579bbf6a733b36.mp3",
+        "native": "मेरा"
+    },
+    "apple": {
+        "file": "words/hi/8954f5aad8f93006.mp3",
+        "native": "सेब"
+    },
+    "hi_en_auto_rickshaw_station": {
+        "file": "words/en/694de2adc3cd6515.mp3",
+        "native": "railway station",
+        "language": "en-IN"
+    },
+    "hi_en_auto_rickshaw_market": {
+        "file": "words/en/493b1b3bf32c0c90.mp3",
+        "native": "market",
+        "language": "en-IN"
+    },
+    "hi_en_auto_rickshaw_cash": {
+        "file": "words/en/84b80de66b892e94.mp3",
+        "native": "cash",
+        "language": "en-IN"
+    },
+    "hi_en_auto_rickshaw_auto": {
+        "file": "words/en/64297861f1b97867.mp3",
+        "native": "auto rickshaw",
+        "language": "en-IN"
+    },
+    "railway station": {
+        "file": "words/en/694de2adc3cd6515.mp3",
+        "native": "railway station",
+        "language": "en-IN"
+    },
+    "market": {
+        "file": "words/en/493b1b3bf32c0c90.mp3",
+        "native": "market",
+        "language": "en-IN"
+    },
+    "cash": {
+        "file": "words/en/84b80de66b892e94.mp3",
+        "native": "cash",
+        "language": "en-IN"
+    },
+    "auto rickshaw": {
+        "file": "words/en/64297861f1b97867.mp3",
+        "native": "auto rickshaw",
+        "language": "en-IN"
+    },
+    "go to the market": {
+        "file": "words/en/ffd818e339a2a153.mp3",
+        "native": "go to the market",
+        "language": "en-IN"
+    },
+    "to the railway station": {
+        "file": "words/en/d4101382057596ab.mp3",
+        "native": "to the railway station",
+        "language": "en-IN"
+    },
+    "how much is the fare?": {
+        "file": "words/en/be2a7550d8a50dab.mp3",
+        "native": "how much is the fare?",
+        "language": "en-IN"
+    },
+    "lower the fare a little": {
+        "file": "words/en/1eec03dcae4e1c9d.mp3",
+        "native": "lower the fare a little",
+        "language": "en-IN"
+    },
+    "at the next junction": {
+        "file": "words/en/c61fa08687ac77a6.mp3",
+        "native": "at the next junction",
+        "language": "en-IN"
+    },
+    "need to go": {
+        "file": "words/en/d75780a3e381b95f.mp3",
+        "native": "need to go",
+        "language": "en-IN"
+    },
+    "take me to": {
+        "file": "words/en/5ff742eb97986f79.mp3",
+        "native": "take me to",
+        "language": "en-IN"
+    },
+    "how much": {
+        "file": "words/en/cb8f26330ca5abce.mp3",
+        "native": "how much",
+        "language": "en-IN"
+    },
+    "the fare": {
+        "file": "words/en/60b3bbad7c7206e7.mp3",
+        "native": "the fare",
+        "language": "en-IN"
+    },
+    "too expensive": {
+        "file": "words/en/d623e316a4c0af2a.mp3",
+        "native": "too expensive",
+        "language": "en-IN"
+    },
+    "a little": {
+        "file": "words/en/2bf59b735128fbea.mp3",
+        "native": "a little",
+        "language": "en-IN"
+    },
+    "turn left": {
+        "file": "words/en/de32d3d98a8b2eab.mp3",
+        "native": "turn left",
+        "language": "en-IN"
+    },
+    "turn right": {
+        "file": "words/en/3a27416e7ba678c1.mp3",
+        "native": "turn right",
+        "language": "en-IN"
+    },
+    "next junction": {
+        "file": "words/en/aa00787c10ebc9e7.mp3",
+        "native": "next junction",
+        "language": "en-IN"
+    },
+    "drive slowly": {
+        "file": "words/en/cc6c0076ecb996b9.mp3",
+        "native": "drive slowly",
+        "language": "en-IN"
+    },
+    "stop here": {
+        "file": "words/en/be2498ba15bcce80.mp3",
+        "native": "stop here",
+        "language": "en-IN"
+    },
+    "pay in cash": {
+        "file": "words/en/199591787ad40167.mp3",
+        "native": "pay in cash",
+        "language": "en-IN"
+    },
+    "Will you take me to the railway station?": {
+        "file": "words/en/294185eb5f4b409f.mp3",
+        "native": "Will you take me to the railway station?",
+        "language": "en-IN"
+    },
+    "I need to go to the market.": {
+        "file": "words/en/a19d17d71162c902.mp3",
+        "native": "I need to go to the market.",
+        "language": "en-IN"
+    },
+    "How much will the fare be?": {
+        "file": "words/en/acce09921180d433.mp3",
+        "native": "How much will the fare be?",
+        "language": "en-IN"
+    },
+    "That is too expensive.": {
+        "file": "words/en/cd8ea1f91de3c294.mp3",
+        "native": "That is too expensive.",
+        "language": "en-IN"
+    },
+    "Please lower the fare a little.": {
+        "file": "words/en/093603b39083251e.mp3",
+        "native": "Please lower the fare a little.",
+        "language": "en-IN"
+    },
+    "Turn left here, please.": {
+        "file": "words/en/49daaa35f2009a78.mp3",
+        "native": "Turn left here, please.",
+        "language": "en-IN"
+    },
+    "Turn right at the next junction, please.": {
+        "file": "words/en/32c4c8948207e640.mp3",
+        "native": "Turn right at the next junction, please.",
+        "language": "en-IN"
+    },
+    "Please drive slowly.": {
+        "file": "words/en/a4e3084de0903b5b.mp3",
+        "native": "Please drive slowly.",
+        "language": "en-IN"
+    },
+    "Please stop here.": {
+        "file": "words/en/b446904454e76022.mp3",
+        "native": "Please stop here.",
+        "language": "en-IN"
+    },
+    "Can I pay in cash?": {
+        "file": "words/en/d57259ddb6f3fddd.mp3",
+        "native": "Can I pay in cash?",
+        "language": "en-IN"
+    },
+    "मेरा घर": {
+        "native": "मेरा घर",
+        "language": "hi-IN",
+        "file": "words/hi/cf8753d2438cecc3.mp3"
+    },
+    "My house": {
+        "native": "My house",
+        "language": "en-IN",
+        "file": "words/en/a983b21582d85823.mp3"
+    },
+    "ನನ್ನ ಮನೆ": {
+        "native": "ನನ್ನ ಮನೆ",
+        "language": "kn-IN",
+        "file": "words/kn/64a76444f70abf4c.mp3"
+    },
+    "माझे घर": {
+        "native": "माझे घर",
+        "language": "mr-IN",
+        "file": "words/mr/2e9da94125fedc06.mp3"
+    },
+    "ਮੇਰਾ ਘਰ": {
+        "native": "ਮੇਰਾ ਘਰ",
+        "language": "pa-IN",
+        "file": "words/pa/7418e9e8c123780f.mp3"
+    },
+    "నా ఇల్లు": {
+        "native": "నా ఇల్లు",
+        "language": "te-IN",
+        "file": "words/te/2fd83c2dc4a55459.mp3"
+    },
+    "बाज़ार": {
+        "native": "बाज़ार",
+        "language": "hi-IN",
+        "file": "words/hi/11ba56b7a21c3559.mp3"
+    },
+    "ಮಾರುಕಟ್ಟೆ": {
+        "native": "ಮಾರುಕಟ್ಟೆ",
+        "language": "kn-IN",
+        "file": "words/kn/3900ec843111c849.mp3"
+    },
+    "बाजार": {
+        "native": "बाजार",
+        "language": "mr-IN",
+        "file": "words/mr/78c25d21f4bb8514.mp3"
+    },
+    "ਬਾਜ਼ਾਰ": {
+        "native": "ਬਾਜ਼ਾਰ",
+        "language": "pa-IN",
+        "file": "words/pa/9c0f2933367b5957.mp3"
+    },
+    "మార్కెట్": {
+        "native": "మార్కెట్",
+        "language": "te-IN",
+        "file": "words/te/c0b569126ccb831e.mp3"
+    },
+    "रेलवे स्टेशन": {
+        "native": "रेलवे स्टेशन",
+        "language": "hi-IN",
+        "file": "words/hi/30f6bbcf2a7d894f.mp3"
+    },
+    "ರೈಲು ನಿಲ್ದಾಣ": {
+        "native": "ರೈಲು ನಿಲ್ದಾಣ",
+        "language": "kn-IN",
+        "file": "words/kn/b2cef425b5b15be3.mp3"
+    },
+    "रेल्वे स्टेशन": {
+        "native": "रेल्वे स्टेशन",
+        "language": "mr-IN",
+        "file": "words/mr/34dfa261cfdf9220.mp3"
+    },
+    "ਰੇਲਵੇ ਸਟੇਸ਼ਨ": {
+        "native": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ",
+        "language": "pa-IN",
+        "file": "words/pa/d147e828c2dc2a6d.mp3"
+    },
+    "రైల్వే స్టేషన్": {
+        "native": "రైల్వే స్టేషన్",
+        "language": "te-IN",
+        "file": "words/te/a208a08bc501de56.mp3"
+    },
+    "ऑटो रिक्शा": {
+        "native": "ऑटो रिक्शा",
+        "language": "hi-IN",
+        "file": "words/hi/e722726f0085d7c2.mp3"
+    },
+    "ಆಟೋ ರಿಕ್ಷಾ": {
+        "native": "ಆಟೋ ರಿಕ್ಷಾ",
+        "language": "kn-IN",
+        "file": "words/kn/2d559aaea61b531c.mp3"
+    },
+    "रिक्षा": {
+        "native": "रिक्षा",
+        "language": "mr-IN",
+        "file": "words/mr/aeb927caae49464c.mp3"
+    },
+    "ਆਟੋ ਰਿਕਸ਼ਾ": {
+        "native": "ਆਟੋ ਰਿਕਸ਼ਾ",
+        "language": "pa-IN",
+        "file": "words/pa/a005ce504057504a.mp3"
+    },
+    "ఆటో రిక్షా": {
+        "native": "ఆటో రిక్షా",
+        "language": "te-IN",
+        "file": "words/te/1350ebcb138c2ecb.mp3"
+    },
+    "नकद": {
+        "native": "नकद",
+        "language": "hi-IN",
+        "file": "words/hi/cbf32c888805c1a5.mp3"
+    },
+    "ನಗದು": {
+        "native": "ನಗದು",
+        "language": "kn-IN",
+        "file": "words/kn/5414bcc7ca588ca1.mp3"
+    },
+    "रोख": {
+        "native": "रोख",
+        "language": "mr-IN",
+        "file": "words/mr/63d003c9bb718f19.mp3"
+    },
+    "ਨਕਦ": {
+        "native": "ਨਕਦ",
+        "language": "pa-IN",
+        "file": "words/pa/3bcdd933024c35c4.mp3"
+    },
+    "నగదు": {
+        "native": "నగదు",
+        "language": "te-IN",
+        "file": "words/te/c62a9ca1254ea952.mp3"
+    },
+    "बाज़ार जाना": {
+        "native": "बाज़ार जाना",
+        "language": "hi-IN",
+        "file": "words/hi/1ed6d21ace680eb2.mp3"
+    },
+    "ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು": {
+        "native": "ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು",
+        "language": "kn-IN",
+        "file": "words/kn/040b9a1db0e7f8e6.mp3"
+    },
+    "बाजारात जाणे": {
+        "native": "बाजारात जाणे",
+        "language": "mr-IN",
+        "file": "words/mr/fd6ae30aad6fdc59.mp3"
+    },
+    "ਬਾਜ਼ਾਰ ਜਾਣਾ": {
+        "native": "ਬਾਜ਼ਾਰ ਜਾਣਾ",
+        "language": "pa-IN",
+        "file": "words/pa/0a7be68774f76e92.mp3"
+    },
+    "మార్కెట్‌కు వెళ్ళడం": {
+        "native": "మార్కెట్‌కు వెళ్ళడం",
+        "language": "te-IN",
+        "file": "words/te/5e965b4271a4f8d4.mp3"
+    },
+    "रेलवे स्टेशन की ओर": {
+        "native": "रेलवे स्टेशन की ओर",
+        "language": "hi-IN",
+        "file": "words/hi/1a32e7d2edfe5ee3.mp3"
+    },
+    "ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ": {
+        "native": "ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ",
+        "language": "kn-IN",
+        "file": "words/kn/867978f746ec1d01.mp3"
+    },
+    "रेल्वे स्टेशनकडे": {
+        "native": "रेल्वे स्टेशनकडे",
+        "language": "mr-IN",
+        "file": "words/mr/a2292d686f8dc037.mp3"
+    },
+    "ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ": {
+        "native": "ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ",
+        "language": "pa-IN",
+        "file": "words/pa/5a3750807ee68509.mp3"
+    },
+    "రైల్వే స్టేషన్‌కు": {
+        "native": "రైల్వే స్టేషన్‌కు",
+        "language": "te-IN",
+        "file": "words/te/58db170f386fdfb4.mp3"
+    },
+    "किराया": {
+        "native": "किराया",
+        "language": "hi-IN",
+        "file": "words/hi/5305b076ebf4aa58.mp3"
+    },
+    "ಪ್ರಯಾಣ ದರ": {
+        "native": "ಪ್ರಯಾಣ ದರ",
+        "language": "kn-IN",
+        "file": "words/kn/2ce4ca8283e42626.mp3"
+    },
+    "भाडे": {
+        "native": "भाडे",
+        "language": "mr-IN",
+        "file": "words/mr/38a61dae42e64f5a.mp3"
+    },
+    "ਕਿਰਾਇਆ": {
+        "native": "ਕਿਰਾਇਆ",
+        "language": "pa-IN",
+        "file": "words/pa/c9591b38e431e683.mp3"
+    },
+    "ఛార్జీ": {
+        "native": "ఛార్జీ",
+        "language": "te-IN",
+        "file": "words/te/e964f85e023912cb.mp3"
+    },
+    "किराया कितना है?": {
+        "native": "किराया कितना है?",
+        "language": "hi-IN",
+        "file": "words/hi/5e610e6f26637a50.mp3"
+    },
+    "ದರ ಎಷ್ಟು?": {
+        "native": "ದರ ಎಷ್ಟು?",
+        "language": "kn-IN",
+        "file": "words/kn/b4211356fde176f0.mp3"
+    },
+    "भाडे किती आहे?": {
+        "native": "भाडे किती आहे?",
+        "language": "mr-IN",
+        "file": "words/mr/8b7d5956ff067e7f.mp3"
+    },
+    "ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੈ?": {
+        "native": "ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੈ?",
+        "language": "pa-IN",
+        "file": "words/pa/466669c2470ad4ba.mp3"
+    },
+    "ఛార్జీ ఎంత?": {
+        "native": "ఛార్జీ ఎంత?",
+        "language": "te-IN",
+        "file": "words/te/3909062bebd7f38d.mp3"
+    },
+    "बहुत महँगा": {
+        "native": "बहुत महँगा",
+        "language": "hi-IN",
+        "file": "words/hi/6e6b37d3ec4f7043.mp3"
+    },
+    "ತುಂಬಾ ದುಬಾರಿ": {
+        "native": "ತುಂಬಾ ದುಬಾರಿ",
+        "language": "kn-IN",
+        "file": "words/kn/ddc39d90dbed1129.mp3"
+    },
+    "खूप महाग": {
+        "native": "खूप महाग",
+        "language": "mr-IN",
+        "file": "words/mr/033dab9b8bfef11b.mp3"
+    },
+    "ਬਹੁਤ ਮਹਿੰਗਾ": {
+        "native": "ਬਹੁਤ ਮਹਿੰਗਾ",
+        "language": "pa-IN",
+        "file": "words/pa/d5ba16cfa17ac29a.mp3"
+    },
+    "చాలా ఖరీదు": {
+        "native": "చాలా ఖరీదు",
+        "language": "te-IN",
+        "file": "words/te/8f95280142636530.mp3"
+    },
+    "किराया थोड़ा कम कीजिए": {
+        "native": "किराया थोड़ा कम कीजिए",
+        "language": "hi-IN",
+        "file": "words/hi/7be0858078fcae27.mp3"
+    },
+    "ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ": {
+        "native": "ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ",
+        "language": "kn-IN",
+        "file": "words/kn/7aaf017bfbc83ac6.mp3"
+    },
+    "भाडे थोडे कमी करा": {
+        "native": "भाडे थोडे कमी करा",
+        "language": "mr-IN",
+        "file": "words/mr/fd44f28277ae7600.mp3"
+    },
+    "ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ": {
+        "native": "ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ",
+        "language": "pa-IN",
+        "file": "words/pa/e3b5c925dbe7634f.mp3"
+    },
+    "ఛార్జీ కొంచెం తగ్గించండి": {
+        "native": "ఛార్జీ కొంచెం తగ్గించండి",
+        "language": "te-IN",
+        "file": "words/te/e88fbdcb4298339f.mp3"
+    },
+    "दाएँ मुड़िए": {
+        "native": "दाएँ मुड़िए",
+        "language": "hi-IN",
+        "file": "words/hi/53369eaf549bf532.mp3"
+    },
+    "ಬಲಕ್ಕೆ ತಿರುಗಿ": {
+        "native": "ಬಲಕ್ಕೆ ತಿರುಗಿ",
+        "language": "kn-IN",
+        "file": "words/kn/94c94a3cf22f7672.mp3"
+    },
+    "उजवीकडे वळा": {
+        "native": "उजवीकडे वळा",
+        "language": "mr-IN",
+        "file": "words/mr/1219ecf32c671626.mp3"
+    },
+    "ਸੱਜੇ ਮੁੜੋ": {
+        "native": "ਸੱਜੇ ਮੁੜੋ",
+        "language": "pa-IN",
+        "file": "words/pa/b441098f235f8f1e.mp3"
+    },
+    "కుడికి తిరగండి": {
+        "native": "కుడికి తిరగండి",
+        "language": "te-IN",
+        "file": "words/te/f2109958cf0d81a4.mp3"
+    },
+    "बाएँ मुड़िए": {
+        "native": "बाएँ मुड़िए",
+        "language": "hi-IN",
+        "file": "words/hi/ed18dd27473de61e.mp3"
+    },
+    "ಎಡಕ್ಕೆ ತಿರುಗಿ": {
+        "native": "ಎಡಕ್ಕೆ ತಿರುಗಿ",
+        "language": "kn-IN",
+        "file": "words/kn/2d8643531e278ac8.mp3"
+    },
+    "डावीकडे वळा": {
+        "native": "डावीकडे वळा",
+        "language": "mr-IN",
+        "file": "words/mr/9474882f838f0588.mp3"
+    },
+    "ਖੱਬੇ ਮੁੜੋ": {
+        "native": "ਖੱਬੇ ਮੁੜੋ",
+        "language": "pa-IN",
+        "file": "words/pa/73b4268b331b3339.mp3"
+    },
+    "ఎడమకు తిరగండి": {
+        "native": "ఎడమకు తిరగండి",
+        "language": "te-IN",
+        "file": "words/te/8742d0c3d7c292cd.mp3"
+    },
+    "अगले मोड़ पर": {
+        "native": "अगले मोड़ पर",
+        "language": "hi-IN",
+        "file": "words/hi/68547b6e48a4c707.mp3"
+    },
+    "ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ": {
+        "native": "ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ",
+        "language": "kn-IN",
+        "file": "words/kn/ae7d21cbed40a12e.mp3"
+    },
+    "पुढच्या चौकात": {
+        "native": "पुढच्या चौकात",
+        "language": "mr-IN",
+        "file": "words/mr/6baf56953350e087.mp3"
+    },
+    "ਅਗਲੇ ਚੌਕ ਵਿੱਚ": {
+        "native": "ਅਗਲੇ ਚੌਕ ਵਿੱਚ",
+        "language": "pa-IN",
+        "file": "words/pa/d9d390ca7fac6a48.mp3"
+    },
+    "తదుపరి జంక్షన్ వద్ద": {
+        "native": "తదుపరి జంక్షన్ వద్ద",
+        "language": "te-IN",
+        "file": "words/te/3fc9d9410279ad3f.mp3"
+    },
+    "धीरे चलाइए": {
+        "native": "धीरे चलाइए",
+        "language": "hi-IN",
+        "file": "words/hi/a61f0a27af5f4893.mp3"
+    },
+    "ನಿಧಾನವಾಗಿ ಓಡಿಸಿ": {
+        "native": "ನಿಧಾನವಾಗಿ ಓಡಿಸಿ",
+        "language": "kn-IN",
+        "file": "words/kn/87bdbab0ec0ef122.mp3"
+    },
+    "हळू चालवा": {
+        "native": "हळू चालवा",
+        "language": "mr-IN",
+        "file": "words/mr/c48d8d030a581e46.mp3"
+    },
+    "ਹੌਲੀ ਚਲਾਓ": {
+        "native": "ਹੌਲੀ ਚਲਾਓ",
+        "language": "pa-IN",
+        "file": "words/pa/56e0c369d89a92c9.mp3"
+    },
+    "నెమ్మదిగా నడపండి": {
+        "native": "నెమ్మదిగా నడపండి",
+        "language": "te-IN",
+        "file": "words/te/3679bd73d9206663.mp3"
+    },
+    "यहाँ रोकिए": {
+        "native": "यहाँ रोकिए",
+        "language": "hi-IN",
+        "file": "words/hi/41e7d98d57a331ca.mp3"
+    },
+    "ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ": {
+        "native": "ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ",
+        "language": "kn-IN",
+        "file": "words/kn/43e6119b0c38e99f.mp3"
+    },
+    "इथे थांबवा": {
+        "native": "इथे थांबवा",
+        "language": "mr-IN",
+        "file": "words/mr/07e93c79d1424e0d.mp3"
+    },
+    "ਇੱਥੇ ਰੋਕੋ": {
+        "native": "ਇੱਥੇ ਰੋਕੋ",
+        "language": "pa-IN",
+        "file": "words/pa/67c51987442cfa44.mp3"
+    },
+    "ఇక్కడ ఆపండి": {
+        "native": "ఇక్కడ ఆపండి",
+        "language": "te-IN",
+        "file": "words/te/e20111ad2910bb89.mp3"
+    },
+    "नकद भुगतान करना": {
+        "native": "नकद भुगतान करना",
+        "language": "hi-IN",
+        "file": "words/hi/f448400e57d6726a.mp3"
+    },
+    "ನಗದಾಗಿ ಪಾವತಿಸುವುದು": {
+        "native": "ನಗದಾಗಿ ಪಾವತಿಸುವುದು",
+        "language": "kn-IN",
+        "file": "words/kn/9141c1d8846ccad8.mp3"
+    },
+    "रोख पैसे देणे": {
+        "native": "रोख पैसे देणे",
+        "language": "mr-IN",
+        "file": "words/mr/0cb96313ded7e85e.mp3"
+    },
+    "ਨਕਦ ਅਦਾ ਕਰਨਾ": {
+        "native": "ਨਕਦ ਅਦਾ ਕਰਨਾ",
+        "language": "pa-IN",
+        "file": "words/pa/f359a3b01f6c6de2.mp3"
+    },
+    "నగదుగా చెల్లించడం": {
+        "native": "నగదుగా చెల్లించడం",
+        "language": "te-IN",
+        "file": "words/te/2a7041eacafae51b.mp3"
+    },
+    "यह बहुत महँगा है।": {
+        "native": "यह बहुत महँगा है।",
+        "language": "hi-IN",
+        "file": "words/hi/c931ef00407285b6.mp3"
+    },
+    "ಇದು ತುಂಬಾ ದುಬಾರಿ.": {
+        "native": "ಇದು ತುಂಬಾ ದುಬಾರಿ.",
+        "language": "kn-IN",
+        "file": "words/kn/bc1c191197d048ee.mp3"
+    },
+    "हे खूप महाग आहे.": {
+        "native": "हे खूप महाग आहे.",
+        "language": "mr-IN",
+        "file": "words/mr/4466acd211ede3f1.mp3"
+    },
+    "ਇਹ ਬਹੁਤ ਮਹਿੰਗਾ ਹੈ।": {
+        "native": "ਇਹ ਬਹੁਤ ਮਹਿੰਗਾ ਹੈ।",
+        "language": "pa-IN",
+        "file": "words/pa/fd7e77a91a2c6715.mp3"
+    },
+    "ఇది చాలా ఖరీదు.": {
+        "native": "ఇది చాలా ఖరీదు.",
+        "language": "te-IN",
+        "file": "words/te/ce360624608ed445.mp3"
+    },
+    "कृपया धीरे चलाइए।": {
+        "native": "कृपया धीरे चलाइए।",
+        "language": "hi-IN",
+        "file": "words/hi/1d18d40b8464b3c4.mp3"
+    },
+    "ದಯವಿಟ್ಟು ನಿಧಾನವಾಗಿ ಓಡಿಸಿ.": {
+        "native": "ದಯವಿಟ್ಟು ನಿಧಾನವಾಗಿ ಓಡಿಸಿ.",
+        "language": "kn-IN",
+        "file": "words/kn/e646311e8f5f7e14.mp3"
+    },
+    "कृपया हळू चालवा.": {
+        "native": "कृपया हळू चालवा.",
+        "language": "mr-IN",
+        "file": "words/mr/bcfebcdf578212e5.mp3"
+    },
+    "ਕਿਰਪਾ ਕਰਕੇ ਹੌਲੀ ਚਲਾਓ।": {
+        "native": "ਕਿਰਪਾ ਕਰਕੇ ਹੌਲੀ ਚਲਾਓ।",
+        "language": "pa-IN",
+        "file": "words/pa/31905bc864adc2ef.mp3"
+    },
+    "దయచేసి నెమ్మదిగా నడపండి.": {
+        "native": "దయచేసి నెమ్మదిగా నడపండి.",
+        "language": "te-IN",
+        "file": "words/te/eb6c4f12a19205bd.mp3"
+    },
+    "कृपया यहीं रोकिए।": {
+        "native": "कृपया यहीं रोकिए।",
+        "language": "hi-IN",
+        "file": "words/hi/2e0f5e031fb61e20.mp3"
+    },
+    "ದಯವಿಟ್ಟು ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ.": {
+        "native": "ದಯವಿಟ್ಟು ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ.",
+        "language": "kn-IN",
+        "file": "words/kn/f83d9f3d913b6220.mp3"
+    },
+    "कृपया इथेच थांबवा.": {
+        "native": "कृपया इथेच थांबवा.",
+        "language": "mr-IN",
+        "file": "words/mr/9b0ccc6e4f1c3e22.mp3"
+    },
+    "ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਰੋਕੋ।": {
+        "native": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਰੋਕੋ।",
+        "language": "pa-IN",
+        "file": "words/pa/2037b63ab564562f.mp3"
+    },
+    "దయచేసి ఇక్కడ ఆపండి.": {
+        "native": "దయచేసి ఇక్కడ ఆపండి.",
+        "language": "te-IN",
+        "file": "words/te/7eb96f38e87933db.mp3"
+    },
+    "यहाँ बाएँ मुड़िए।": {
+        "native": "यहाँ बाएँ मुड़िए।",
+        "language": "hi-IN",
+        "file": "words/hi/d40bfc9029c75c3b.mp3"
+    },
+    "ದಯವಿಟ್ಟು ಇಲ್ಲಿ ಎಡಕ್ಕೆ ತಿರುಗಿ.": {
+        "native": "ದಯವಿಟ್ಟು ಇಲ್ಲಿ ಎಡಕ್ಕೆ ತಿರುಗಿ.",
+        "language": "kn-IN",
+        "file": "words/kn/324fc44915a0f8b8.mp3"
+    },
+    "इथे डावीकडे वळा.": {
+        "native": "इथे डावीकडे वळा.",
+        "language": "mr-IN",
+        "file": "words/mr/3567107e8cc89b21.mp3"
+    },
+    "ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਖੱਬੇ ਮੁੜੋ।": {
+        "native": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਥੇ ਖੱਬੇ ਮੁੜੋ।",
+        "language": "pa-IN",
+        "file": "words/pa/2822998a88a44d3e.mp3"
+    },
+    "దయచేసి ఇక్కడ ఎడమకు తిరగండి.": {
+        "native": "దయచేసి ఇక్కడ ఎడమకు తిరగండి.",
+        "language": "te-IN",
+        "file": "words/te/bb7a40e65b54496a.mp3"
+    },
+    "ਕਿਰਪਾ ਕਰਕੇ ਇੱਥೇ ਰೋಕೋ।": {
+        "native": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਥೇ ਰೋಕೋ।",
+        "language": "pa-IN",
+        "file": "words/pa/b788606732507ace.mp3"
+    },
+    "मुझे बाज़ार जाना है।": {
+        "native": "मुझे बाज़ार जाना है।",
+        "language": "hi-IN",
+        "file": "words/hi/179d8e70f1810587.mp3"
+    },
+    "ನನಗೆ ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗಬೇಕು.": {
+        "native": "ನನಗೆ ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗಬೇಕು.",
+        "language": "kn-IN",
+        "file": "words/kn/3e4517fc40466f30.mp3"
+    },
+    "मला बाजारात जायचे आहे.": {
+        "native": "मला बाजारात जायचे आहे.",
+        "language": "mr-IN",
+        "file": "words/mr/898baa5a88d0247c.mp3"
+    },
+    "ਮੈਂ ਬਾਜ਼ਾਰ ਜਾਣਾ ਹੈ।": {
+        "native": "ਮੈਂ ਬਾਜ਼ਾਰ ਜਾਣਾ ਹੈ।",
+        "language": "pa-IN",
+        "file": "words/pa/f34950cf1191145c.mp3"
+    },
+    "నేను మార్కెట్‌కు వెళ్ళాలి.": {
+        "native": "నేను మార్కెట్‌కు వెళ్ళాలి.",
+        "language": "te-IN",
+        "file": "words/te/c5a300f4ddfca931.mp3"
+    },
+    "क्या आप रेलवे स्टेशन चलेंगे?": {
+        "native": "क्या आप रेलवे स्टेशन चलेंगे?",
+        "language": "hi-IN",
+        "file": "words/hi/62d9c7b7826753c3.mp3"
+    },
+    "ನೀವು ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ ಬರುತ್ತೀರಾ?": {
+        "native": "ನೀವು ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ ಬರುತ್ತೀರಾ?",
+        "language": "kn-IN",
+        "file": "words/kn/530032725efcc69c.mp3"
+    },
+    "तुम्ही मला रेल्वे स्टेशनला नेणार का?": {
+        "native": "तुम्ही मला रेल्वे स्टेशनला नेणार का?",
+        "language": "mr-IN",
+        "file": "words/mr/b8728534dbfe4fd9.mp3"
+    },
+    "ਕੀ ਤੁਸੀਂ ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਚੱਲੋਗੇ?": {
+        "native": "ਕੀ ਤੁਸੀਂ ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਚੱਲੋਗੇ?",
+        "language": "pa-IN",
+        "file": "words/pa/94b9cfb5e4244254.mp3"
+    },
+    "మీరు రైల్వే స్టేషన్‌కు వస్తారా?": {
+        "native": "మీరు రైల్వే స్టేషన్‌కు వస్తారా?",
+        "language": "te-IN",
+        "file": "words/te/edef526c6ba35e0c.mp3"
+    },
+    "अगले मोड़ पर दाएँ मुड़िए, कृपया।": {
+        "native": "अगले मोड़ पर दाएँ मुड़िए, कृपया।",
+        "language": "hi-IN",
+        "file": "words/hi/54435b6f00abe7a1.mp3"
+    },
+    "ದಯವಿಟ್ಟು ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಬಲಕ್ಕೆ ತಿರುಗಿ.": {
+        "native": "ದಯವಿಟ್ಟು ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಬಲಕ್ಕೆ ತಿರುಗಿ.",
+        "language": "kn-IN",
+        "file": "words/kn/6e669de1e88e3346.mp3"
+    },
+    "कृपया पुढच्या चौकात उजवीकडे वळा.": {
+        "native": "कृपया पुढच्या चौकात उजवीकडे वळा.",
+        "language": "mr-IN",
+        "file": "words/mr/3f2540062c63f4e5.mp3"
+    },
+    "ਕਿਰਪਾ ਕਰਕੇ ਅਗਲੇ ਚੌਕ ਵਿੱਚ ਸੱਜੇ ਮੁੜੋ।": {
+        "native": "ਕਿਰਪਾ ਕਰਕੇ ਅਗਲੇ ਚੌਕ ਵਿੱਚ ਸੱਜੇ ਮੁੜੋ।",
+        "language": "pa-IN",
+        "file": "words/pa/4f328422f2e025f4.mp3"
+    },
+    "దయచేసి తదుపరి జంక్షన్ వద్ద కుడికి తిరగండి.": {
+        "native": "దయచేసి తదుపరి జంక్షన్ వద్ద కుడికి తిరగండి.",
+        "language": "te-IN",
+        "file": "words/te/c60a3738d74517ec.mp3"
+    },
+    "किराया कितना होगा?": {
+        "native": "किराया कितना होगा?",
+        "language": "hi-IN",
+        "file": "words/hi/cf2a3dc6e2aa5286.mp3"
+    },
+    "ದರ ಎಷ್ಟಾಗುತ್ತದೆ?": {
+        "native": "ದರ ಎಷ್ಟಾಗುತ್ತದೆ?",
+        "language": "kn-IN",
+        "file": "words/kn/2cdf82719cb7bad5.mp3"
+    },
+    "भाडे किती होईल?": {
+        "native": "भाडे किती होईल?",
+        "language": "mr-IN",
+        "file": "words/mr/4301e792559372fd.mp3"
+    },
+    "ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?": {
+        "native": "ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "language": "pa-IN",
+        "file": "words/pa/3d8460c942483832.mp3"
+    },
+    "ఛార్జీ ఎంత అవుతుంది?": {
+        "native": "ఛార్జీ ఎంత అవుతుంది?",
+        "language": "te-IN",
+        "file": "words/te/25f71755c2d8e353.mp3"
+    },
+    "क्या मैं नकद दे सकता हूँ?": {
+        "native": "क्या मैं नकद दे सकता हूँ?",
+        "language": "hi-IN",
+        "file": "words/hi/227c1245b7314d73.mp3"
+    },
+    "ನಾನು ನಗದಾಗಿ ಪಾವತಿಸಬಹುದೇ?": {
+        "native": "ನಾನು ನಗದಾಗಿ ಪಾವತಿಸಬಹುದೇ?",
+        "language": "kn-IN",
+        "file": "words/kn/facf3491beeebb78.mp3"
+    },
+    "मी रोख पैसे देऊ शकतो का?": {
+        "native": "मी रोख पैसे देऊ शकतो का?",
+        "language": "mr-IN",
+        "file": "words/mr/ad6bb207caf2e4cb.mp3"
+    },
+    "ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?": {
+        "native": "ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?",
+        "language": "pa-IN",
+        "file": "words/pa/0b09491e46c8dd15.mp3"
+    },
+    "నేను నగదుగా చెల్లించవచ్చా?": {
+        "native": "నేను నగదుగా చెల్లించవచ్చా?",
+        "language": "te-IN",
+        "file": "words/te/be1dd1e3e89a66a0.mp3"
+    },
+    "थोड़ा कम कीजिए।": {
+        "native": "थोड़ा कम कीजिए।",
+        "language": "hi-IN",
+        "file": "words/hi/9f7867d30018e037.mp3"
+    },
+    "ದಯವಿಟ್ಟು ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ.": {
+        "native": "ದಯವಿಟ್ಟು ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ.",
+        "language": "kn-IN",
+        "file": "words/kn/574a0c80a926ccf7.mp3"
+    },
+    "कृपया भाडे थोडे कमी करा.": {
+        "native": "कृपया भाडे थोडे कमी करा.",
+        "language": "mr-IN",
+        "file": "words/mr/806d8517739eb69e.mp3"
+    },
+    "ਕਿਰਪਾ ਕਰਕੇ ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ।": {
+        "native": "ਕਿਰਪਾ ਕਰਕੇ ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ।",
+        "language": "pa-IN",
+        "file": "words/pa/1698bcfd397e3592.mp3"
+    },
+    "దయచేసి ఛార్జీ కొంచెం తగ్గించండి.": {
+        "native": "దయచేసి ఛార్జీ కొంచెం తగ్గించండి.",
+        "language": "te-IN",
+        "file": "words/te/f0c00e87e473497c.mp3"
+    },
+    "Apple": {
+        "native": "Apple",
+        "language": "en-IN",
+        "file": "words/en/4725d0597571657f.mp3"
+    },
+    "सेब": {
+        "native": "सेब",
+        "language": "hi-IN",
+        "file": "words/hi/8954f5aad8f93006.mp3"
+    },
+    "ಸೇಬು": {
+        "native": "ಸೇಬು",
+        "language": "kn-IN",
+        "file": "words/kn/250d27b46a4ff034.mp3"
+    },
+    "सफरचंद": {
+        "native": "सफरचंद",
+        "language": "mr-IN",
+        "file": "words/mr/67e15f867cdc4e94.mp3"
+    },
+    "ਸੇਬ": {
+        "native": "ਸੇਬ",
+        "language": "pa-IN",
+        "file": "words/pa/e1f0b311b6ba3a61.mp3"
+    },
+    "ఆపిల్": {
+        "native": "ఆపిల్",
+        "language": "te-IN",
+        "file": "words/te/257ed0f7a5afd0e2.mp3"
+    },
+    "Mango": {
+        "native": "Mango",
+        "language": "en-IN",
+        "file": "words/en/185d6ff47075de34.mp3"
+    },
+    "आम": {
+        "native": "आम",
+        "language": "hi-IN",
+        "file": "words/hi/a0e46c7d8d7da681.mp3"
+    },
+    "ಮಾವು": {
+        "native": "ಮಾವು",
+        "language": "kn-IN",
+        "file": "words/kn/0fb135d1f9e256c5.mp3"
+    },
+    "आंबा": {
+        "native": "आंबा",
+        "language": "mr-IN",
+        "file": "words/mr/5d8f230c8c24b34d.mp3"
+    },
+    "ਅੰਬ": {
+        "native": "ਅੰਬ",
+        "language": "pa-IN",
+        "file": "words/pa/d343164d93e31ee9.mp3"
+    },
+    "మామిడి": {
+        "native": "మామిడి",
+        "language": "te-IN",
+        "file": "words/te/9143335766a74b43.mp3"
+    },
+    "Banana": {
+        "native": "Banana",
+        "language": "en-IN",
+        "file": "words/en/da147fb97172d6fa.mp3"
+    },
+    "केला": {
+        "native": "केला",
+        "language": "hi-IN",
+        "file": "words/hi/7c37cb7095736332.mp3"
+    },
+    "ಬಾಳೆಹಣ್ಣು": {
+        "native": "ಬಾಳೆಹಣ್ಣು",
+        "language": "kn-IN",
+        "file": "words/kn/741a15b7f9fe1597.mp3"
+    },
+    "केळं": {
+        "native": "केळं",
+        "language": "mr-IN",
+        "file": "words/mr/23f900da649bb847.mp3"
+    },
+    "ਕੇਲਾ": {
+        "native": "ਕੇਲਾ",
+        "language": "pa-IN",
+        "file": "words/pa/1a65e7594aaaf8d3.mp3"
+    },
+    "అరటిపండు": {
+        "native": "అరటిపండు",
+        "language": "te-IN",
+        "file": "words/te/73503b26dbfd74f8.mp3"
+    },
+    "Pineapple": {
+        "native": "Pineapple",
+        "language": "en-IN",
+        "file": "words/en/a862df76a2ad004b.mp3"
+    },
+    "अनानास": {
+        "native": "अनानास",
+        "language": "hi-IN",
+        "file": "words/hi/2dc3162cd66d91cf.mp3"
+    },
+    "ಅನಾನಸ್": {
+        "native": "ಅನಾನಸ್",
+        "language": "kn-IN",
+        "file": "words/kn/a6b39806c21a80c3.mp3"
+    },
+    "अननस": {
+        "native": "अननस",
+        "language": "mr-IN",
+        "file": "words/mr/69e7bbe7b50bc414.mp3"
+    },
+    "ਅਨਾਨਾਸ": {
+        "native": "ਅਨਾਨਾਸ",
+        "language": "pa-IN",
+        "file": "words/pa/47e771f1f13bfe85.mp3"
+    },
+    "పైనాపిల్": {
+        "native": "పైనాపిల్",
+        "language": "te-IN",
+        "file": "words/te/f48ca51cc8cacff6.mp3"
+    }
 }

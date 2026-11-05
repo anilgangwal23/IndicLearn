@@ -1,26 +1,26 @@
 [
   {
     "id":"rickshaw_sentence_s03","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया कितना होगा?"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया कितना होगा?"},"en":{"native":"How much will the fare be?"},"kn":{"native":"ದರ ಎಷ್ಟಾಗುತ್ತದೆ?"},"mr":{"native":"भाडे किती होईल?"},"pa":{"native":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?"},"te":{"native":"ఛార్జీ ఎంత అవుతుంది?"}},
     "choices":[
-      {"id":"How much will the fare be?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"How much will the fare be?"}},"correct":true},
-      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"}},"correct":false}
+      {"id":"How much will the fare be?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"How much will the fare be?"},"hi":{"native":"किराया कितना होगा?"},"kn":{"native":"ದರ ಎಷ್ಟಾಗುತ್ತದೆ?"},"mr":{"native":"भाडे किती होईल?"},"pa":{"native":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?"},"te":{"native":"ఛార్జీ ఎంత అవుతుంది?"}},"correct":true},
+      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"},"hi":{"native":"क्या मैं नकद दे सकता हूँ?"},"kn":{"native":"ನಾನು ನಗದಾಗಿ ಪಾವತಿಸಬಹುದೇ?"},"mr":{"native":"मी रोख पैसे देऊ शकतो का?"},"pa":{"native":"ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?"},"te":{"native":"నేను నగదుగా చెల్లించవచ్చా?"}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_sentence_s05","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"थोड़ा कम कीजिए।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"थोड़ा कम कीजिए।"},"en":{"native":"Please lower the fare a little."},"kn":{"native":"ದಯವಿಟ್ಟು ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ."},"mr":{"native":"कृपया भाडे थोडे कमी करा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ।"},"te":{"native":"దయచేసి ఛార్జీ కొంచెం తగ్గించండి."}},
     "choices":[
-      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"}},"correct":false},
-      {"id":"Please lower the fare a little.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"Please lower the fare a little."}},"correct":true}
+      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"},"hi":{"native":"क्या मैं नकद दे सकता हूँ?"},"kn":{"native":"ನಾನು ನಗದಾಗಿ ಪಾವತಿಸಬಹುದೇ?"},"mr":{"native":"मी रोख पैसे देऊ शकतो का?"},"pa":{"native":"ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?"},"te":{"native":"నేను నగదుగా చెల్లించవచ్చా?"}},"correct":false},
+      {"id":"Please lower the fare a little.","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"Please lower the fare a little."},"hi":{"native":"थोड़ा कम कीजिए।"},"kn":{"native":"ದಯವಿಟ್ಟು ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ."},"mr":{"native":"कृपया भाडे थोडे कमी करा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ।"},"te":{"native":"దయచేసి ఛార్జీ కొంచెం తగ్గించండి."}},"correct":true}
     ]
   },
   {
     "id":"rickshaw_sentence_s10","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"क्या मैं नकद दे सकता हूँ?"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"क्या मैं नकद दे सकता हूँ?"},"en":{"native":"Can I pay in cash?"},"kn":{"native":"ನಾನು ನಗದಾಗಿ ಪಾವತಿಸಬಹುದೇ?"},"mr":{"native":"मी रोख पैसे देऊ शकतो का?"},"pa":{"native":"ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?"},"te":{"native":"నేను నగదుగా చెల్లించవచ్చా?"}},
     "choices":[
-      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"}},"correct":true},
-      {"id":"How much will the fare be?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"How much will the fare be?"}},"correct":false}
+      {"id":"Can I pay in cash?","image":"assets/svg_assets/rickshaw_scenario/pay_in_cash.svg","text":{"en":{"native":"Can I pay in cash?"},"hi":{"native":"क्या मैं नकद दे सकता हूँ?"},"kn":{"native":"ನಾನು ನಗದಾಗಿ ಪಾವತಿಸಬಹುದೇ?"},"mr":{"native":"मी रोख पैसे देऊ शकतो का?"},"pa":{"native":"ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?"},"te":{"native":"నేను నగదుగా చెల్లించవచ్చా?"}},"correct":true},
+      {"id":"How much will the fare be?","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"How much will the fare be?"},"hi":{"native":"किराया कितना होगा?"},"kn":{"native":"ದರ ಎಷ್ಟಾಗುತ್ತದೆ?"},"mr":{"native":"भाडे किती होईल?"},"pa":{"native":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?"},"te":{"native":"ఛార్జీ ఎంత అవుతుంది?"}},"correct":false}
     ]
   }
 ]

@@ -46,3 +46,10 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Local secrets for devtools scripts (HF token)
+devtools/.env
+devtools/.venv/
+
+# Downloaded model weights (large; fetched by devtools/download_model.py)
+devtools/models/

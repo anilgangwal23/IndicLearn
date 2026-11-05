@@ -1,26 +1,26 @@
 [
   {
     "id":"rickshaw_sentence_s01","type":"image_choice","introduce":true,"image":"assets/svg_assets/station.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"क्या आप रेलवे स्टेशन चलेंगे?"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"क्या आप रेलवे स्टेशन चलेंगे?"},"en":{"native":"Will you take me to the railway station?"},"kn":{"native":"ನೀವು ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ ಬರುತ್ತೀರಾ?"},"mr":{"native":"तुम्ही मला रेल्वे स्टेशनला नेणार का?"},"pa":{"native":"ਕੀ ਤੁਸੀਂ ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਚੱਲੋਗੇ?"},"te":{"native":"మీరు రైల్వే స్టేషన్‌కు వస్తారా?"}},
     "choices":[
-      {"id":"I need to go to the market.","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"I need to go to the market."}},"correct":false},
-      {"id":"Will you take me to the railway station?","image":"assets/svg_assets/station.svg","text":{"en":{"native":"Will you take me to the railway station?"}},"correct":true}
+      {"id":"I need to go to the market.","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"I need to go to the market."},"hi":{"native":"मुझे बाज़ार जाना है।"},"kn":{"native":"ನನಗೆ ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗಬೇಕು."},"mr":{"native":"मला बाजारात जायचे आहे."},"pa":{"native":"ਮੈਂ ਬਾਜ਼ਾਰ ਜਾਣਾ ਹੈ।"},"te":{"native":"నేను మార్కెట్‌కు వెళ్ళాలి."}},"correct":false},
+      {"id":"Will you take me to the railway station?","image":"assets/svg_assets/station.svg","text":{"en":{"native":"Will you take me to the railway station?"},"hi":{"native":"क्या आप रेलवे स्टेशन चलेंगे?"},"kn":{"native":"ನೀವು ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ ಬರುತ್ತೀರಾ?"},"mr":{"native":"तुम्ही मला रेल्वे स्टेशनला नेणार का?"},"pa":{"native":"ਕੀ ਤੁਸੀਂ ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਚੱਲੋਗੇ?"},"te":{"native":"మీరు రైల్వే స్టేషన్‌కు వస్తారా?"}},"correct":true}
     ]
   },
   {
     "id":"rickshaw_sentence_s02","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"मुझे बाज़ार जाना है।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"मुझे बाज़ार जाना है।"},"en":{"native":"I need to go to the market."},"kn":{"native":"ನನಗೆ ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗಬೇಕು."},"mr":{"native":"मला बाजारात जायचे आहे."},"pa":{"native":"ਮੈਂ ਬਾਜ਼ਾਰ ਜਾਣਾ ਹੈ।"},"te":{"native":"నేను మార్కెట్‌కు వెళ్ళాలి."}},
     "choices":[
-      {"id":"I need to go to the market.","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"I need to go to the market."}},"correct":true},
-      {"id":"Turn right at the next junction, please.","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"Turn right at the next junction, please."}},"correct":false}
+      {"id":"I need to go to the market.","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"I need to go to the market."},"hi":{"native":"मुझे बाज़ार जाना है।"},"kn":{"native":"ನನಗೆ ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗಬೇಕು."},"mr":{"native":"मला बाजारात जायचे आहे."},"pa":{"native":"ਮੈਂ ਬਾਜ਼ਾਰ ਜਾਣਾ ਹੈ।"},"te":{"native":"నేను మార్కెట్‌కు వెళ్ళాలి."}},"correct":true},
+      {"id":"Turn right at the next junction, please.","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"Turn right at the next junction, please."},"hi":{"native":"अगले मोड़ पर दाएँ मुड़िए, कृपया।"},"kn":{"native":"ದಯವಿಟ್ಟು ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಬಲಕ್ಕೆ ತಿರುಗಿ."},"mr":{"native":"कृपया पुढच्या चौकात उजवीकडे वळा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਅਗਲੇ ਚੌਕ ਵਿੱਚ ਸੱਜੇ ਮੁੜੋ।"},"te":{"native":"దయచేసి తదుపరి జంక్షన్ వద్ద కుడికి తిరగండి."}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_sentence_s07","type":"image_choice","introduce":true,"image":"assets/svg_assets/rickshaw_scenario/turn_right.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"अगले मोड़ पर दाएँ मुड़िए।"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"अगले मोड़ पर दाएँ मुड़िए।"},"en":{"native":"Turn right at the next junction, please."},"kn":{"native":"ದಯವಿಟ್ಟು ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಬಲಕ್ಕೆ ತಿರುಗಿ."},"mr":{"native":"कृपया पुढच्या चौकात उजवीकडे वळा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਅਗਲੇ ਚੌਕ ਵਿੱਚ ਸੱਜੇ ਮੁੜੋ।"},"te":{"native":"దయచేసి తదుపరి జంక్షన్ వద్ద కుడికి తిరగండి."}},
     "choices":[
-      {"id":"Will you take me to the railway station?","image":"assets/svg_assets/station.svg","text":{"en":{"native":"Will you take me to the railway station?"}},"correct":false},
-      {"id":"Turn right at the next junction, please.","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"Turn right at the next junction, please."}},"correct":true}
+      {"id":"Will you take me to the railway station?","image":"assets/svg_assets/station.svg","text":{"en":{"native":"Will you take me to the railway station?"},"hi":{"native":"क्या आप रेलवे स्टेशन चलेंगे?"},"kn":{"native":"ನೀವು ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ ಬರುತ್ತೀರಾ?"},"mr":{"native":"तुम्ही मला रेल्वे स्टेशनला नेणार का?"},"pa":{"native":"ਕੀ ਤੁਸੀਂ ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਚੱਲੋਗੇ?"},"te":{"native":"మీరు రైల్వే స్టేషన్‌కు వస్తారా?"}},"correct":false},
+      {"id":"Turn right at the next junction, please.","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"Turn right at the next junction, please."},"hi":{"native":"अगले मोड़ पर दाएँ मुड़िए, कृपया।"},"kn":{"native":"ದಯವಿಟ್ಟು ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಬಲಕ್ಕೆ ತಿರುಗಿ."},"mr":{"native":"कृपया पुढच्या चौकात उजवीकडे वळा."},"pa":{"native":"ਕਿਰਪਾ ਕਰਕੇ ਅਗਲੇ ਚੌਕ ਵਿੱਚ ਸੱਜੇ ਮੁੜੋ।"},"te":{"native":"దయచేసి తదుపరి జంక్షన్ వద్ద కుడికి తిరగండి."}},"correct":true}
     ]
   }
 ]

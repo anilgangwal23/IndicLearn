@@ -2,31 +2,31 @@
   {
     "id":"rickshaw_left","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/turn_left.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बाएँ मुड़िए"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बाएँ मुड़िए"},"en":{"native":"turn left"},"kn":{"native":"ಎಡಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"डावीकडे वळा"},"pa":{"native":"ਖੱਬੇ ਮੁੜੋ"},"te":{"native":"ఎడమకు తిరగండి"}},
     "choices":[
-      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":false},
-      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":true},
-      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"}},"correct":false}
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"},"hi":{"native":"दाएँ मुड़िए"},"kn":{"native":"ಬಲಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"उजवीकडे वळा"},"pa":{"native":"ਸੱਜੇ ਮੁੜੋ"},"te":{"native":"కుడికి తిరగండి"}},"correct":false},
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"},"hi":{"native":"बाएँ मुड़िए"},"kn":{"native":"ಎಡಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"डावीकडे वळा"},"pa":{"native":"ਖੱਬੇ ਮੁੜੋ"},"te":{"native":"ఎడమకు తిరగండి"}},"correct":true},
+      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"},"hi":{"native":"अगले मोड़ पर"},"kn":{"native":"ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ"},"mr":{"native":"पुढच्या चौकात"},"pa":{"native":"ਅਗਲੇ ਚੌਕ ਵਿੱਚ"},"te":{"native":"తదుపరి జంక్షన్ వద్ద"}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_right","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/turn_right.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"दाएँ मुड़िए"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"दाएँ मुड़िए"},"en":{"native":"turn right"},"kn":{"native":"ಬಲಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"उजवीकडे वळा"},"pa":{"native":"ਸੱਜੇ ਮੁੜੋ"},"te":{"native":"కుడికి తిరగండి"}},
     "choices":[
-      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":true},
-      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"}},"correct":false},
-      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":false}
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"},"hi":{"native":"दाएँ मुड़िए"},"kn":{"native":"ಬಲಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"उजवीकडे वळा"},"pa":{"native":"ਸੱਜੇ ਮੁੜੋ"},"te":{"native":"కుడికి తిరగండి"}},"correct":true},
+      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"},"hi":{"native":"अगले मोड़ पर"},"kn":{"native":"ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ"},"mr":{"native":"पुढच्या चौकात"},"pa":{"native":"ਅਗਲੇ ਚੌਕ ਵਿੱਚ"},"te":{"native":"తదుపరి జంక్షన్ వద్ద"}},"correct":false},
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"},"hi":{"native":"बाएँ मुड़िए"},"kn":{"native":"ಎಡಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"डावीकडे वळा"},"pa":{"native":"ਖੱਬੇ ਮੁੜੋ"},"te":{"native":"ఎడమకు తిరగండి"}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_junction","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/junction.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"अगले मोड़ पर"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"अगले मोड़ पर"},"en":{"native":"at the next junction"},"kn":{"native":"ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ"},"mr":{"native":"पुढच्या चौकात"},"pa":{"native":"ਅਗਲੇ ਚੌਕ ਵਿੱਚ"},"te":{"native":"తదుపరి జంక్షన్ వద్ద"}},
     "choices":[
-      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"}},"correct":false},
-      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"}},"correct":false},
-      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"}},"correct":true}
+      {"id":"turn left","image":"assets/svg_assets/rickshaw_scenario/turn_left.svg","text":{"en":{"native":"turn left"},"hi":{"native":"बाएँ मुड़िए"},"kn":{"native":"ಎಡಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"डावीकडे वळा"},"pa":{"native":"ਖੱਬੇ ਮੁੜੋ"},"te":{"native":"ఎడమకు తిరగండి"}},"correct":false},
+      {"id":"turn right","image":"assets/svg_assets/rickshaw_scenario/turn_right.svg","text":{"en":{"native":"turn right"},"hi":{"native":"दाएँ मुड़िए"},"kn":{"native":"ಬಲಕ್ಕೆ ತಿರುಗಿ"},"mr":{"native":"उजवीकडे वळा"},"pa":{"native":"ਸੱਜੇ ਮੁੜੋ"},"te":{"native":"కుడికి తిరగండి"}},"correct":false},
+      {"id":"at the next junction","image":"assets/svg_assets/rickshaw_scenario/junction.svg","text":{"en":{"native":"at the next junction"},"hi":{"native":"अगले मोड़ पर"},"kn":{"native":"ಮುಂದಿನ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ"},"mr":{"native":"पुढच्या चौकात"},"pa":{"native":"ਅਗਲੇ ਚੌਕ ਵਿੱਚ"},"te":{"native":"తదుపరి జంక్షన్ వద్ద"}},"correct":true}
     ]
   }
 ]

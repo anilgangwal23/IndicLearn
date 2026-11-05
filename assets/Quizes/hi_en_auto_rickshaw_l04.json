@@ -2,19 +2,19 @@
   {
     "id":"rickshaw_expensive","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बहुत महँगा"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"बहुत महँगा"},"en":{"native":"too expensive"},"kn":{"native":"ತುಂಬಾ ದುಬಾರಿ"},"mr":{"native":"खूप महाग"},"pa":{"native":"ਬਹੁਤ ਮਹਿੰਗਾ"},"te":{"native":"చాలా ఖరీదు"}},
     "choices":[
-      {"id":"too expensive","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"too expensive"}},"correct":true},
-      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"}},"correct":false}
+      {"id":"too expensive","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"too expensive"},"hi":{"native":"बहुत महँगा"},"kn":{"native":"ತುಂಬಾ ದುಬಾರಿ"},"mr":{"native":"खूप महाग"},"pa":{"native":"ਬਹੁਤ ਮਹਿੰਗਾ"},"te":{"native":"చాలా ఖరీదు"}},"correct":true},
+      {"id":"go to the market","image":"assets/svg_assets/rickshaw_scenario/go_to_market.svg","text":{"en":{"native":"go to the market"},"hi":{"native":"बाज़ार जाना"},"kn":{"native":"ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುವುದು"},"mr":{"native":"बाजारात जाणे"},"pa":{"native":"ਬਾਜ਼ਾਰ ਜਾਣਾ"},"te":{"native":"మార్కెట్‌కు వెళ్ళడం"}},"correct":false}
     ]
   },
   {
     "id":"rickshaw_lower_fare","type":"image_choice","introduce":true,
     "image":"assets/svg_assets/rickshaw_scenario/the_fair.svg",
-    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया थोड़ा कम कीजिए"}},
+    "prompt_language":"hi","target_language":"en","prompt":{"hi":{"native":"किराया थोड़ा कम कीजिए"},"en":{"native":"lower the fare a little"},"kn":{"native":"ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ"},"mr":{"native":"भाडे थोडे कमी करा"},"pa":{"native":"ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ"},"te":{"native":"ఛార్జీ కొంచెం తగ్గించండి"}},
     "choices":[
-      {"id":"to the railway station","image":"assets/svg_assets/station.svg","text":{"en":{"native":"to the railway station"}},"correct":false},
-      {"id":"lower the fare a little","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"lower the fare a little"}},"correct":true}
+      {"id":"to the railway station","image":"assets/svg_assets/station.svg","text":{"en":{"native":"to the railway station"},"hi":{"native":"रेलवे स्टेशन की ओर"},"kn":{"native":"ರೈಲು ನಿಲ್ದಾಣಕ್ಕೆ"},"mr":{"native":"रेल्वे स्टेशनकडे"},"pa":{"native":"ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਵੱਲ"},"te":{"native":"రైల్వే స్టేషన్‌కు"}},"correct":false},
+      {"id":"lower the fare a little","image":"assets/svg_assets/rickshaw_scenario/the_fair.svg","text":{"en":{"native":"lower the fare a little"},"hi":{"native":"किराया थोड़ा कम कीजिए"},"kn":{"native":"ದರ ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ"},"mr":{"native":"भाडे थोडे कमी करा"},"pa":{"native":"ਕਿਰਾਇਆ ਥੋੜ੍ਹਾ ਘਟਾਓ"},"te":{"native":"ఛార్జీ కొంచెం తగ్గించండి"}},"correct":true}
     ]
   }
 ]

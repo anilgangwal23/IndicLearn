@@ -1,8 +1,8 @@
 {
     "word_pair_list": [
-        {"left_word": "House", "right_definition": "Ghar"},
-        {"left_word": "Room", "right_definition": "Kamra"},
-        {"left_word": "Door", "right_definition": "Darwaza"},
-        {"left_word": "Big", "right_definition": "Bada"}
+        {"left_word": {"en": "House", "hi": "घर", "kn": "ಮನೆ", "mr": "घर", "pa": "ਘਰ", "te": "ఇల్లు"}, "right_definition": {"en": "House", "hi": "घर", "kn": "ಮನೆ", "mr": "घर", "pa": "ਘਰ", "te": "ఇల్లు"}},
+        {"left_word": {"en": "Room", "hi": "कमरा", "kn": "ಕೋಣೆ", "mr": "खोली", "pa": "ਕਮਰਾ", "te": "గది"}, "right_definition": {"en": "Room", "hi": "कमरा", "kn": "ಕೋಣೆ", "mr": "खोली", "pa": "ਕಮਰਾ", "te": "గది"}},
+        {"left_word": {"en": "Door", "hi": "दरवाज़ा", "kn": "ಬಾಗಿಲು", "mr": "दरवाजा", "pa": "ਦਰਵਾਜ਼ਾ", "te": "తలుపు"}, "right_definition": {"en": "Door", "hi": "दरवाज़ा", "kn": "ಬಾಗಿಲು", "mr": "दरवाजा", "pa": "ਦਰਵਾਜ਼ਾ", "te": "తలుపు"}},
+        {"left_word": {"en": "Big", "hi": "बड़ा", "kn": "ದೊಡ್ಡ", "mr": "मोठा", "pa": "ਵੱਡਾ", "te": "పెద్ద"}, "right_definition": {"en": "Big", "hi": "बड़ा", "kn": "ದೊಡ್ಡ", "mr": "मोठा", "pa": "ਵੱਡਾ", "te": "పెద్ద"}}
     ]
 }

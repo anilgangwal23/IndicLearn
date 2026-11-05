@@ -1,5 +1,5 @@
 {"word_pair_list":[
-  {"left_word":"किराया कितना होगा?","right_definition":"How much will the fare be?"},
-  {"left_word":"थोड़ा कम कीजिए।","right_definition":"Please lower the fare a little."},
-  {"left_word":"क्या मैं नकद दे सकता हूँ?","right_definition":"Can I pay in cash?"}
+  {"left_word":{"en":"How much will the fare be?","hi":"किराया कितना होगा?","kn":"ದರ ಎಷ್ಟಾಗುತ್ತದೆ?","mr":"भाडे किती होईल?","pa":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?","te":"ఛార్జీ ఎంత అవుతుంది?"},"right_definition":{"en":"How much will the fare be?","hi":"किराया कितना होगा?","kn":"ದರ ಎಷ್ಟಾಗುತ್ತದೆ?","mr":"भाडे किती होईल?","pa":"ਕਿਰਾਇਆ ਕਿੰਨਾ ਹੋਵੇਗਾ?","te":"ఛార్జీ ఎంత అవుతుంది?"}},
+  {"left_word":{"en":"Please lower the fare a little.","hi":"थोड़ा कम कीजिए।","kn":"ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ.","mr":"थोडे कमी करा.","pa":"ਥੋੜ੍ਹਾ ਘਟਾਓ।","te":"కొంచెం తగ్గించండి."},"right_definition":{"en":"Please lower the fare a little.","hi":"थोड़ा कम कीजिए।","kn":"ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ.","mr":"थोडे कमी करा.","pa":"ਥੋੜ੍ਹਾ ਘਟਾਓ।","te":"కొంచెం తగ్గించండి."}},
+  {"left_word":{"en":"Can I pay in cash?","hi":"क्या मैं नकद दे सकता हूँ?","kn":"ನಾನು ನಗದು ಕೊಡಬಹುದೇ?","mr":"मी रोख पैसे देऊ शकतो का?","pa":"ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?","te":"నేను నగదు ఇవ్వవచ్చా?"},"right_definition":{"en":"Can I pay in cash?","hi":"क्या मैं नकद दे सकता हूँ?","kn":"ನಾನು ನಗದು ಕೊಡಬಹುದೇ?","mr":"मी रोख पैसे देऊ शकतो का?","pa":"ਕੀ ਮੈਂ ਨਕਦ ਦੇ ਸਕਦਾ ਹਾਂ?","te":"నేను నగదు ఇవ్వవచ్చా?"}}
 ]}
