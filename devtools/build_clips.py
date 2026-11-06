@@ -9,9 +9,14 @@ Writes clips to assets/audio/words/<lang>/<hash>.mp3 and sets "file" in mapping.
 Existing clips are skipped, so the script can be re-run after adding content.
 
 Usage (from devtools/):
-    .venv\\Scripts\\python.exe build_clips.py --dry-run
-    .venv\\Scripts\\python.exe build_clips.py
-    .venv\\Scripts\\python.exe build_clips.py --limit 3
+    macOS:
+        .venv/bin/python build_clips.py --dry-run
+        .venv/bin/python build_clips.py
+        .venv/bin/python build_clips.py --limit 3
+    Windows:
+        .venv\\Scripts\\python.exe build_clips.py --dry-run
+        .venv\\Scripts\\python.exe build_clips.py
+        .venv\\Scripts\\python.exe build_clips.py --limit 3
 """
 
 import argparse

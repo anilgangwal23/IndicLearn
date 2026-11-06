@@ -2,6 +2,7 @@
 
 Requires HF_TOKEN in devtools/.env and the Indic Parler-TTS conditions accepted
 on the model page. Run with devtools/.venv:
+    .venv/bin/python download_model.py  # macOS
     .venv\\Scripts\\python.exe download_model.py
 """
 

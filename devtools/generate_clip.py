@@ -1,6 +1,7 @@
 """Generate one speech clip with the downloaded Indic Parler-TTS model.
 
 Usage (from devtools/):
+    .venv/bin/python generate_clip.py --text "नमस्ते" --out out.wav  # macOS
     .venv\\Scripts\\python.exe generate_clip.py --text "नमस्ते" --out out.wav
     .venv\\Scripts\\python.exe generate_clip.py --text "Hello" --speaker "Jenny" --out out.wav
 """

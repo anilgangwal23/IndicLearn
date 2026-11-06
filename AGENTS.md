@@ -15,7 +15,8 @@ is the primary dev target; Android, iOS, and macOS folders also exist.
 - `tools/hardcoded_string_lint/`: custom lint package for UI string literals.
 - `docs/`: product docs. `docs/architecture/` covers theme, level selection, accounts.
 - `devtools/`: offline pronunciation clip generator (Indic Parler-TTS, Python). Not app code.
-  Setup: `devtools\setup.bat` (creates `devtools\.venv`, CUDA torch, requirements).
+  Setup: `devtools/setup.sh` on macOS (creates `devtools/.venv`, installs PyTorch with MPS
+  support when available); `devtools\setup.bat` on Windows (installs CUDA PyTorch).
   Put `HF_TOKEN` in `devtools\.env` (git-ignored). Never print or commit it.
 
 ## Commands

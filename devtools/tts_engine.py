@@ -9,15 +9,23 @@ from transformers import AutoTokenizer
 
 DEVTOOLS = Path(__file__).resolve().parent
 MODEL_DIR = DEVTOOLS / "models" / "indic-parler-tts"
-DEVICE = "cuda:0"
+
+if torch.cuda.is_available():
+    DEVICE = "cuda:0"
+    TORCH_DTYPE = torch.float16
+elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+    DEVICE = "mps"
+    TORCH_DTYPE = torch.float16
+else:
+    DEVICE = "cpu"
+    TORCH_DTYPE = torch.float32
 
 
 class TTSEngine:
     def __init__(self) -> None:
-        if not torch.cuda.is_available():
-            raise SystemExit("CUDA is not available. Check the torch install in setup.bat.")
+        print(f"Using {DEVICE} for TTS inference.")
         self.model = ParlerTTSForConditionalGeneration.from_pretrained(
-            str(MODEL_DIR), torch_dtype=torch.float16
+            str(MODEL_DIR), torch_dtype=TORCH_DTYPE
         ).to(DEVICE)
         self.tokenizer = AutoTokenizer.from_pretrained(str(MODEL_DIR))
         self.desc_tokenizer = AutoTokenizer.from_pretrained(

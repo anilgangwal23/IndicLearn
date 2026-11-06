@@ -4,12 +4,18 @@ rem Run: devtools\setup.bat
 setlocal
 
 set "DEVTOOLS=%~dp0"
-set "PYTHON=C:\Users\gangwal\AppData\Local\Programs\Python\Python310\python.exe"
 set "VENV=%DEVTOOLS%.venv"
 set "VENV_PY=%VENV%\Scripts\python.exe"
 
+py -3.10 --version >nul 2>&1
+if errorlevel 1 (
+    echo Python 3.10 is required. Install it with the Python Launcher and rerun setup.bat.
+    endlocal
+    exit /b 1
+)
+
 if not exist "%VENV_PY%" (
-    "%PYTHON%" -m venv "%VENV%" || goto :fail
+    py -3.10 -m venv "%VENV%" || goto :fail
 )
 
 "%VENV_PY%" -m pip install --upgrade pip || goto :fail

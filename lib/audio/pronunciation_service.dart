@@ -125,10 +125,14 @@ class PronunciationService {
       try {
         await audioPlayer.setAsset('assets/audio/$clip');
         await audioPlayer.play();
+        return;
       } on PlayerInterruptedException {
         // A newer sound replaced this one while it was loading.
+        return;
+      } catch (e) {
+        // Clip is missing or unplayable; speak the text with TTS instead.
+        debugPrint('Pronunciation clip "$clip" failed, using TTS: $e');
       }
-      return;
     }
     await _setLanguageIfChanged(locale ?? clipLocale);
     await tts.speak(text ?? entry?['native'] as String? ?? id);
