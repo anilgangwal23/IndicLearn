@@ -1,4 +1,5 @@
 # Dependencies for devtools scripts. Platform-specific torch is installed by setup scripts.
+# Dependencies for devtools scripts. torch (CUDA build) is installed by setup.ps1.
 huggingface_hub>=0.24
 python-dotenv>=1.0
 soundfile>=0.12
